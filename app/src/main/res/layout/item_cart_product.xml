@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dimen_8dp"
+    android:layout_marginRight="@dimen/dimen_8dp"
+    android:layout_marginTop="@dimen/dimen_8dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_12dp">
+
+    <com.androidapp.jdklokhandwala.custom.TfTextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="20X40 ISI 1Kg"
+        android:textSize="@dimen/XL_TEXT" />
+
+    <com.androidapp.jdklokhandwala.custom.TfTextView
+        android:id="@+id/textViewQty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quantity : 1Kg"
+        android:textSize="@dimen/L_TEXT" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/tvEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:textSize="@dimen/L_TEXT"
+            android:padding="@dimen/dimen_8dp"
+            android:tint="@color/half_black" />
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/tvDelete"
+            android:textSize="@dimen/L_TEXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:padding="@dimen/dimen_8dp"
+            android:tint="@color/half_black" />
+
+    </LinearLayout>
+
+</LinearLayout>

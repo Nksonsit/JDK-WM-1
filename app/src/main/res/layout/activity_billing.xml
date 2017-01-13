@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_billing"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.androidapp.jdklokhandwala.activities.BillingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/submitBtn"
+        android:orientation="vertical">
+
+        <include layout="@layout/app_bar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dimen_8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <CheckBox
+                    android:id="@+id/useShippingAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/half_black"
+                    android:text="Use shipping adress"
+                    android:textColor="@color/half_black"
+                    android:textSize="@dimen/M_TEXT" />
+
+                <com.androidapp.jdklokhandwala.custom.TfTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_4dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:text="Billing Address"
+                    android:textSize="@dimen/L_TEXT" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_8dp">
+
+                    <com.androidapp.jdklokhandwala.custom.TfEditText
+                        android:id="@+id/enterBAddress1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address Line 1"
+                        android:longClickable="false"
+                        android:textSize="@dimen/M_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfEditText
+                        android:id="@+id/enterBAddress2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address Line 2"
+                        android:longClickable="false"
+                        android:textSize="@dimen/M_TEXT" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.androidapp.jdklokhandwala.custom.TfEditText
+                            android:id="@+id/enterBPincode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pincode"
+                            android:longClickable="false"
+                            android:maxLength="6"
+                            android:textSize="@dimen/M_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfEditText
+                            android:id="@+id/enterBArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:hint="Area"
+                            android:longClickable="false"
+                            android:maxLength="14"
+                            android:textSize="@dimen/M_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfEditText
+                            android:id="@+id/enterBCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:hint="City"
+                            android:longClickable="false"
+                            android:maxLength="14"
+                            android:textSize="@dimen/M_TEXT" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_16dp" />
+
+                <CheckBox
+                    android:id="@+id/useBillingAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/half_black"
+                    android:text="Use billing adress"
+                    android:textColor="@color/half_black"
+                    android:textSize="@dimen/M_TEXT" />
+
+                <com.androidapp.jdklokhandwala.custom.TfTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_4dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:text="Shipping Address"
+                    android:textSize="@dimen/L_TEXT" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_8dp">
+
+                    <com.androidapp.jdklokhandwala.custom.TfEditText
+                        android:id="@+id/enterSAddress1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address Line 1"
+                        android:longClickable="false"
+                        android:textSize="@dimen/M_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfEditText
+                        android:id="@+id/enterSAddress2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Address Line 2"
+                        android:longClickable="false"
+                        android:textSize="@dimen/M_TEXT" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.androidapp.jdklokhandwala.custom.TfEditText
+                            android:id="@+id/enterSPincode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Pincode"
+                            android:longClickable="false"
+                            android:maxLength="6"
+                            android:textSize="@dimen/M_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfEditText
+                            android:id="@+id/enterSArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:hint="Area"
+                            android:longClickable="false"
+                            android:maxLength="14"
+                            android:textSize="@dimen/M_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfEditText
+                            android:id="@+id/enterSCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:hint="City"
+                            android:longClickable="false"
+                            android:maxLength="14"
+                            android:textSize="@dimen/M_TEXT" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <com.androidapp.jdklokhandwala.custom.TfButton
+        android:id="@+id/submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/submit" />
+</RelativeLayout>

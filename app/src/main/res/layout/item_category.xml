@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:squint="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:layout_marginLeft="@dimen/dimen_12dp"
+    android:layout_marginRight="@dimen/dimen_12dp"
+    android:layout_marginTop="@dimen/dimen_12dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <com.intrusoft.squint.DiagonalView
+        android:id="@+id/imageView"
+        android:layout_width="196dp"
+        android:layout_height="match_parent"
+        app:angle="24"
+        app:diagonalDirection="bottom_to_top"
+        app:gravity="left" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/dimen_16dp"
+            android:text="Category Name"
+            android:textColor="@color/half_black"
+            android:textSize="@dimen/XXL_TEXT"
+            android:layout_above="@+id/bookmark"
+            app:isBold="true" />
+
+        <ImageView
+            android:id="@+id/bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bookmark"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</LinearLayout>

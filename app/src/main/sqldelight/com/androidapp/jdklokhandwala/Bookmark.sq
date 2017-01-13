@@ -1,0 +1,12 @@
+CREATE TABLE Bookmark (
+	id	INTEGER PRIMARY KEY AUTOINCREMENT,
+	CategoryId	INTEGER,
+	Name	TEXT,
+	Image	TEXT
+);
+
+select_all_data:
+SELECT * FROM Bookmark;
+
+select_all_data_by_id:
+SELECT * FROm Bookmark WHERE CategoryId = ?;

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "66188025009",
+    "firebase_url": "https://jdklokhandwala.firebaseio.com",
+    "project_id": "jdklokhandwala",
+    "storage_bucket": "jdklokhandwala.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66188025009:android:6855bbdc3cfbf944",
+        "android_client_info": {
+          "package_name": "com.androidapp.jdklokhandwala"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "66188025009-tk9qkehav76fnftupd2smul18jau8rgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2NJuixQKc_sVYf8RqgQDv90WcH9rpSTc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/off_white"
+    android:paddingLeft="@dimen/dimen_8dp"
+    android:paddingRight="@dimen/dimen_8dp"
+    android:orientation="vertical">
+
+    <com.androidapp.jdklokhandwala.custom.TfTextView
+        android:id="@+id/createdDateTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dimen_8dp"
+        android:text="Date"
+        android:textSize="@dimen/M_TEXT" />
+
+    <LinearLayout
+        android:paddingTop="@dimen/dimen_8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dimen_8dp"
+        android:paddingRight="@dimen/dimen_8dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/referCodeTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="20X40 ISI 1Kg"
+            android:textSize="@dimen/XL_TEXT" />
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/totalWeightTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantity : 1Kg"
+            android:textSize="@dimen/L_TEXT" />
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/netAmountTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantity : 1Kg"
+            android:textSize="@dimen/L_TEXT" />
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/statusTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Quantity : 1Kg"
+            android:textSize="@dimen/L_TEXT" />
+
+
+    </LinearLayout>
+</LinearLayout>

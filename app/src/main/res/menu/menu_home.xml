@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_cart"
+        android:icon="@drawable/ic_action_cart"
+        android:orderInCategory="100"
+        android:title="@string/menu_cart"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_noti"
+        android:icon="@drawable/ic_action_notification"
+        android:orderInCategory="99"
+        android:title="@string/menu_noti"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_calc"
+        android:icon="@drawable/ic_action_calculator"
+        android:orderInCategory="98"
+        android:title="@string/menu_calc"
+        app:showAsAction="always" />
+
+</menu>

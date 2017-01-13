@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.androidapp.jdklokhandwala.activities.LoginActivity">
+
+    <include layout="@layout/app_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.androidapp.jdklokhandwala.custom.TfEditText
+            android:id="@+id/enterPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:textSize="@dimen/L_TEXT" />
+
+        <com.androidapp.jdklokhandwala.custom.TfEditText
+            android:id="@+id/enterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textSize="@dimen/L_TEXT" />
+
+        <com.androidapp.jdklokhandwala.custom.TfButton
+            android:id="@+id/loginBtn"
+            style="@style/ButtonStyle"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:text="Login" />
+
+    </LinearLayout>
+
+    <com.androidapp.jdklokhandwala.custom.TfTextView
+        android:id="@+id/signUpBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dimen_16dp"
+        android:gravity="center"
+        android:text="New User? Sign Up"
+        android:textSize="@dimen/M_TEXT"
+        app:isBold="true" />
+
+</RelativeLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.androidapp.jdklokhandwala.activities.RegistrationActivity">
+
+    <include layout="@layout/app_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/registerBtn"
+            android:padding="@dimen/dimen_8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.androidapp.jdklokhandwala.custom.TfEditText
+                    android:id="@+id/enterName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:hint="Name"
+                    android:maxLength="14"
+                    android:textSize="@dimen/L_TEXT" />
+
+                <com.androidapp.jdklokhandwala.custom.TfEditText
+                    android:id="@+id/enterEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:hint="Email ID"
+                    android:inputType="textEmailAddress"
+                    android:textSize="@dimen/L_TEXT" />
+
+                <com.androidapp.jdklokhandwala.custom.TfEditText
+                    android:id="@+id/enterPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:hint="Phone"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:textSize="@dimen/L_TEXT" />
+
+                <com.androidapp.jdklokhandwala.custom.TfEditText
+                    android:id="@+id/enterPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/L_TEXT" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/dimen_8dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Proofz Type"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <Spinner
+                        android:id="@+id/proofType"
+                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/dimen_8dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+
+                <com.androidapp.jdklokhandwala.custom.TfEditText
+                    android:id="@+id/enterProof"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:hint="Proof"
+                    android:textSize="@dimen/L_TEXT" />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.androidapp.jdklokhandwala.custom.TfButton
+            android:id="@+id/registerBtn"
+            style="@style/ButtonStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/dimen_4dp"
+            android:text="Register"
+            android:textSize="@dimen/L_TEXT" />
+
+    </RelativeLayout>
+
+</LinearLayout>

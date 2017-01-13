@@ -53,6 +53,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Mobile Number"
                     android:inputType="phone"
+                    android:clickable="false"
+                    android:longClickable="false"
                     android:maxLength="14"
                     android:textSize="@dimen/M_TEXT" />
             </LinearLayout>
@@ -99,7 +101,7 @@
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterBPincode"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:hint="Pincode"
                         android:maxLength="6"
@@ -108,23 +110,25 @@
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterBArea"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:clickable="false"
                         android:hint="Area"
+                        android:clickable="false"
                         android:longClickable="false"
                         android:maxLength="14"
+                        android:textColor="@color/black_overlay"
                         android:textSize="@dimen/M_TEXT" />
 
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterBCity"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:clickable="false"
                         android:hint="City"
                         android:longClickable="false"
                         android:maxLength="14"
+                        android:textColor="@color/black_overlay"
                         android:textSize="@dimen/M_TEXT" />
 
 
@@ -172,7 +176,7 @@
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterSPincode"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:hint="Pincode"
                         android:maxLength="6"
@@ -181,10 +185,11 @@
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterSArea"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:clickable="false"
                         android:hint="Area"
+                        android:textColor="@color/black_overlay"
                         android:longClickable="false"
                         android:maxLength="14"
                         android:textSize="@dimen/M_TEXT" />
@@ -192,10 +197,11 @@
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterSCity"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:clickable="false"
                         android:hint="City"
+                        android:textColor="@color/black_overlay"
                         android:longClickable="false"
                         android:maxLength="14"
                         android:textSize="@dimen/M_TEXT" />

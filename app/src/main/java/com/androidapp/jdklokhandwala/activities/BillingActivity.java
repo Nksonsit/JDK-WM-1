@@ -177,6 +177,7 @@ public class BillingActivity extends AppCompatActivity {
     }
 
     private void textChangedListener() {
+
         enterBPincode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -186,7 +187,8 @@ public class BillingActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() == 6) {
-                    setBillingCity(Integer.valueOf(charSequence.toString().trim()));
+                    //setBillingCity(Integer.valueOf(charSequence.toString().trim()));
+                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()),enterBcity,enterBArea);
                 } else {
                     enterBcity.setText("");
                     enterBArea.setText("");
@@ -198,6 +200,7 @@ public class BillingActivity extends AppCompatActivity {
 
             }
         });
+
         enterSPincode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -208,7 +211,8 @@ public class BillingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 if (charSequence.toString().trim().length() == 6) {
-                    setShippingCity(Integer.valueOf(charSequence.toString().trim()));
+                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()),enterScity,enterSArea);
+                    //setShippingCity(Integer.valueOf(charSequence.toString().trim()));
                 } else {
                     enterScity.setText("");
                     enterSArea.setText("");

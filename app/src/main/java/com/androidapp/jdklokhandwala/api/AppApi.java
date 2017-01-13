@@ -12,6 +12,8 @@ import com.androidapp.jdklokhandwala.api.model.PlaceOrderReq;
 import com.androidapp.jdklokhandwala.api.model.ProductResponse;
 import com.androidapp.jdklokhandwala.api.model.RegistrationReq;
 import com.androidapp.jdklokhandwala.api.model.RegistrationRes;
+import com.androidapp.jdklokhandwala.api.model.UpdateUserRequest;
+import com.androidapp.jdklokhandwala.api.model.UpdateUserResp;
 import com.androidapp.jdklokhandwala.api.model.UserIdentityTypeRes;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
@@ -77,5 +79,6 @@ public interface AppApi {
     @GET(AppConstants.GetHistoryUrl)
     Call<OrderItemRes> getHistoryList(@Query("userID") int userID,@Query("lastRecordID") int lastRecordID,@Query("mode") int mode);
 
-
+    @POST(AppConstants.UpdateUserUrl)
+    Call<UpdateUserResp> updateUser(@Body UpdateUserRequest updateUserRequest);
 }

@@ -17,12 +17,15 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.androidapp.jdklokhandwala.R;
+import com.androidapp.jdklokhandwala.api.AppApi;
+import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.UnitMeasure;
 import com.droidbyme.toastlib.ToastEnum;
 import com.droidbyme.toastlib.ToastLib;
@@ -34,6 +37,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Functions {
 
@@ -234,5 +241,23 @@ public class Functions {
             }
         }
         return output;
+    }
+
+    public static void setCity(int pincode, EditText edtCity,EditText edtArea) {
+        AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
+        appApi.getCity(pincode).enqueue(new Callback<CityRes>() {
+            @Override
+            public void onResponse(Call<CityRes> call, Response<CityRes> response) {
+                if (response.body() != null && response.body().getData() != null) {
+                    edtCity.setText(response.body().getData().getCity());
+                    edtArea.setText(response.body().getData().getArea());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CityRes> call, Throwable t) {
+                Log.e("error", t.getMessage());
+            }
+        });
     }
 }

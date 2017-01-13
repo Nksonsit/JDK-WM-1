@@ -30,6 +30,8 @@ public class AppConstants {
 
     public static final String ChangePasswordUrl = "User/ChangePassword";
 
+    public static final String UpdateUserUrl = "User/UpdateProfile";
+
     public static final String PlaceQuotationOrOrderUrl = "Order/PlaceQuotationOrOrder";
 
     public static final String GetUSerIdentityTypeUrl = "User/GetUSerIdentityType";

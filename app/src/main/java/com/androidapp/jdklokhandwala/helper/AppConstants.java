@@ -40,6 +40,8 @@ public class AppConstants {
 
     public static final String GetHistoryUrl = "Order/GetHistory";
 
+    public static final String GET_NOTIFICATION = "Notification/GetNotifications";
+
     public static final String GetOrderDetailUrl = "Order/GetOrderDetail/{OrderID}";
 
     public static final String QuotationAcceptRejectUrl = "Order/QuotationAcceptReject";

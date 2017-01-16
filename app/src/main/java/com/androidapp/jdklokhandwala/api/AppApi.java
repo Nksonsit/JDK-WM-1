@@ -8,6 +8,7 @@ import com.androidapp.jdklokhandwala.api.model.ChangePasswordReq;
 import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.ContactUsResponse;
 import com.androidapp.jdklokhandwala.api.model.LoginReq;
+import com.androidapp.jdklokhandwala.api.model.NotificationItemRes;
 import com.androidapp.jdklokhandwala.api.model.OrderItemRes;
 import com.androidapp.jdklokhandwala.api.model.OrderListRes;
 import com.androidapp.jdklokhandwala.api.model.PlaceOrderReq;
@@ -92,4 +93,7 @@ public interface AppApi {
     Call<BaseResponse> acceptRejectQuotation(@Body AcceptOrder acceptOrder);
     @POST(AppConstants.UpdateUserUrl)
     Call<UpdateUserResp> updateUser(@Body UpdateUserRequest updateUserRequest);
+
+    @GET(AppConstants.GET_NOTIFICATION)
+    Call<NotificationItemRes> getNotificationList(@Query("userID") int userID, @Query("lastNotificationID") int lastNotificationID);
 }

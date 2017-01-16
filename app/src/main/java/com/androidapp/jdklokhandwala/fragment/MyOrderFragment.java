@@ -5,7 +5,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,18 +44,38 @@ public class MyOrderFragment extends Fragment {
     private void init() {
         //init view pager
         viewPager = (ViewPager) parentView.findViewById(R.id.viewPager);
+        tabLayout = (TabLayout) parentView.findViewById(R.id.tabLayout);
+
         mAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         mAdapter.addFragment(new OrderHFragment(), "Order History");
         mAdapter.addFragment(new InquiryHFragment(), "Inquiry History");
         viewPager.setAdapter(mAdapter);
-        viewPager.setOffscreenPageLimit(0);
+//        viewPager.setOffscreenPageLimit(0);
 
         //init tab layout
-        tabLayout = (TabLayout) parentView.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.e("position",position+"");
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 

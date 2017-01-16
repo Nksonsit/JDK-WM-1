@@ -6,6 +6,7 @@
     tools:context="com.androidapp.jdklokhandwala.fragment.CategoryListFragment">
 
     <com.androidapp.jdklokhandwala.custom.EmptyLayout
+        android:id="@+id/emptyLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

@@ -88,6 +88,7 @@ public class AddToCartDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 if (!quantity.getText().toString().trim().equals("")) {
+                    seletedType = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString().trim();
                     if (seletedType != null && !seletedType.toString().trim().equals("")) {
                         OnAddClick.onAddClick(quantity.getText().toString().trim(), seletedType);
                         dismiss();

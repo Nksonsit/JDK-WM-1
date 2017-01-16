@@ -12,6 +12,7 @@ import com.androidapp.jdklokhandwala.api.model.AddToCart;
 import com.androidapp.jdklokhandwala.api.model.Product;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
+import com.androidapp.jdklokhandwala.helper.Functions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +64,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
         }
 
         private void setProduct(AddToCart addToCart, final int position) {
-           textView.setText(addToCart.Name());
-            textViewQty.setText("Quantity : "+addToCart.KgWeight()+""+addToCart.UnitType());
+           textView.setText(addToCart.Name()+" Kg");
+            textViewQty.setText("Quantity : "+ Functions.getFormatedInt(addToCart.KgWeight())+""+addToCart.UnitType());
             tvEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -13,6 +13,7 @@ import com.androidapp.jdklokhandwala.api.model.AddToCartPojo;
 import com.androidapp.jdklokhandwala.api.model.Product;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
+import com.androidapp.jdklokhandwala.helper.Functions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         private void setProduct(Product product) {
-            textView.setText(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight()+" KG");
+
+            textView.setText(product.getName() + "  " + product.getCodeValue() + "  " + Functions.getFormatedInt(product.getWeight()) +" KG");
 
             tvAddCart.setOnClickListener(new View.OnClickListener() {
                 @Override

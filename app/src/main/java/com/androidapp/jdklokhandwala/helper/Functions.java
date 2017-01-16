@@ -270,4 +270,24 @@ public class Functions {
         PrefUtils.setLoggedIn(context, false);
         PrefUtils.setUserFullProfileDetails(context, userPojo);
     }
+
+    public static String getFormatedInt(Double input) {
+        String temp = String.valueOf(input);
+        Log.e("temp", temp);
+        temp = temp.replace(".", "-");
+        if (temp.toString().contains("-")) {
+            String[] split = temp.split("-");
+            if (split.length == 2) {
+                Log.e("split", split.length + "");
+                if (Integer.valueOf(split[1]) > 0) {
+                    return String.valueOf(input);
+                } else {
+                    return String.valueOf(split[0]);
+                }
+            } else {
+                return String.valueOf(input);
+            }
+        }
+        return String.valueOf(input);
+    }
 }

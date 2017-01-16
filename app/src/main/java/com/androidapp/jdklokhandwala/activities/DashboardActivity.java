@@ -65,6 +65,19 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
+    private void hideUserAction() {
+        Menu m = navigationView.getMenu();
+        MenuItem orderItem = m.getItem(2);
+        MenuItem logoutItem = m.getItem(6);
+        if (PrefUtils.isUserLoggedIn(DashboardActivity.this)) {
+            orderItem.setVisible(true);
+            logoutItem.setVisible(true);
+        } else {
+            orderItem.setVisible(false);
+            logoutItem.setVisible(false);
+        }
+    }
+
     private void initDrawer() {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -91,17 +104,6 @@ public class DashboardActivity extends AppCompatActivity {
         };
 
         drawerLayout.setDrawerListener(drawerToggle);
-
-
-        Menu m = navigationView.getMenu();
-        MenuItem mm = m.getItem(2);
-        if (PrefUtils.isUserLoggedIn(DashboardActivity.this)) {
-            mm.setVisible(true);
-        } else {
-            mm.setVisible(false);
-        }
-        Log.e("mm", mm.getTitle().toString().trim());
-
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -148,7 +150,7 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.drawer_order:
                 setUnCheckedDrawerMenu();
                 menuItem.setChecked(true);
-                initFragment(MyOrderFragment.newInstance(), "My Order");
+                initFragment(MyOrderFragment.newInstance(), "My Orders");
                 break;
 
             case R.id.drawer_bookmark:
@@ -167,6 +169,27 @@ public class DashboardActivity extends AppCompatActivity {
                 setUnCheckedDrawerMenu();
                 menuItem.setChecked(true);
                 initFragment(ContactUsFragment.newInstance(), "Contact Us");
+                break;
+
+            case R.id.drawer_logout:
+                setUnCheckedDrawerMenu();
+                // menuItem.setChecked(true);
+                Functions.showAlertDialogWithOkCancel(DashboardActivity.this, "Are you sure want to logout?", new Functions.DialogOptionsSelectedListener() {
+                    @Override
+                    public void onSelect(boolean isYes) {
+                        if (isYes) {
+                            Functions.clearSession(DashboardActivity.this);
+                            Functions.showToast(DashboardActivity.this, "Logout Successfully.");
+                            hideUserAction();
+
+                            Intent intent = new Intent(DashboardActivity.this, SplashActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        }
+                    }
+                });
                 break;
 
         }
@@ -234,5 +257,12 @@ public class DashboardActivity extends AppCompatActivity {
         for (int i = 0; i < 6; i++) {
             navigationView.getMenu().getItem(i).setChecked(false);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideUserAction();
+
     }
 }

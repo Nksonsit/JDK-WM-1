@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.AppApi;
@@ -37,8 +36,7 @@ public class ChangePasswordDialog extends Dialog {
     private TfEditText newPassword;
     private TfEditText conformPassword;
     private View.OnTouchListener touch;
-    private Button update;
-    private ImageView close;
+    private Button update, btnCancel;
     private OnUpdateClick OnUpdateClick;
 
 
@@ -59,7 +57,7 @@ public class ChangePasswordDialog extends Dialog {
         newPassword = (TfEditText) view.findViewById(R.id.newPassowrd);
         conformPassword = (TfEditText) view.findViewById(R.id.conformPassword);
         update = (Button) view.findViewById(R.id.updatePassword);
-        close = (ImageView) view.findViewById(R.id.close);
+        btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
         touch = new View.OnTouchListener() {
             @Override
@@ -102,7 +100,8 @@ public class ChangePasswordDialog extends Dialog {
                 }
             }
         });
-        close.setOnClickListener(new View.OnClickListener() {
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
@@ -113,16 +112,16 @@ public class ChangePasswordDialog extends Dialog {
     }
 
     private void changePassword(ChangePasswordReq changePasswordReq) {
-        Log.e("changepassword req",MyApplication.getGson().toJson(changePasswordReq).toString());
+        Log.e("changepassword req", MyApplication.getGson().toJson(changePasswordReq).toString());
 
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.changePassword(changePasswordReq).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null) {
-                    Log.e("changepassword res",MyApplication.getGson().toJson(response.body()).toString());
+                    Log.e("changepassword res", MyApplication.getGson().toJson(response.body()).toString());
                     Functions.showToast(context, response.body().getResponseMessage().toString().trim());
-                    if(response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")){
+                    if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
                         dismiss();
                     }
                 }

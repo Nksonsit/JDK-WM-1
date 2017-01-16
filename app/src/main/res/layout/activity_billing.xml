@@ -38,6 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_4dp"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
                     android:layout_marginTop="@dimen/dimen_4dp"
                     android:text="Billing Address"
                     android:textSize="@dimen/L_TEXT" />
@@ -74,17 +75,20 @@
 
                         <com.androidapp.jdklokhandwala.custom.TfEditText
                             android:id="@+id/enterBPincode"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:hint="Pincode"
                             android:longClickable="false"
                             android:maxLength="6"
                             android:textSize="@dimen/M_TEXT" />
 
+                        <Space
+                            android:layout_width="@dimen/dimen_16dp"
+                            android:layout_height="match_parent" />
+
                         <com.androidapp.jdklokhandwala.custom.TfEditText
                             android:id="@+id/enterBArea"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
@@ -94,9 +98,13 @@
                             android:maxLength="14"
                             android:textSize="@dimen/M_TEXT" />
 
+                        <Space
+                            android:layout_width="@dimen/dimen_16dp"
+                            android:layout_height="match_parent" />
+
                         <com.androidapp.jdklokhandwala.custom.TfEditText
                             android:id="@+id/enterBCity"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
@@ -106,8 +114,8 @@
                             android:maxLength="14"
                             android:textSize="@dimen/M_TEXT" />
 
-
                     </LinearLayout>
+
                 </LinearLayout>
 
                 <Space
@@ -127,6 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_4dp"
+                    android:layout_marginLeft="@dimen/dimen_4dp"
                     android:layout_marginTop="@dimen/dimen_4dp"
                     android:text="Shipping Address"
                     android:textSize="@dimen/L_TEXT" />
@@ -162,17 +171,20 @@
 
                         <com.androidapp.jdklokhandwala.custom.TfEditText
                             android:id="@+id/enterSPincode"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:hint="Pincode"
                             android:longClickable="false"
                             android:maxLength="6"
                             android:textSize="@dimen/M_TEXT" />
 
+                        <Space
+                            android:layout_width="@dimen/dimen_16dp"
+                            android:layout_height="match_parent" />
+
                         <com.androidapp.jdklokhandwala.custom.TfEditText
                             android:id="@+id/enterSArea"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
@@ -182,9 +194,13 @@
                             android:maxLength="14"
                             android:textSize="@dimen/M_TEXT" />
 
+                        <Space
+                            android:layout_width="@dimen/dimen_16dp"
+                            android:layout_height="match_parent" />
+
                         <com.androidapp.jdklokhandwala.custom.TfEditText
                             android:id="@+id/enterSCity"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:clickable="false"
@@ -202,8 +218,8 @@
 
     <com.androidapp.jdklokhandwala.custom.TfButton
         android:id="@+id/submitBtn"
+        style="@style/ButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/submit" />
 </RelativeLayout>

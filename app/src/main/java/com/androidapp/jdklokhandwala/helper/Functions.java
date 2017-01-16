@@ -27,6 +27,7 @@ import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.UnitMeasure;
+import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.droidbyme.toastlib.ToastEnum;
 import com.droidbyme.toastlib.ToastLib;
 
@@ -259,5 +260,11 @@ public class Functions {
                 Log.e("error", t.getMessage());
             }
         });
+    }
+
+    public static void clearSession(Context context) {
+        UserPojo userPojo = new UserPojo();
+        PrefUtils.setLoggedIn(context, false);
+        PrefUtils.setUserFullProfileDetails(context, userPojo);
     }
 }

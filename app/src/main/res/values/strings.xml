@@ -17,6 +17,8 @@
     <string name="drawer_order">My Orders</string>
     <string name="drawer_bookmark">Bookmarks</string>
     <string name="drawer_about">About Us</string>
+    <string name="drawer_contact_us">Contact Us</string>
+    <string name="drawer_logout">Logout</string>
 
     <!--Option menu-->
     <string name="menu_cart">Cart</string>
@@ -37,7 +39,6 @@
     <string name="login_title">Login</string>
     <string name="registration_title">Registration</string>
     <string name="billing_title">Billing Address</string>
-    <string name="drawer_contact_us">Contact Us</string>
 
     <string name="dummy_text">There are many variations of passages of Lorem Ipsum available.</string>
     <string name="submit">SUBMIT</string>

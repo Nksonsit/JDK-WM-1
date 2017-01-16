@@ -75,6 +75,8 @@ public class InquiryHFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setEmptyView(emptyLayout);
+        emptyLayout.setContent("No Inquiry Found.", R.drawable.ic_order);
+
         swipeRefresh = (SwipeRefreshLayout) parentView.findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

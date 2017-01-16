@@ -35,6 +35,7 @@ import dmax.dialog.SpotsDialog;
  */
 
 public class OrderHFragment extends Fragment {
+
     private View parentView;
     private EmptyLayout emptyLayout;
     private FamiliarRecyclerView recyclerView;
@@ -76,6 +77,8 @@ public class OrderHFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setEmptyView(emptyLayout);
+        emptyLayout.setContent("No Order Found.", R.drawable.ic_order);
+
         swipeRefresh = (SwipeRefreshLayout) parentView.findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

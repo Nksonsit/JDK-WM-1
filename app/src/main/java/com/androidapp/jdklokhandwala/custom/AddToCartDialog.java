@@ -47,7 +47,6 @@ public class AddToCartDialog extends Dialog {
         getWindow().setAttributes(lp);
 
         this.setCanceledOnTouchOutside(true);
-        this.setCancelable(false);
 
         quantity = (TfEditText) view.findViewById(R.id.quantity);
         addToCart = (Button) view.findViewById(R.id.addToCart);

@@ -51,9 +51,9 @@
                     android:id="@+id/enterMobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
                     android:hint="Mobile Number"
                     android:inputType="phone"
-                    android:clickable="false"
                     android:longClickable="false"
                     android:maxLength="14"
                     android:textSize="@dimen/M_TEXT" />
@@ -62,6 +62,16 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_16dp" />
+
+            <View
+                android:layout_width="@dimen/dimen_32dp"
+                android:layout_height="@dimen/dimen_.5dp"
+                android:layout_gravity="center"
+                android:background="@color/black" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_8dp" />
 
             <com.androidapp.jdklokhandwala.custom.TfTextView
                 android:layout_width="match_parent"
@@ -104,6 +114,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Pincode"
                         android:maxLength="6"
+                        android:paddingLeft="@dimen/dimen_2dp"
+                        android:paddingRight="@dimen/dimen_2dp"
                         android:textSize="@dimen/M_TEXT" />
 
                     <Space
@@ -144,6 +156,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_16dp" />
 
+            <View
+                android:layout_width="@dimen/dimen_32dp"
+                android:layout_height="@dimen/dimen_.5dp"
+                android:layout_gravity="center"
+                android:background="@color/black" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_8dp" />
+
             <com.androidapp.jdklokhandwala.custom.TfTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,16 +203,21 @@
 
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterSPincode"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:hint="Pincode"
                         android:maxLength="6"
+                        android:paddingLeft="@dimen/dimen_2dp"
+                        android:paddingRight="@dimen/dimen_2dp"
                         android:textSize="@dimen/M_TEXT" />
+
+                    <Space
+                        android:layout_width="@dimen/dimen_8dp"
+                        android:layout_height="match_parent" />
 
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterSArea"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:clickable="false"
@@ -199,9 +226,13 @@
                         android:maxLength="14"
                         android:textSize="@dimen/M_TEXT" />
 
+                    <Space
+                        android:layout_width="@dimen/dimen_8dp"
+                        android:layout_height="match_parent" />
+
                     <com.androidapp.jdklokhandwala.custom.TfEditText
                         android:id="@+id/enterSCity"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:clickable="false"
@@ -221,10 +252,8 @@
                 android:id="@+id/changePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center"
                 android:gravity="right|center"
                 android:text="Change Password"
-                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/M_TEXT"
                 app:isBold="true" />
 
@@ -240,6 +269,6 @@
         style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/dimen_4dp"
         android:text="UPDATE" />
+
 </RelativeLayout>

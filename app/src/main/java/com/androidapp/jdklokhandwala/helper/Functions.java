@@ -16,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -221,6 +222,8 @@ public class Functions {
         alert.setCancelable(false);
         alert.show();
     }
+
+
 
     public interface DialogOptionsSelectedListener {
         void onSelect(boolean isYes);

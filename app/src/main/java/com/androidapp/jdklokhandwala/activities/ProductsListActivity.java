@@ -87,6 +87,44 @@ public class ProductsListActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
             }
         });
+
+        productRV.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
+            @Override
+            public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
+                Product product = productList.get(position);
+                if (!AddToCart.CheckDuplication(category.getCategoryID(), product.getProductID())) {
+
+                    new AddToCartDialog(ProductsListActivity.this, "ADD TO CART", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
+                        @Override
+                        public void onAddClick(String quantity, String type) {
+                            Log.e(quantity, type);
+                            AddToCartPojo addToCart = new AddToCartPojo();
+                            addToCart.setCategoryID((long) category.getCategoryID());
+                            addToCart.setProductID((long) product.getProductID());
+                            addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight());
+                            addToCart.setUnitType(type);
+                            addToCart.setUnitValue(Double.valueOf(quantity));
+                            addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));
+                            String unitTypes = "";
+                            for (int i = 0; i < product.getUnitsOfMeasure().size(); i++) {
+                                unitTypes = unitTypes + "," + product.getUnitsOfMeasure().get(i).getUnitOfMeasure();
+                            }
+                            addToCart.setUnitTypes(unitTypes);
+
+                            if (!AddToCart.CheckDuplication(addToCart)) {
+                                Functions.showToast(ProductsListActivity.this, "Added Successfully.");
+                                AddToCart.InsertProduct(addToCart);
+                            } else {
+                                Functions.showToast(ProductsListActivity.this, "You have already added this product to cart.");
+                            }
+                        }
+                    }).show();
+
+                } else {
+                    Functions.showToast(ProductsListActivity.this, "You have already added to cart.");
+                }
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -139,7 +177,7 @@ public class ProductsListActivity extends AppCompatActivity {
 
                                 if (!AddToCart.CheckDuplication(category.getCategoryID(), product.getProductID())) {
 
-                                    new AddToCartDialog(ProductsListActivity.this, "ADD TO CART", "",(double) 0,product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
+                                    new AddToCartDialog(ProductsListActivity.this, "ADD TO CART", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
                                         @Override
                                         public void onAddClick(String quantity, String type) {
                                             Log.e(quantity, type);

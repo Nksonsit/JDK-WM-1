@@ -47,6 +47,7 @@ import retrofit2.Response;
  */
 
 public class MyProfileFragment extends Fragment {
+
     private View parentView;
     private TfTextView changePassword;
     private ChangePasswordDialog changePasswordDialog;
@@ -228,6 +229,7 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void clickListener() {
+
         profileUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -254,7 +256,6 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void updateUserApiCall(UpdateUserRequest updateUserRequest) {
-
 
         Log.e("place order req", MyApplication.getGson().toJson(updateUserRequest).toString());
 
@@ -283,6 +284,7 @@ public class MyProfileFragment extends Fragment {
             public void onFailure(Call<UpdateUserResp> call, Throwable t) {
                 dialog.dismiss();
             }
+
         });
     }
 

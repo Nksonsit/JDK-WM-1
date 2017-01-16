@@ -21,6 +21,7 @@ import com.androidapp.jdklokhandwala.api.model.Category;
 import com.androidapp.jdklokhandwala.custom.EmptyLayout;
 import com.androidapp.jdklokhandwala.custom.LineDividerItemDecoration;
 import com.androidapp.jdklokhandwala.custom.familiarrecyclerview.FamiliarRecyclerView;
+import com.androidapp.jdklokhandwala.helper.Functions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,13 +64,13 @@ public class CategoryListFragment extends Fragment {
 
         categoryRV = (FamiliarRecyclerView) parentView.findViewById(R.id.categoryRV);
         emptyLayout = (EmptyLayout) parentView.findViewById(R.id.emptyLayout);
+
         swipeRefresh = (SwipeRefreshLayout) parentView.findViewById(R.id.swipeRefresh);
         categoryRV.setEmptyView(emptyLayout);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         categoryRV.setLayoutManager(layoutManager);
         adapter = new CategoryAdapter(getActivity(), categoryList);
         categoryRV.setAdapter(adapter);
-
 
         categoryRV.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
@@ -79,10 +80,10 @@ public class CategoryListFragment extends Fragment {
                 intent.putExtra("category", category);
                 getContext().startActivity(intent);
                 ((Activity) getActivity()).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
             }
         });
-        emptyLayout.setContent("No Category Found.", R.drawable.ic_profile);
+
+        emptyLayout.setContent("No Category Found.", R.drawable.ic_category);
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -107,7 +108,7 @@ public class CategoryListFragment extends Fragment {
 
     public void getList(final boolean isPullToRefresh) {
 
-        if(isPullToRefresh)
+        if (isPullToRefresh)
             categoryList.clear();
 
         new GetCategory(getActivity(), new GetCategory.OnGetCategoryListener() {

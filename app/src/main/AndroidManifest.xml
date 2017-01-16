@@ -35,9 +35,8 @@
         <activity
             android:name=".activities.WeightCalculatorActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.NotificationActivity"></activity>
-            android:windowSoftInputMode="stateHidden"/>
-
+        <activity android:name=".activities.NotificationActivity" />
+        android:windowSoftInputMode="stateHidden"/>
 
         <!-- Firebase Notifications -->
         <service android:name=".fcm.MyFirebaseMessagingService">
@@ -45,13 +44,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
+        <activity android:name=".activities.OrderDetailActivity"></activity>
     </application>
 
 </manifest>

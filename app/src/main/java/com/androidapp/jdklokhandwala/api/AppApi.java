@@ -1,6 +1,7 @@
 package com.androidapp.jdklokhandwala.api;
 
 import com.androidapp.jdklokhandwala.api.model.AboutUsResponse;
+import com.androidapp.jdklokhandwala.api.model.AcceptOrder;
 import com.androidapp.jdklokhandwala.api.model.BaseResponse;
 import com.androidapp.jdklokhandwala.api.model.CategoryResponse;
 import com.androidapp.jdklokhandwala.api.model.ChangePasswordReq;
@@ -8,6 +9,7 @@ import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.ContactUsResponse;
 import com.androidapp.jdklokhandwala.api.model.LoginReq;
 import com.androidapp.jdklokhandwala.api.model.OrderItemRes;
+import com.androidapp.jdklokhandwala.api.model.OrderListRes;
 import com.androidapp.jdklokhandwala.api.model.PlaceOrderReq;
 import com.androidapp.jdklokhandwala.api.model.ProductResponse;
 import com.androidapp.jdklokhandwala.api.model.RegistrationReq;
@@ -71,7 +73,7 @@ public interface AppApi {
     @POST(AppConstants.PlaceQuotationOrOrderUrl)
     Call<BaseResponse> placeQuotationOrOrder(@Body PlaceOrderReq placeOrderReq);
 
-    //this api for place order
+    //this api for city area
     @GET(AppConstants.GetCityByPinUrl)
     Call<CityRes> getCity(@Query("Pincode") int pincode);
 
@@ -79,6 +81,15 @@ public interface AppApi {
     @GET(AppConstants.GetHistoryUrl)
     Call<OrderItemRes> getHistoryList(@Query("userID") int userID,@Query("lastRecordID") int lastRecordID,@Query("mode") int mode);
 
+
+    //this api for get order detail
+    @GET(AppConstants.GetOrderDetailUrl)
+    Call<OrderListRes> getOrderDetailApi(@Path("OrderID") int id);
+
+
+    //this api for accept reject quotation
+    @POST(AppConstants.QuotationAcceptRejectUrl)
+    Call<BaseResponse> acceptRejectQuotation(@Body AcceptOrder acceptOrder);
     @POST(AppConstants.UpdateUserUrl)
     Call<UpdateUserResp> updateUser(@Body UpdateUserRequest updateUserRequest);
 }

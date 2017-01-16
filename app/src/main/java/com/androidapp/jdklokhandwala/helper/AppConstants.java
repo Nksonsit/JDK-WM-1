@@ -40,10 +40,15 @@ public class AppConstants {
 
     public static final String GetHistoryUrl = "Order/GetHistory";
 
+    public static final String GetOrderDetailUrl = "Order/GetOrderDetail/{OrderID}";
+
+    public static final String QuotationAcceptRejectUrl = "Order/QuotationAcceptReject";
+
     public static final String LOGGED_IN = "is_logged_in";
     public static final String FCM_TOKEN = "fcm_token";
     public static String isPlaceOrder="isPlaceOrder";
     public static String paymentMethodID="paymentMethodID";
+    public static String isInquiry="isInquiry";
 
     /*15 Days=20
     Weekly=19

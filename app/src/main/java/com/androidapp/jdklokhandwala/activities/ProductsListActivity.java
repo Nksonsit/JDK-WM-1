@@ -139,7 +139,7 @@ public class ProductsListActivity extends AppCompatActivity {
 
                                 if (!AddToCart.CheckDuplication(category.getCategoryID(), product.getProductID())) {
 
-                                    new AddToCartDialog(ProductsListActivity.this, "ADD TO CART", (double) 0,product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
+                                    new AddToCartDialog(ProductsListActivity.this, "ADD TO CART", "",(double) 0,product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
                                         @Override
                                         public void onAddClick(String quantity, String type) {
                                             Log.e(quantity, type);

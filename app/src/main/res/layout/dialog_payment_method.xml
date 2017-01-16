@@ -86,7 +86,7 @@
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/dimen_8dp"
-            android:text="@string/select" />
+            android:text="@string/select_txt" />
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.model.OrderItem;
@@ -36,6 +37,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         OrderItem orderItem = orderList.get(position);
+        holder.parentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnOptionSelectedListener.doPerformAction(position);
+            }
+        });
         holder.setOrder(orderItem);
     }
 
@@ -45,12 +52,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     public void setDataList(List<OrderItem> orderList) {
-        this.orderList=orderList;
+        this.orderList = orderList;
         notifyDataSetChanged();
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         private TfTextView referCode, netAmount, totalWeight, status, createdDate;
+        private LinearLayout parentView;
 
         private OrderViewHolder(View itemView) {
             super(itemView);
@@ -59,6 +67,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             totalWeight = (TfTextView) itemView.findViewById(R.id.totalWeightTV);
             status = (TfTextView) itemView.findViewById(R.id.statusTV);
             createdDate = (TfTextView) itemView.findViewById(R.id.createdDateTV);
+            parentView = (LinearLayout) itemView.findViewById(R.id.parentView);
         }
 
         private void setOrder(OrderItem orderItem) {
@@ -71,6 +80,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     public interface OnOptionSelectedListener {
-        public void doPerformAction(int actionType, int position);
+        void doPerformAction(int position);
     }
 }

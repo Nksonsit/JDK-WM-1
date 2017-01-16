@@ -32,7 +32,7 @@ public class AddToCartDialog extends Dialog {
     private String seletedType = "";
     private OnAddClick OnAddClick;
 
-    public AddToCartDialog(Context context, String s,Double unitValue ,List<UnitMeasure> unitMeasureList, final OnAddClick OnAddClick) {
+    public AddToCartDialog(Context context, String s, String selected, Double unitValue, List<UnitMeasure> unitMeasureList, final OnAddClick OnAddClick) {
         super(context);
         this.OnAddClick = OnAddClick;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -54,25 +54,32 @@ public class AddToCartDialog extends Dialog {
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
         radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
 
-        if(unitValue>0){
-            quantity.setText(unitValue+"");
+        if (unitValue > 0) {
+            quantity.setText(unitValue + "");
         }
 
         for (int i = 0; i < unitMeasureList.size(); i++) {
             RadioButton radioButton = new RadioButton(context);
             radioButton.setText(unitMeasureList.get(i).getUnitOfMeasure());
-            if (i == 0) {
-//                radioButton.setChecked(true);
-            }
             radioGroup.addView(radioButton);
+        }
+
+        ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
+
+        if (selected != null && selected.toString().trim().length() > 0) {
+            for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                if (((RadioButton) radioGroup.getChildAt(0)).getText().equals(selected)) {
+                    ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
+                }
+            }
         }
 
         close = (ImageView) view.findViewById(R.id.close);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                seletedType=((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString().trim();
-                Log.e("int", i + " "+seletedType);
+                seletedType = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString().trim();
+                Log.e("int", i + " " + seletedType);
             }
         });
 
@@ -82,9 +89,10 @@ public class AddToCartDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 if (!quantity.getText().toString().trim().equals("")) {
-                    if(seletedType != null && !seletedType.toString().trim().equals("")){
-                    OnAddClick.onAddClick(quantity.getText().toString().trim(), seletedType);
-                    dismiss();}else{
+                    if (seletedType != null && !seletedType.toString().trim().equals("")) {
+                        OnAddClick.onAddClick(quantity.getText().toString().trim(), seletedType);
+                        dismiss();
+                    } else {
                         Functions.showToast(context, "Please select unit type.");
                     }
                 } else {

@@ -1,10 +1,12 @@
 package com.androidapp.jdklokhandwala.api.model;
 
+import java.io.Serializable;
+
 /**
  * Created by ishan on 11-01-2017.
  */
 
-public class OrderItem {
+public class OrderItem{
     int OrderID;
     String ReferCode;
     Double TotalKGWeight;

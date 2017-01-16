@@ -127,7 +127,7 @@ public class CartActivity extends AppCompatActivity {
                         break;
 
                     case AppConstants.EDIT_CART_PRODUCT:
-                        new AddToCartDialog(CartActivity.this, "UPDATE",product.UnitValue(),Functions.getListFromString(product.UnitTypes()), new AddToCartDialog.OnAddClick() {
+                        new AddToCartDialog(CartActivity.this, "UPDATE",product.UnitType(),product.UnitValue(),Functions.getListFromString(product.UnitTypes()), new AddToCartDialog.OnAddClick() {
                             @Override
                             public void onAddClick(String quantity, String type) {
                                 Log.e(quantity, type);
@@ -188,9 +188,22 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (addToCartList.size() > 0) {
                     if (PrefUtils.isUserLoggedIn(CartActivity.this)) {
-                        doGetQuotation();
+                        new PaymentMethodDialog(CartActivity.this, getResources().getString(R.string.payment_mode_dialog), new PaymentMethodDialog.OnSelectClick() {
+                            @Override
+                            public void onSelectClick(int id) {
+                                Functions.showAlertDialogWithOkCancel(CartActivity.this, "", new Functions.DialogOptionsSelectedListener() {
+                                    @Override
+                                    public void onSelect(boolean isYes) {
+                                        if (isYes) {
+                                            doGetQuotation(id);
+                                        }
+                                    }
+                                });
+
+                            }
+                        }).show();
                     } else {
-                        new PaymentMethodDialog(CartActivity.this, "", new PaymentMethodDialog.OnSelectClick() {
+                        new PaymentMethodDialog(CartActivity.this, getResources().getString(R.string.payment_mode_dialog), new PaymentMethodDialog.OnSelectClick() {
                             @Override
                             public void onSelectClick(int id) {
                                 Functions.showAlertDialogWithOkCancel(CartActivity.this, "", new Functions.DialogOptionsSelectedListener() {
@@ -207,7 +220,7 @@ public class CartActivity extends AppCompatActivity {
                                 });
 
                             }
-                        });
+                        }).show();
                     }
                 } else {
                     Functions.showToast(CartActivity.this, "Please first add item to cart.");
@@ -226,7 +239,7 @@ public class CartActivity extends AppCompatActivity {
         doFinish();
     }
 
-    private void doGetQuotation() {
+    private void doGetQuotation(int id) {
         dialog.show();
         List<AddToCart> list = AddToCart.getCartList();
         List<AddToCartTemp> listInput = new ArrayList<AddToCartTemp>();
@@ -241,7 +254,7 @@ public class CartActivity extends AppCompatActivity {
         placeOrderReq.setIsOrder(0);
         placeOrderReq.setUserID(userPojo.getUserID());
         placeOrderReq.setTotalCartWeight(totalWeight);
-        placeOrderReq.setPaymentMethodID(20);
+        placeOrderReq.setPaymentMethodID(id);
         placeOrderReq.setTotalCartItem(listInput.size());
         placeOrderReq.setCartItemList(listInput);
 

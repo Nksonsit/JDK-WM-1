@@ -41,9 +41,11 @@
 
     <string name="dummy_text">There are many variations of passages of Lorem Ipsum available.</string>
     <string name="submit">SUBMIT</string>
-    <string name="select">SELECT</string>
+    <string name="select_txt">SELECT</string>
 
     <string name="login_dialog">You must have Login or Register first.</string>
     <string name="payment_mode_dialog">Choose your payment mode</string>
+    <string name="accept">Place Order</string>
+    <string name="reject">Cancel Order</string>
 
 </resources>

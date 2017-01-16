@@ -61,7 +61,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
         private void setProduct(Product product) {
-            textView.setText(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight());
+            textView.setText(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight()+" KG");
 
             tvAddCart.setOnClickListener(new View.OnClickListener() {
                 @Override

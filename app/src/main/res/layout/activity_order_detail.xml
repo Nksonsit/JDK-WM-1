@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_order_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.androidapp.jdklokhandwala.activities.OrderDetailActivity">
+
+    <include layout="@layout/app_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_above="@+id/bottomView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:orientation="vertical"
+                    android:paddingRight="@dimen/dimen_8dp"
+                    android:paddingTop="@dimen/dimen_8dp">
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtReferCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="#refercode"
+                        android:textColor="@color/half_black"
+                        android:textSize="@dimen/XL_TEXT" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/orderListContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="left"
+                            android:text="Total Amount :"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:id="@+id/txtTotalAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="7320"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="left"
+                            android:text="Total Cart Weight :"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:id="@+id/txtTotalCartWeight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="7320"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="left"
+                            android:text="Discount :"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:id="@+id/txtDiscount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="7320"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="left"
+                            android:text="Net Amount :"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                            android:id="@+id/txtNetAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="right"
+                            android:text="7320"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/L_TEXT" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/billingAddressView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_8dp">
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Billing Address1"
+                        android:textColor="@color/half_black"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtBAddress1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Billing Address1"
+                        android:textColor="@color/black_overlay"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_8dp" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Billing Address2"
+                        android:textColor="@color/half_black"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtBAddress2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Billing Address2"
+                        android:textColor="@color/black_overlay"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_8dp" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Billing Pincode"
+                        android:textColor="@color/half_black"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtBPincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pincode"
+                        android:textColor="@color/black_overlay"
+                        android:textSize="@dimen/L_TEXT" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/shippingAddressView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_8dp">
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Shipping Address1"
+                        android:textColor="@color/half_black"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtSAddress1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Shipping Address1"
+                        android:textColor="@color/black_overlay"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_8dp" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Shipping Address2"
+                        android:textColor="@color/half_black"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtSAddress2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Shipping Address2"
+                        android:textColor="@color/black_overlay"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_8dp" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Shipping Pincode"
+                        android:textColor="@color/half_black"
+                        android:textSize="@dimen/L_TEXT" />
+
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtSPincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pincode"
+                        android:textColor="@color/black_overlay"
+                        android:textSize="@dimen/L_TEXT" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/bottomView"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.androidapp.jdklokhandwala.custom.TfButton
+                android:layout_weight="1"
+                android:id="@+id/btnAccept"
+                style="@style/ButtonStyle"
+                android:layout_width="0dp"
+                android:text="@string/accept" />
+
+            <com.androidapp.jdklokhandwala.custom.TfButton
+                android:layout_weight="1"
+                android:id="@+id/btnReject"
+                style="@style/ButtonStyle"
+                android:layout_width="0dp"
+                android:text="@string/reject" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

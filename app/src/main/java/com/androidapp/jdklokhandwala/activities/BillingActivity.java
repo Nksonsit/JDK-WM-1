@@ -321,7 +321,7 @@ public class BillingActivity extends AppCompatActivity {
         enterBcity.setText(Functions.checkString(userPojo.getBillingCity()));
         enterBPincode.setText(Functions.checkString(userPojo.getBillingPinCode()));
         if (userPojo.getBillingPinCode() != null && userPojo.getBillingPinCode().length() == 6) {
-            setShippingCity(Integer.valueOf(userPojo.getBillingPinCode().trim()));
+            setBillingCity(Integer.valueOf(userPojo.getBillingPinCode().trim()));
         }
         enterBArea.setText(Functions.checkString(userPojo.getBillingArea()));
     }

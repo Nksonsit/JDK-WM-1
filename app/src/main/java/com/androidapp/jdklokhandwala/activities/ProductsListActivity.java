@@ -101,7 +101,7 @@ public class ProductsListActivity extends AppCompatActivity {
                             AddToCartPojo addToCart = new AddToCartPojo();
                             addToCart.setCategoryID((long) category.getCategoryID());
                             addToCart.setProductID((long) product.getProductID());
-                            addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight());
+                            addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + Functions.getFormatedInt(product.getWeight()));
                             addToCart.setUnitType(type);
                             addToCart.setUnitValue(Double.valueOf(quantity));
                             addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));

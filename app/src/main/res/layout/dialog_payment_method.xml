@@ -16,16 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_quotation"
             android:tint="@color/white" />
 
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_close" />
     </RelativeLayout>
 
     <LinearLayout
@@ -47,11 +40,11 @@
                 android:textSize="@dimen/M_TEXT" />
 
             <RadioGroup
-                android:layout_marginTop="@dimen/dimen_4dp"
                 android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/dimen_4dp"
+                android:gravity="left"
                 android:orientation="vertical">
 
                 <RadioButton
@@ -59,8 +52,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="15 Days"
                     android:checked="true"
+                    android:text="15 Days"
                     android:textColor="@color/half_black" />
 
                 <RadioButton
@@ -79,15 +72,29 @@
                     android:text="Monthly"
                     android:textColor="@color/half_black" />
             </RadioGroup>
+        </LinearLayout>♥
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            android:orientation="horizontal">
+
+            <com.androidapp.jdklokhandwala.custom.TfButton
+                android:id="@+id/selectBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/request_quotation" />
+
+            <com.androidapp.jdklokhandwala.custom.TfButton
+                android:id="@+id/btnCancel"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/cancel" />
         </LinearLayout>
-
-        <com.androidapp.jdklokhandwala.custom.TfButton
-            android:id="@+id/selectBtn"
-            style="@style/ButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_margin="@dimen/dimen_8dp"
-            android:text="@string/select_txt" />
-
     </LinearLayout>
 
 </LinearLayout>

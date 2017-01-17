@@ -10,6 +10,7 @@
     <string name="transition_cat">transition_category</string>
     <string name="update">Update</string>
     <string name="cancel">Cancel</string>
+    <string name="request_quotation">Request Quotation</string>
 
     <!--Drawer string-->
     <string name="drawer_category">Categories</string>
@@ -23,11 +24,12 @@
     <!--Option menu-->
     <string name="menu_cart">Cart</string>
     <string name="menu_noti">Notification</string>
-    <string name="menu_calc">Thickness Calculator</string>
+    <string name="menu_calc">Weight Calculator</string>
 
     <!--Toolbar titles-->
     <string name="categories_title">Categories</string>
     <string name="notification_title">Notifications</string>
+    <string name="order_detail_title">Order Detail</string>
 
     <string-array name="WheelArrayDefault">
         <item>Ft.</item>

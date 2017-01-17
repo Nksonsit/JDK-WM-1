@@ -56,7 +56,7 @@ public class InquiryHFragment extends Fragment {
         if(isVisibleToUser){
             userPojo = PrefUtils.getUserFullProfileDetails(getActivity());
 
-            getOrderList(userPojo.getUserID(), 0,false);
+            getOrderList(userPojo.getUserID(), 0,true);
         }
     }
 
@@ -91,6 +91,7 @@ public class InquiryHFragment extends Fragment {
                 Intent i = new Intent(getActivity(), OrderDetailActivity.class);
                 i.putExtra("orderID", historyList.get(position).getOrderID());
                 i.putExtra(AppConstants.isInquiry, true);
+                i.putExtra(AppConstants.statusID, historyList.get(position).getStatusID());
                 Functions.fireIntent(getActivity(), i);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

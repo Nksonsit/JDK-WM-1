@@ -1,5 +1,7 @@
 package com.androidapp.jdklokhandwala.api.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -9,10 +11,26 @@ import java.io.Serializable;
 public class OrderItem{
     int OrderID;
     String ReferCode;
-    Double TotalKGWeight;
+    Double TotalCartWeight;
     Double NetAmount;
     String CreatedDate;
-    String ProcessStap;
+    int StatusID;
+
+    public Double getTotalCartWeight() {
+        return TotalCartWeight;
+    }
+
+    public void setTotalCartWeight(Double totalCartWeight) {
+        TotalCartWeight = totalCartWeight;
+    }
+
+    public int getStatusID() {
+        return StatusID;
+    }
+
+    public void setStatusID(int statusID) {
+        StatusID = statusID;
+    }
 
     public int getOrderID() {
         return OrderID;
@@ -30,14 +48,6 @@ public class OrderItem{
         ReferCode = referCode;
     }
 
-    public Double getTotalKGWeight() {
-        return TotalKGWeight;
-    }
-
-    public void setTotalKGWeight(Double totalKGWeight) {
-        TotalKGWeight = totalKGWeight;
-    }
-
     public Double getNetAmount() {
         return NetAmount;
     }
@@ -52,13 +62,5 @@ public class OrderItem{
 
     public void setCreatedDate(String createdDate) {
         CreatedDate = createdDate;
-    }
-
-    public String getProcessStap() {
-        return ProcessStap;
-    }
-
-    public void setProcessStap(String processStap) {
-        ProcessStap = processStap;
     }
 }

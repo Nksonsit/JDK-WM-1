@@ -311,4 +311,32 @@ public class Functions {
         }
         return str;
     }
+
+    public static String getStatus(int number){
+        String status="Order Dispatched";
+        switch (number){
+            case 8:
+                status="Quotation Request";
+                break;
+            case 9:
+                status="Quatation Cancelled By Admin";
+                break;
+            case 10:
+                status="Quotation Generated";
+                break;
+            case 11:
+                status="Cancelled By User";
+                break;
+            case 12:
+                status="Order Placed";
+                break;
+            case 13:
+                status="Order Cancelled By Admin";
+                break;
+            case 14:
+                status="Order Dispatched";
+                break;
+        }
+        return status;
+    }
 }

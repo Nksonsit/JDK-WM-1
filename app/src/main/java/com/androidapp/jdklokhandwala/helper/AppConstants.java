@@ -53,6 +53,7 @@ public class AppConstants {
     public static String isPlaceOrder="isPlaceOrder";
     public static String paymentMethodID="paymentMethodID";
     public static String isInquiry="isInquiry";
+    public static String statusID="statusID";
 
 
     public enum NotificationTypeId {
@@ -140,4 +141,16 @@ public class AppConstants {
     /*15 Days=20
     Weekly=19
     Monthly=21*/
+
+ /*   public enum OrderStatus{
+        QuotationRequest = 8,
+        QuatationCancelledByAdmin = 9,
+        QuotationGenerated = 10,
+        CancelledByUser = 11,
+        OrderPlaced = 12,
+        OrderCancelledByAdmin = 13,
+        OrderDispatched = 14
+    }*/
+
+
 }

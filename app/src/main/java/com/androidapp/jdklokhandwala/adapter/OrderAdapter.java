@@ -2,6 +2,7 @@ package com.androidapp.jdklokhandwala.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,10 @@ import android.widget.LinearLayout;
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.model.OrderItem;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.helper.Functions;
+import com.androidapp.jdklokhandwala.helper.MyApplication;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -21,11 +25,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private final Context context;
     private List<OrderItem> orderList;
     private OnOptionSelectedListener OnOptionSelectedListener;
+    DecimalFormat formatter;
 
     public OrderAdapter(Context context, List<OrderItem> orderList, OnOptionSelectedListener OnOptionSelectedListener) {
         this.context = context;
         this.orderList = orderList;
         this.OnOptionSelectedListener = OnOptionSelectedListener;
+        formatter = new DecimalFormat("#,##,##,###");
     }
 
     @Override
@@ -37,6 +43,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         OrderItem orderItem = orderList.get(position);
+        Log.e("order item", MyApplication.getGson().toJson(orderItem).toString());
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,9 +79,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         private void setOrder(OrderItem orderItem) {
             referCode.setText(orderItem.getReferCode());
-            netAmount.setText("Net Amount : " + orderItem.getNetAmount());
-            totalWeight.setText("Total Weight : " + orderItem.getTotalKGWeight() + "Kg");
-            status.setText("Status : " + orderItem.getProcessStap());
+            String myString = formatter.format(orderItem.getNetAmount());
+            netAmount.setText(myString);
+            totalWeight.setText("Total Weight : " + Functions.getFormatedInt(orderItem.getTotalCartWeight()) + "Kg");
+            status.setText("Status : " + Functions.getStatus(orderItem.getStatusID()));
             createdDate.setText(orderItem.getCreatedDate());
         }
     }

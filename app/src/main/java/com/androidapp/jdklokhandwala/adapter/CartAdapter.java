@@ -65,7 +65,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
 
         private void setProduct(AddToCart addToCart, final int position) {
            textView.setText(addToCart.Name()+" Kg");
-            textViewQty.setText("Quantity : "+ Functions.getFormatedInt(addToCart.KgWeight())+""+addToCart.UnitType());
+            textViewQty.setText("Quantity : "+ Functions.getFormatedInt(addToCart.UnitValue())+" "+addToCart.UnitType());
             tvEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

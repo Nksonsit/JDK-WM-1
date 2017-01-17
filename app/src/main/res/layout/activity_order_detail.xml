@@ -14,16 +14,16 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:layout_above="@+id/bottomView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomView">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dimen_8dp"
@@ -33,131 +33,179 @@
 
                     <com.androidapp.jdklokhandwala.custom.TfTextView
                         android:id="@+id/txtReferCode"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#refercode"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:textColor="@color/half_black"
                         android:textSize="@dimen/XL_TEXT" />
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/txtNetAmount"
+                        android:src="@drawable/ic_rupee"
+                        android:tint="@color/black" />
+                    <com.androidapp.jdklokhandwala.custom.TfTextView
+                        android:id="@+id/txtNetAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="7320"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/L_TEXT"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/orderListContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dimen_8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_8dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dimen_8dp">
+                    android:layout_margin="@dimen/dimen_8dp"
+                    android:orientation="vertical">
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/orderListContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dimen_8dp" />
 
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:gravity="left"
-                            android:text="Total Amount :"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
-
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
-                            android:id="@+id/txtTotalAmount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:gravity="right"
-                            android:text="7320"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dimen_8dp"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dimen_8dp">
 
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:gravity="left"
-                            android:text="Total Cart Weight :"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
+                            android:layout_height="wrap_content">
 
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
-                            android:id="@+id/txtTotalCartWeight"
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:gravity="left"
+                                android:text="Total Amount :"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/txtTotalAmount"
+                                android:src="@drawable/ic_rupee"
+                                android:tint="@color/black" />
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:id="@+id/txtTotalAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="7320"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:gravity="right"
-                            android:text="7320"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
+                            android:layout_height="wrap_content">
 
-                    </RelativeLayout>
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:gravity="left"
+                                android:text="Total Cart Weight :"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:id="@+id/txtTotalCartWeight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="7320"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT" />
 
+                        </RelativeLayout>
 
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:gravity="left"
-                            android:text="Discount :"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
+                            android:layout_height="wrap_content">
 
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
-                            android:id="@+id/txtDiscount"
+
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:gravity="left"
+                                android:text="Discount :"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT" />
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/txtDiscount"
+                                android:src="@drawable/ic_rupee"
+                                android:tint="@color/black" />
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:id="@+id/txtDiscount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="right"
+                                android:text="7320"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:gravity="right"
-                            android:text="7320"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
+                            android:layout_height="wrap_content">
 
-                    </RelativeLayout>
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:gravity="left"
+                                android:text="Net Amount :"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/txtNetAmount2"
+                                android:src="@drawable/ic_rupee"
+                                android:tint="@color/black" />
 
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:gravity="left"
-                            android:text="Net Amount :"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
+                            <com.androidapp.jdklokhandwala.custom.TfTextView
+                                android:id="@+id/txtNetAmount2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="7320"
+                                android:textColor="@color/half_black"
+                                android:textSize="@dimen/L_TEXT"
+                                android:layout_alignParentRight="true" />
 
-                        <com.androidapp.jdklokhandwala.custom.TfTextView
-                            android:id="@+id/txtNetAmount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:gravity="right"
-                            android:text="7320"
-                            android:textColor="@color/half_black"
-                            android:textSize="@dimen/L_TEXT" />
+                        </RelativeLayout>
 
-                    </RelativeLayout>
-
-
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,7 +220,7 @@
                     <com.androidapp.jdklokhandwala.custom.TfTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Billing Address1"
+                        android:text="Billing Address"
                         android:textColor="@color/half_black"
                         android:textSize="@dimen/L_TEXT" />
 
@@ -184,43 +232,7 @@
                         android:textColor="@color/black_overlay"
                         android:textSize="@dimen/L_TEXT" />
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_8dp" />
 
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Billing Address2"
-                        android:textColor="@color/half_black"
-                        android:textSize="@dimen/L_TEXT" />
-
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:id="@+id/txtBAddress2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Billing Address2"
-                        android:textColor="@color/black_overlay"
-                        android:textSize="@dimen/L_TEXT" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_8dp" />
-
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Billing Pincode"
-                        android:textColor="@color/half_black"
-                        android:textSize="@dimen/L_TEXT" />
-
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:id="@+id/txtBPincode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Pincode"
-                        android:textColor="@color/black_overlay"
-                        android:textSize="@dimen/L_TEXT" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -247,66 +259,30 @@
                         android:textColor="@color/black_overlay"
                         android:textSize="@dimen/L_TEXT" />
 
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_8dp" />
 
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Shipping Address2"
-                        android:textColor="@color/half_black"
-                        android:textSize="@dimen/L_TEXT" />
-
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:id="@+id/txtSAddress2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Shipping Address2"
-                        android:textColor="@color/black_overlay"
-                        android:textSize="@dimen/L_TEXT" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_8dp" />
-
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Shipping Pincode"
-                        android:textColor="@color/half_black"
-                        android:textSize="@dimen/L_TEXT" />
-
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:id="@+id/txtSPincode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Pincode"
-                        android:textColor="@color/black_overlay"
-                        android:textSize="@dimen/L_TEXT" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
         <LinearLayout
             android:id="@+id/bottomView"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <com.androidapp.jdklokhandwala.custom.TfButton
-                android:layout_weight="1"
                 android:id="@+id/btnAccept"
                 style="@style/ButtonStyle"
                 android:layout_width="0dp"
+                android:layout_weight="1"
                 android:text="@string/accept" />
 
             <com.androidapp.jdklokhandwala.custom.TfButton
-                android:layout_weight="1"
                 android:id="@+id/btnReject"
                 style="@style/ButtonStyle"
                 android:layout_width="0dp"
+                android:layout_weight="1"
                 android:text="@string/reject" />
 
         </LinearLayout>

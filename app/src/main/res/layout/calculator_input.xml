@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row"
+    android:layout_weight="1"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.androidapp.jdklokhandwala.custom.TfTextView
+        android:id="@+id/txtHint"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_8dp"
+        android:text="Width"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="@dimen/XL_TEXT" />
+
+    <com.androidapp.jdklokhandwala.custom.TfEditText
+        android:id="@+id/edtInput"
+        android:inputType="number"
+        android:maxLength="10"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:padding="@dimen/dimen_8dp"
+        android:textSize="@dimen/XL_TEXT" />
+</LinearLayout>

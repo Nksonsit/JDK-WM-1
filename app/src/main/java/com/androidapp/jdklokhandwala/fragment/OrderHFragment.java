@@ -57,7 +57,7 @@ public class OrderHFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             userPojo = PrefUtils.getUserFullProfileDetails(getActivity());
-            getOrderList(userPojo.getUserID(), 0, false);
+            getOrderList(userPojo.getUserID(), 0, true);
         }
     }
 
@@ -93,6 +93,7 @@ public class OrderHFragment extends Fragment {
                 Intent i = new Intent(getActivity(), OrderDetailActivity.class);
                 i.putExtra("orderID", orderList.get(position).getOrderID());
                 i.putExtra(AppConstants.isInquiry, false);
+                i.putExtra(AppConstants.statusID, orderList.get(position).getStatusID());
                 Functions.fireIntent(getActivity(), i);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -100,7 +101,7 @@ public class OrderHFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         userPojo = PrefUtils.getUserFullProfileDetails(getActivity());
-        getOrderList(userPojo.getUserID(), 0, false);
+        //getOrderList(userPojo.getUserID(), 0, true);
 
 
         footer = LayoutInflater.from(getActivity()).inflate(R.layout.load_more, null);

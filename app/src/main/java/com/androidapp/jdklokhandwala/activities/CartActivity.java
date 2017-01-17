@@ -127,7 +127,7 @@ public class CartActivity extends AppCompatActivity {
                         break;
 
                     case AppConstants.EDIT_CART_PRODUCT:
-                        new AddToCartDialog(CartActivity.this, "UPDATE",product.UnitType(),product.UnitValue(),Functions.getListFromString(product.UnitTypes()), new AddToCartDialog.OnAddClick() {
+                        new AddToCartDialog(CartActivity.this, "UPDATE", product.UnitType(), product.UnitValue(), Functions.getListFromString(product.UnitTypes()), new AddToCartDialog.OnAddClick() {
                             @Override
                             public void onAddClick(String quantity, String type) {
                                 Log.e(quantity, type);
@@ -191,15 +191,7 @@ public class CartActivity extends AppCompatActivity {
                         new PaymentMethodDialog(CartActivity.this, getResources().getString(R.string.payment_mode_dialog), new PaymentMethodDialog.OnSelectClick() {
                             @Override
                             public void onSelectClick(int id) {
-                                Functions.showAlertDialogWithOkCancel(CartActivity.this, "", new Functions.DialogOptionsSelectedListener() {
-                                    @Override
-                                    public void onSelect(boolean isYes) {
-                                        if (isYes) {
-                                            doGetQuotation(id);
-                                        }
-                                    }
-                                });
-
+                                doGetQuotation(id);
                             }
                         }).show();
                     } else {

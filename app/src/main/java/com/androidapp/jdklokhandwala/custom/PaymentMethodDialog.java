@@ -2,9 +2,11 @@ package com.androidapp.jdklokhandwala.custom;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -17,10 +19,10 @@ import com.androidapp.jdklokhandwala.R;
 
 public class PaymentMethodDialog extends Dialog {
     private RadioGroup radioGroup;
-    private ImageView close;
+    private TfButton close;
     private View view;
     private TfTextView titleTV;
-    private Button selectbtn;
+    private TfButton selectbtn;
     private int seletedTypeID = 20;
     private OnSelectClick OnSelectClick;
 
@@ -31,13 +33,20 @@ public class PaymentMethodDialog extends Dialog {
         view = LayoutInflater.from(context).inflate(R.layout.dialog_payment_method, null);
         setContentView(view);
 
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.CENTER;
+        getWindow().setAttributes(lp);
+
         this.setCanceledOnTouchOutside(true);
         this.setCancelable(true);
 
         titleTV = (TfTextView) view.findViewById(R.id.title);
-        selectbtn = (Button) view.findViewById(R.id.selectBtn);
+        selectbtn = (TfButton) view.findViewById(R.id.selectBtn);
         radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
-        close = (ImageView) view.findViewById(R.id.close);
+        close = (TfButton) view.findViewById(R.id.btnCancel);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {

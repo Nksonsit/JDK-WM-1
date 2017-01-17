@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/dimen_8dp"
-    android:paddingRight="@dimen/dimen_8dp"
-    android:orientation="vertical">
+    android:paddingRight="@dimen/dimen_8dp">
 
     <com.androidapp.jdklokhandwala.custom.TfTextView
         android:id="@+id/createdDateTV"
@@ -16,43 +16,61 @@
 
     <LinearLayout
         android:id="@+id/parentView"
-        android:paddingTop="@dimen/dimen_8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/dimen_8dp"
         android:paddingRight="@dimen/dimen_8dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/dimen_8dp">
 
-        <com.androidapp.jdklokhandwala.custom.TfTextView
-            android:id="@+id/referCodeTV"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="20X40 ISI 1Kg"
-            android:textSize="@dimen/XL_TEXT" />
+            android:layout_height="wrap_content">
+
+            <com.androidapp.jdklokhandwala.custom.TfTextView
+                android:id="@+id/referCodeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="20X40 ISI 1Kg"
+                android:textSize="@dimen/XL_TEXT" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/netAmountTV"
+                android:src="@drawable/ic_rupee"
+                android:tint="@color/black" />
+
+            <com.androidapp.jdklokhandwala.custom.TfTextView
+                android:id="@+id/netAmountTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="New Amount"
+                android:textColor="@color/black"
+                android:textSize="@dimen/L_TEXT" />
+
+        </RelativeLayout>
 
         <com.androidapp.jdklokhandwala.custom.TfTextView
             android:id="@+id/totalWeightTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quantity : 1Kg"
-            android:textSize="@dimen/L_TEXT" />
-
-        <com.androidapp.jdklokhandwala.custom.TfTextView
-            android:id="@+id/netAmountTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quantity : 1Kg"
-            android:textSize="@dimen/L_TEXT" />
+            android:text="total weight"
+            android:textSize="@dimen/M_TEXT" />
 
         <com.androidapp.jdklokhandwala.custom.TfTextView
             android:id="@+id/statusTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="Quantity : 1Kg"
-            android:textSize="@dimen/L_TEXT" />
-
+            android:text="status"
+            android:textSize="@dimen/M_TEXT" />
 
     </LinearLayout>
 </LinearLayout>

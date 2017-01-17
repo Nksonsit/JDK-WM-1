@@ -2,6 +2,7 @@ package com.androidapp.jdklokhandwala.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -79,37 +80,22 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Catego
         private void setCategory(BookmarkModel bookmarkModel, int position) {
             textView.setText(bookmarkModel.Name());
             Glide.with(context).load(bookmarkModel.Image()).centerCrop().into(imageView);
+            bookmark.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
 
             bookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (Bookmark.IsBookmark(bookmarkModel.CategoryId().intValue())) {
-
-                        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                        alert.setMessage("Do you really want to delete bookmark category? ");
-                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //do your work here
-                                dialog.dismiss();
-                                bookmark.setImageResource(R.drawable.ic_bookmark);
-                                Bookmark.DeleteBookmark(bookmarkModel.CategoryId());
-                                categoryList.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, categoryList.size());
-                            }
-                        });
-                        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        alert.show();
+                        bookmark.setImageResource(R.drawable.ic_bookmark);
+                        Bookmark.DeleteBookmark(bookmarkModel.CategoryId());
+                        categoryList.remove(position);
+                        bookmark.setColorFilter(ContextCompat.getColor(context, R.color.half_black));
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, categoryList.size());
 
                     } else {
                         bookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                        bookmark.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
                         Bookmark.InsertBookmark(bookmarkModel.CategoryId().intValue(), bookmarkModel.Name(), bookmarkModel.Image());
                     }
                 }

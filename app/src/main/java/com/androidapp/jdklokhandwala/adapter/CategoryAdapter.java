@@ -2,6 +2,8 @@ package com.androidapp.jdklokhandwala.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,40 +48,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         if (Bookmark.IsBookmark(categoryList.get(position).getCategoryID())) {
             holder.bookmark.setImageResource(R.drawable.ic_bookmark_selected);
+            holder.bookmark.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
+
         } else {
             holder.bookmark.setImageResource(R.drawable.ic_bookmark);
+            holder.bookmark.setColorFilter(ContextCompat.getColor(context, R.color.half_black));
         }
 
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Bookmark.IsBookmark(categoryList.get(position).getCategoryID())) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                    alert.setMessage("Do you really want to delete bookmark category? ");
-                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //do your work here
-                            dialog.dismiss();
-                            holder.bookmark.setImageResource(R.drawable.ic_bookmark);
-                            Bookmark.DeleteBookmark((long) categoryList.get(position).getCategoryID());
-
-                        }
-                    });
-                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    alert.show();
-
+                    holder.bookmark.setImageResource(R.drawable.ic_bookmark);
+                    holder.bookmark.setColorFilter(ContextCompat.getColor(context, R.color.half_black));
+                    Bookmark.DeleteBookmark((long) categoryList.get(position).getCategoryID());
 
                 } else {
                     holder.bookmark.setImageResource(R.drawable.ic_bookmark_selected);
+                    holder.bookmark.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary));
                     Bookmark.InsertBookmark(categoryList.get(position).getCategoryID(), categoryList.get(position).getName(), categoryList.get(position).getImage());
                 }
             }

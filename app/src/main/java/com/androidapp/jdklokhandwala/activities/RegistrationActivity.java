@@ -1,16 +1,18 @@
 package com.androidapp.jdklokhandwala.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.androidapp.jdklokhandwala.R;
+import com.androidapp.jdklokhandwala.adapter.ProofAdapter;
 import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.AddToCart;
 import com.androidapp.jdklokhandwala.api.model.AddToCartTemp;
@@ -93,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         isPlaceOrder = getIntent().getIntExtra(AppConstants.isPlaceOrder, 2);
-        paymentMethodID= getIntent().getIntExtra(AppConstants.paymentMethodID, 20);
+        paymentMethodID = getIntent().getIntExtra(AppConstants.paymentMethodID, 20);
 
         getUserIdentityType();
 
@@ -134,14 +136,15 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                     registrationReq.setIdentityNo(proofTV.getText().toString().trim());
 
+                    Log.e("registration req", Functions.jsonString(registrationReq));
+
                     doRegistar(registrationReq);
                 }
-
 
             }
 
             private void doRegistar(RegistrationReq input) {
-                Log.e("registration req", MyApplication.getGson().toJson(input).toString());
+
                 AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
                 appApi.registrationApi(input).enqueue(new Callback<RegistrationRes>() {
                     @Override
@@ -190,20 +193,57 @@ public class RegistrationActivity extends AppCompatActivity {
         if (nameTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter your name.");
             return false;
+
         } else if (emailTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter your email id.");
             return false;
+
         } else if (phoneTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter your phone number.");
             return false;
+
         } else if (passwordTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter your password.");
             return false;
+
         } else if (proofTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter proof id.");
             return false;
+
+        } else {
+            UserIdentityType type = (UserIdentityType) proofTypeSpinner.getSelectedItem();
+            switch (type.getCodeID()) {
+                case 1:
+                    if (!Functions.toStr(proofTV).matches(AppConstants.AADHAR_CARD)) {
+                        Functions.showToast(RegistrationActivity.this, "Invalid Adhar Card No.");
+                        return false;
+                    }
+                    break;
+
+                case 2:
+                    if (!Functions.toStr(proofTV).matches(AppConstants.VOTER_ID)) {
+                        Functions.showToast(RegistrationActivity.this, "Invalid Voter ID");
+                        return false;
+                    }
+                    break;
+
+                case 3:
+                    if (!Functions.toStr(proofTV).matches(AppConstants.PAN_CARD)) {
+                        Functions.showToast(RegistrationActivity.this, "Invalid PAN Card No.");
+                        return false;
+                    }
+                    break;
+
+                case 4:
+                    if (!Functions.toStr(proofTV).matches(AppConstants.DRIVING_LICENSE)) {
+                        Functions.showToast(RegistrationActivity.this, "Invalid Driving License No.");
+                        return false;
+                    }
+                    break;
+
+            }
+            return true;
         }
-        return true;
     }
 
 
@@ -218,8 +258,47 @@ public class RegistrationActivity extends AppCompatActivity {
                     for (int i = 0; i < response.body().getDataList().size(); i++) {
                         proofTypeList.add(response.body().getDataList().get(i).getCodeValue());
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistrationActivity.this, R.layout.spinner_item, R.id.spinnerItem, proofTypeList);
+
+                    ProofAdapter adapter = new ProofAdapter(RegistrationActivity.this, R.layout.spinner_item, proofList);
+                    //ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegistrationActivity.this, R.layout.spinner_item, R.id.spinnerItem, proofTypeList);
                     proofTypeSpinner.setAdapter(adapter);
+                    proofTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            UserIdentityType type = adapter.getItem(i);
+                            proofTV.setText("");
+                            switch (type.getCodeID()) {
+                                case 1:
+                                    proofTV.setHint("Proof No. (e.g. 4552 6369 3654)");
+                                    proofTV.setFloatingLabelText("Proof No. (e.g. 4552 6369 3654)");
+                                    proofTV.setFilters(new InputFilter[]{new InputFilter.LengthFilter(14)});
+                                    break;
+
+                                case 2:
+                                    proofTV.setHint("Proof No. (e.g. GJG1234567)");
+                                    proofTV.setFloatingLabelText("Proof No. (e.g. GJG1234567)");
+                                    proofTV.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
+                                    break;
+
+                                case 3:
+                                    proofTV.setHint("Proof No. (e.g. CPFPP4441E)");
+                                    proofTV.setFloatingLabelText("Proof No. (e.g. CPFPP4441E)");
+                                    proofTV.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
+                                    break;
+
+                                case 4:
+                                    proofTV.setHint("Proof No. (e.g. GJ06 20110004369)");
+                                    proofTV.setFloatingLabelText("Proof No. (e.g. GJ06 20110004369)");
+                                    proofTV.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
                 }
 
             }

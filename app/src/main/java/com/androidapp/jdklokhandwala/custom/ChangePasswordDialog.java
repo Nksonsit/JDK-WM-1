@@ -5,10 +5,12 @@ import android.content.Context;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.androidapp.jdklokhandwala.R;
@@ -50,6 +52,14 @@ public class ChangePasswordDialog extends Dialog {
 
         this.setCanceledOnTouchOutside(true);
         this.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.CENTER;
+        getWindow().setAttributes(lp);
+
 
         userPojo = PrefUtils.getUserFullProfileDetails(context);
 

@@ -36,13 +36,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Username"
-                    android:maxLength="14"
+                    android:maxLength="20"
+                    android:maxLines="1"
                     android:textSize="@dimen/M_TEXT" />
 
                 <com.androidapp.jdklokhandwala.custom.TfEditText
                     android:id="@+id/enterEmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:hint="Email ID"
                     android:inputType="textEmailAddress"
                     android:textSize="@dimen/M_TEXT" />
@@ -53,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="false"
                     android:hint="Mobile Number"
+                    android:maxLines="1"
                     android:inputType="phone"
                     android:longClickable="false"
                     android:maxLength="14"
@@ -64,10 +67,10 @@
                 android:layout_height="@dimen/dimen_16dp" />
 
             <View
-                android:layout_width="@dimen/dimen_32dp"
-                android:layout_height="@dimen/dimen_.5dp"
+                android:layout_width="@dimen/dimen_48dp"
+                android:layout_height="@dimen/dimen_1dp"
                 android:layout_gravity="center"
-                android:background="@color/black" />
+                android:background="@color/colorPrimary" />
 
             <Space
                 android:layout_width="match_parent"
@@ -93,15 +96,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address Line 1"
+                    android:maxLines="1"
                     android:textSize="@dimen/M_TEXT" />
 
                 <com.androidapp.jdklokhandwala.custom.TfEditText
                     android:id="@+id/enterBAddress2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:hint="Address Line 2"
                     android:textSize="@dimen/M_TEXT" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,6 +118,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Pincode"
                         android:maxLength="6"
+                        android:maxLines="1"
                         android:paddingLeft="@dimen/dimen_2dp"
                         android:paddingRight="@dimen/dimen_2dp"
                         android:textSize="@dimen/M_TEXT" />
@@ -127,6 +132,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:maxLines="1"
                         android:clickable="false"
                         android:hint="Area"
                         android:longClickable="false"
@@ -142,6 +148,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:maxLines="1"
                         android:clickable="false"
                         android:hint="City"
                         android:longClickable="false"
@@ -157,10 +164,10 @@
                 android:layout_height="@dimen/dimen_16dp" />
 
             <View
-                android:layout_width="@dimen/dimen_32dp"
-                android:layout_height="@dimen/dimen_.5dp"
+                android:layout_width="@dimen/dimen_48dp"
+                android:layout_height="@dimen/dimen_1dp"
                 android:layout_gravity="center"
-                android:background="@color/black" />
+                android:background="@color/colorPrimary" />
 
             <Space
                 android:layout_width="match_parent"
@@ -185,6 +192,7 @@
                     android:id="@+id/enterSAddress1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:hint="Address Line 1"
                     android:textSize="@dimen/M_TEXT" />
 
@@ -193,8 +201,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address Line 2"
+                    android:maxLines="1"
                     android:textSize="@dimen/M_TEXT" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -207,6 +215,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Pincode"
                         android:maxLength="6"
+                        android:maxLines="1"
                         android:paddingLeft="@dimen/dimen_2dp"
                         android:paddingRight="@dimen/dimen_2dp"
                         android:textSize="@dimen/M_TEXT" />
@@ -220,6 +229,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:maxLines="1"
                         android:clickable="false"
                         android:hint="Area"
                         android:longClickable="false"
@@ -236,12 +246,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:clickable="false"
+                        android:maxLines="1"
                         android:hint="City"
                         android:longClickable="false"
                         android:maxLength="14"
                         android:textSize="@dimen/M_TEXT" />
 
                 </LinearLayout>
+
             </LinearLayout>
 
             <Space

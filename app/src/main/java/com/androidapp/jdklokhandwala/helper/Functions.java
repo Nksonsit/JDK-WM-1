@@ -195,10 +195,10 @@ public class Functions {
                 .textSize(18)
                 .typeface(getRegularFont(context))
                 .corner(12)
-                .margin(56)
+                .margin(128)
                 .padding(22)
                 .spacing(1)
-                .gravity(Gravity.BOTTOM)
+                .gravity(Gravity.TOP)
                 .show();
     }
 

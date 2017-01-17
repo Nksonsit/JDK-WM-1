@@ -6,13 +6,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.androidapp.jdklokhandwala.R;
+import com.androidapp.jdklokhandwala.custom.TfTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,32 +51,18 @@ public class MyOrderFragment extends Fragment {
         tabLayout = (TabLayout) parentView.findViewById(R.id.tabLayout);
 
         mAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        mAdapter.addFragment(new OrderHFragment(), "Order History");
-        mAdapter.addFragment(new InquiryHFragment(), "Inquiry History");
+        mAdapter.addFragment(new OrderHFragment().newInstance(), "Order History");
+        mAdapter.addFragment(new InquiryHFragment().newInstance(), "Inquiry History");
         viewPager.setAdapter(mAdapter);
 //        viewPager.setOffscreenPageLimit(0);
 
         //init tab layout
         tabLayout.setupWithViewPager(viewPager);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.e("position",position+"");
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(mAdapter.getTabView(i));
+        }
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -101,6 +91,15 @@ public class MyOrderFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+
+        public View getTabView(int position) {
+            TfTextView tfTextView = new TfTextView(getContext());
+            tfTextView.setText(mFragmentTitleList.get(position));
+            tfTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            tfTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            tfTextView.setGravity(Gravity.CENTER);
+            return tfTextView;
         }
     }
 }

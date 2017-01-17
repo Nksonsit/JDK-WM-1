@@ -6,6 +6,22 @@ package com.androidapp.jdklokhandwala.helper;
 
 public class AppConstants {
 
+    // Adhar Card Regex : ^\d{4}\s\d{4}\s\d{4}$
+    // e.g. 4552 6369 3654
+    public static final String AADHAR_CARD = "^\\d{4}\\s\\d{4}\\s\\d{4}$";
+
+    // PAN Card Regex : ^[A-Z]{5}\d{4}[A-Z]{1}$
+    // e.g. CPFPP4441E
+    public static final String PAN_CARD = "^[A-Z]{5}\\d{4}[A-Z]{1}$";
+
+    // Driving License : ^[A-Z]{2}\d{2}\s\d{11}$
+    // e.g. GJ17 20110004369
+    public static final String DRIVING_LICENSE = "^[A-Z]{2}\\d{2}\\s\\d{11}$";
+
+    // Voter ID : ^[A-Z]{3}\d{7}$
+    // e.g. GJG1234567
+    public static final String VOTER_ID = "^[A-Z]{3}\\d{7}$";
+
     public static final int SHARE_PRODUCT = 1;
     public static final int BOOKMARK_PRODUCT = 2;
     public static final int ADD_CART_PRODUCT = 3;

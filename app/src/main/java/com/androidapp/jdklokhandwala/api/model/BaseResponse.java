@@ -1,10 +1,12 @@
 package com.androidapp.jdklokhandwala.api.model;
 
+import java.io.Serializable;
+
 /**
  * Created by ishan on 05-01-2017.
  */
 
-public class BaseResponse {
+public class BaseResponse implements Serializable {
     int ResponseCode;
     String ResponseMessage;
 

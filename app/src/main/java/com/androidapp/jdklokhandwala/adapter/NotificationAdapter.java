@@ -2,6 +2,7 @@ package com.androidapp.jdklokhandwala.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.model.NotificationItem;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.helper.AppConstants;
+import com.androidapp.jdklokhandwala.helper.Functions;
 
 import java.util.ArrayList;
 
@@ -20,10 +23,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     private Context context;
     private ArrayList<NotificationItem> productList;
-
+    private OnClickListener onClickListener;
     public NotificationAdapter(Context context, ArrayList<NotificationItem> productList) {
         this.context = context;
         this.productList = productList;
+       // this.onClickListener=onClickListener;
     }
 
     @Override
@@ -45,18 +49,28 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private TfTextView txtTitle, txtContent;
+        private TfTextView txtTitle, txtContent, txtOrder, txtTime;
 
         private ProductViewHolder(View itemView) {
             super(itemView);
             txtTitle = (TfTextView) itemView.findViewById(R.id.txtTitle);
             txtContent = (TfTextView) itemView.findViewById(R.id.txtContent);
+            txtTime = (TfTextView) itemView.findViewById(R.id.txtTime);
+            txtOrder = (TfTextView) itemView.findViewById(R.id.txtOrder);
         }
 
         public void setDetails(NotificationItem notification) {
-            txtTitle.setText(notification.getTitle());
+            Log.e("Notification type", Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
+                    Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
+            txtTitle.setText(AppConstants.NotificationTypeId.getRequestTypeName(notification.NotificationTypeId));
             txtContent.setText(notification.getContent());
+            txtTime.setText(Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
+                    Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
+            txtOrder.setText("Order ID : " + notification.OrderID);
         }
     }
 
+    private interface OnClickListener {
+        public void onClickListener(int pos);
+    }
 }

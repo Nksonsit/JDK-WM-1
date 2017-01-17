@@ -96,4 +96,7 @@ public interface AppApi {
 
     @GET(AppConstants.GET_NOTIFICATION)
     Call<NotificationItemRes> getNotificationList(@Query("userID") int userID, @Query("lastNotificationID") int lastNotificationID);
+
+    @GET(AppConstants.NOTIFICATION_READ)
+    Call<BaseResponse> setNotificationRead(@Path("UserId") int userId);
 }

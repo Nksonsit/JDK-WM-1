@@ -8,13 +8,7 @@
     android:layout_marginTop="@dimen/dimen_16dp"
     android:orientation="vertical">
 
-    <com.androidapp.jdklokhandwala.custom.TfTextView
-        android:id="@+id/txtTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_4dp"
-        android:text="11th Jan, 2017 7.22pm"
-        android:textSize="@dimen/N_TEXT" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,10 +20,29 @@
         android:padding="@dimen/dimen_8dp">
 
         <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/txtOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_4dp"
+            android:text="Order Id"
+            android:textColor="@color/black"
+            android:textSize="@dimen/XL_TEXT" />
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/txtTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_4dp"
+            android:text="11th Jan, 2017 7.22pm"
+            android:textColor="@color/black"
+            android:textSize="@dimen/N_TEXT" />
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="20X40 ISI 1Kg"
+            android:padding="@dimen/dimen_4dp"
             android:textSize="@dimen/XL_TEXT"
             app:isBold="true" />
 
@@ -38,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quantity : 1Kg"
+            android:padding="@dimen/dimen_4dp"
             android:textSize="@dimen/M_TEXT" />
     </LinearLayout>
 

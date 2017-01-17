@@ -13,15 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.androidapp.jdklokhandwala.R;
-import com.androidapp.jdklokhandwala.custom.AddToCartDialog;
+import com.androidapp.jdklokhandwala.api.AppApi;
+import com.androidapp.jdklokhandwala.api.model.NotificationItem;
+import com.androidapp.jdklokhandwala.api.model.NotificationItemRes;
+import com.androidapp.jdklokhandwala.custom.BadgeHelper;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
-import com.androidapp.jdklokhandwala.custom.ThicknessCalculatorDialog;
 import com.androidapp.jdklokhandwala.fragment.AboutUsFragment;
 import com.androidapp.jdklokhandwala.fragment.BookmarksFragment;
 import com.androidapp.jdklokhandwala.fragment.CategoryListFragment;
@@ -31,7 +32,16 @@ import com.androidapp.jdklokhandwala.fragment.MyProfileFragment;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.CustomTypefaceSpan;
 import com.androidapp.jdklokhandwala.helper.Functions;
+import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.mikepenz.actionitembadge.library.ActionItemBadge;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -40,6 +50,10 @@ public class DashboardActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
     private TfTextView txtCustomTitle;
+    private ArrayList<NotificationItem> notificationItems;
+    private int no_of_notification;
+    private BadgeHelper badgeHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +61,13 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        callNotificationApi();
+        hideUserAction();
     }
 
     public void selectMenuItem(int position) {
@@ -62,6 +83,7 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initDrawer();
+
 
     }
 
@@ -228,6 +250,12 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
+        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.menu_noti), ActionItemBadge.BadgeStyles.RED);
+        if (no_of_notification > 0) {
+            badgeHelper.displayBadge(no_of_notification);
+        }
+
+
         return true;
     }
 
@@ -241,7 +269,9 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_noti:
-                startActivity(new Intent(this, NotificationActivity.class));
+                Intent i1=new Intent(this,NotificationActivity.class);
+                i1.putExtra("notificationItems", (Serializable) notificationItems);
+                startActivity(i1);
                 overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
                 break;
 
@@ -259,10 +289,30 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        hideUserAction();
+    private ArrayList<NotificationItem> callNotificationApi() {
+        notificationItems = new ArrayList<>();
+        if(PrefUtils.getUserFullProfileDetails(this)!=null) {
+            AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
+            appApi.getNotificationList(PrefUtils.getUserFullProfileDetails(this).getUserID(), 0).enqueue(new Callback<NotificationItemRes>() {
+                @Override
+                public void onResponse(Call<NotificationItemRes> call, Response<NotificationItemRes> response) {
 
+                    if (response.body() != null) {
+                       // Log.e("resp", response.body().getResponseMessage() + " || " + response.body().Data.lstnotification.size());
+                        if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
+                            no_of_notification=response.body().Data.UnReadCount;
+                            notificationItems.addAll(response.body().Data.lstnotification);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<NotificationItemRes> call, Throwable t) {
+
+                }
+            });
+
+        }
+        return notificationItems;
     }
 }

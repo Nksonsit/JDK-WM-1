@@ -46,7 +46,14 @@ import retrofit2.Response;
 
 public class Functions {
 
-    public static final String ServerDateTimeFormat = "yyyy/MM/dd HH:mm:ss";
+    //2017-01-12 17:31:03
+
+    public static final String ServerDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+    public static final String HHmmss = "HH:mm:ss";
+    public static final String hhmmAMPM = "hh:mm a";
+    public static final String ddMMMYYYY = "dd MMM, yyyy";
+    //17 Jan, 2017 03:11pm
+    public static final String CommonDateTimeFormat = ddMMMYYYY +"" + hhmmAMPM;
 
     public static final String ServerDateFormat = "yyyy-MM-dd";
 
@@ -223,8 +230,6 @@ public class Functions {
         alert.show();
     }
 
-
-
     public interface DialogOptionsSelectedListener {
         void onSelect(boolean isYes);
     }
@@ -289,5 +294,21 @@ public class Functions {
             }
         }
         return String.valueOf(input);
+    }
+
+    public static String formatDate(String inputDate, String inputPattern, String outputPattern) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(inputDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 }

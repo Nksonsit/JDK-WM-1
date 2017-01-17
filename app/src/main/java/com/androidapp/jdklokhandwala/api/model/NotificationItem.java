@@ -10,8 +10,8 @@ import java.io.Serializable;
 
 public class NotificationItem extends BaseResponse implements Serializable {
 
-    public int NotificationId,NotificationTypeId;
-    public String Description;
+    public int NotificationId,NotificationTypeId,OrderID;
+    public String Description,CreatedDate;
     public String Title;
 
     public String getContent() {
@@ -21,8 +21,6 @@ public class NotificationItem extends BaseResponse implements Serializable {
     public void setContent(String content) {
         this.Description = content;
     }
-
-
 
     public String getTitle() {
         return Title;

@@ -42,6 +42,8 @@ public class AppConstants {
 
     public static final String GET_NOTIFICATION = "Notification/GetNotifications";
 
+    public static final String NOTIFICATION_READ="Notification/NotificationRead/{UserId}";
+
     public static final String GetOrderDetailUrl = "Order/GetOrderDetail/{OrderID}";
 
     public static final String QuotationAcceptRejectUrl = "Order/QuotationAcceptReject";
@@ -51,6 +53,89 @@ public class AppConstants {
     public static String isPlaceOrder="isPlaceOrder";
     public static String paymentMethodID="paymentMethodID";
     public static String isInquiry="isInquiry";
+
+
+    public enum NotificationTypeId {
+        QuotationRequest(8, "QuotationRequest"),
+        QuatationCancelledByAdmin(9, "QuatationCancelledByAdmin"),
+        QuotationGenerated(10, "QuotationGenerated"),
+        CancelledByUser(11, "CancelledByUser"),
+        OrderPlaced(12, "OrderPlaced"),
+        OrderCancelledByAdmin(13, "OrderCancelledByAdmin"),
+        OrderDispatched(14, "OrderDispatched");
+
+
+        Object[] values;
+
+        NotificationTypeId(Object... _values) {
+            this.values = _values;
+        }
+
+        public int getValue() {
+            return (int) values[0];
+        }
+
+        public String getName() {
+            return (String) values[1];
+        }
+
+        public static String getRequestTypeName(int code) {
+            switch (code) {
+                case 8:
+                    return NotificationTypeId.QuotationRequest.getName();
+
+                case 9:
+                    return NotificationTypeId.QuatationCancelledByAdmin.getName();
+
+                case 10:
+                    return NotificationTypeId.QuotationGenerated.getName();
+
+                case 11:
+                    return NotificationTypeId.CancelledByUser.getName();
+
+                case 12:
+                    return NotificationTypeId.OrderPlaced.getName();
+
+                case 13:
+                    return NotificationTypeId.OrderCancelledByAdmin.getName();
+
+                case 14:
+                    return NotificationTypeId.OrderDispatched.getName();
+
+                default:
+                    return null;
+            }
+        }
+
+        public static int getRequestTypeId(int code) {
+            switch (code) {
+                case 8:
+                    return NotificationTypeId.QuotationRequest.getValue();
+
+                case 9:
+                    return NotificationTypeId.QuatationCancelledByAdmin.getValue();
+
+                case 10:
+                    return NotificationTypeId.QuotationGenerated.getValue();
+
+                case 11:
+                    return NotificationTypeId.CancelledByUser.getValue();
+
+                case 12:
+                    return NotificationTypeId.OrderPlaced.getValue();
+
+                case 13:
+                    return NotificationTypeId.OrderCancelledByAdmin.getValue();
+
+                case 14:
+                    return NotificationTypeId.OrderDispatched.getValue();
+
+                default:
+                    return -1;
+            }
+        }
+    }
+
 
     /*15 Days=20
     Weekly=19

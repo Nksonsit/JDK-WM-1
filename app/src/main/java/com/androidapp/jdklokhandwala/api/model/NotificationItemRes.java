@@ -1,5 +1,7 @@
 package com.androidapp.jdklokhandwala.api.model;
 
+import android.app.Notification;
+
 import java.util.List;
 
 /**
@@ -7,13 +9,6 @@ import java.util.List;
  */
 
 public class NotificationItemRes extends BaseResponse {
-    List<NotificationItem> DataList;
+    public NotificationDataPojo Data;
 
-    public List<NotificationItem> getDataList() {
-        return DataList;
-    }
-
-    public void setDataList(List<NotificationItem> dataList) {
-        DataList = dataList;
-    }
 }

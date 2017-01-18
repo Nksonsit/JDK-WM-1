@@ -188,13 +188,13 @@ public class WeightCalculatorActivity extends AppCompatActivity {
             return 3;
         }
         if (type.equals("Ms square bar")) {
-            return 2;
+            return 1;
         }
         if (type.equals("Ms Round Bar")) {
-            return 2;
+            return 1;
         }
         if (type.equals("Ms Round Pipe")) {
-            return 3;
+            return 2;
         }
         return 0;
     }
@@ -225,9 +225,6 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 case 1:
                     hint = "Wall Thickness";
                     break;
-                case 2:
-                    hint = "Wall Thickness";
-                    break;
 
             }
         }
@@ -241,11 +238,11 @@ public class WeightCalculatorActivity extends AppCompatActivity {
         if (type == 0 || type == 1) {
             ans = (Double.valueOf(inputList.get(0)) * Double.valueOf(inputList.get(1)) * Double.valueOf(inputList.get(2))) / 127415;
         } else if (type == 2) {
-            ans = ((((Double.valueOf(inputList.get(0)) * Double.valueOf(inputList.get(1))) / 127)) / 3.2808);
+            ans = ((((Double.valueOf(inputList.get(0)) * Double.valueOf(inputList.get(0))) / 127)) / 3.2808);
         } else if (type == 3) {
-            ans = ((((Double.valueOf(inputList.get(0)) * Double.valueOf(inputList.get(1))) / 160)) / 3.2808);
+            ans = ((((Double.valueOf(inputList.get(0)) * Double.valueOf(inputList.get(0))) / 160)) / 3.2808);
         } else if (type == 4) {
-            ans = ((Double.valueOf(inputList.get(0)) - Double.valueOf(inputList.get(1)) * Double.valueOf(inputList.get(2)) * 0.024) / 3.2808);
+            ans = ((Double.valueOf(inputList.get(0)) - Double.valueOf(inputList.get(1)) * Double.valueOf(inputList.get(1)) * 0.024) / 3.2808);
         }
         return ans;
     }
@@ -260,35 +257,35 @@ public class WeightCalculatorActivity extends AppCompatActivity {
         List<WeightObj> list = new ArrayList<>();
         switch (pos) {
             case 5:
-                list.add(new WeightObj("75 x 40", "2.172"));
-                list.add(new WeightObj("7100 x 50", "2.925"));
-                list.add(new WeightObj("7125 x 65", "3.992"));
-                list.add(new WeightObj("7150 x 75", "5.120"));
-                list.add(new WeightObj("7175 x 75", "5.973"));
-                list.add(new WeightObj("7200 x 75", "6.796"));
-                list.add(new WeightObj("7250 x 80", "9.326"));
-                list.add(new WeightObj("7300 x 90", "11.063"));
-                list.add(new WeightObj("7400 x 100", "15.270"));
+                list.add(new WeightObj("75 x 40 mm", "2.172"));
+                list.add(new WeightObj("7100 x 50 mm", "2.925"));
+                list.add(new WeightObj("7125 x 65 mm", "3.992"));
+                list.add(new WeightObj("7150 x 75 mm", "5.120"));
+                list.add(new WeightObj("7175 x 75 mm", "5.973"));
+                list.add(new WeightObj("7200 x 75 mm", "6.796"));
+                list.add(new WeightObj("7250 x 80 mm", "9.326"));
+                list.add(new WeightObj("7300 x 90 mm", "11.063"));
+                list.add(new WeightObj("7400 x 100 mm", "15.270"));
                 break;
 
             case 6:
-                list.add(new WeightObj("ISLAB 100 x 50", "8.00"));
-                list.add(new WeightObj("ISMB 116 x 100", "23.00"));
-                list.add(new WeightObj("ISMB 125 x 75", "13.20"));
-                list.add(new WeightObj("ISMB 150 x 80", "15.00"));
-                list.add(new WeightObj("ISMB 175 x 85", "19.50"));
-                list.add(new WeightObj("ISMB 200 x 100", "25.40"));
-                list.add(new WeightObj("ISMB 225 x 100", "31.20"));
-                list.add(new WeightObj("ISMB 250 x 125", "37.30"));
-                list.add(new WeightObj("ISLB 300 x 150", "37.70"));
-                list.add(new WeightObj("ISMB 300 x 140", "44.20"));
-                list.add(new WeightObj("ISLB 350 x 165", "49.50"));
-                list.add(new WeightObj("ISMB 350 x 140", "52.40"));
-                list.add(new WeightObj("ISMB 400 x 140", "61.60"));
-                list.add(new WeightObj("ISLB 400 x 165", "56.90"));
-                list.add(new WeightObj("ISMB 450 x 150", "72.40"));
-                list.add(new WeightObj("ISMB 500 x 180", "86.92"));
-                list.add(new WeightObj("ISMB 600 x 210", "122.60"));
+                list.add(new WeightObj("ISLAB 100 x 50 mm", "8.00"));
+                list.add(new WeightObj("ISMB 116 x 100 mm", "23.00"));
+                list.add(new WeightObj("ISMB 125 x 75 mm", "13.20"));
+                list.add(new WeightObj("ISMB 150 x 80 mm", "15.00"));
+                list.add(new WeightObj("ISMB 175 x 85 mm", "19.50"));
+                list.add(new WeightObj("ISMB 200 x 100 mm", "25.40"));
+                list.add(new WeightObj("ISMB 225 x 100 mm", "31.20"));
+                list.add(new WeightObj("ISMB 250 x 125 mm", "37.30"));
+                list.add(new WeightObj("ISLB 300 x 150 mm", "37.70"));
+                list.add(new WeightObj("ISMB 300 x 140 mm", "44.20"));
+                list.add(new WeightObj("ISLB 350 x 165 mm", "49.50"));
+                list.add(new WeightObj("ISMB 350 x 140 mm", "52.40"));
+                list.add(new WeightObj("ISMB 400 x 140 mm", "61.60"));
+                list.add(new WeightObj("ISLB 400 x 165 mm", "56.90"));
+                list.add(new WeightObj("ISMB 450 x 150 mm", "72.40"));
+                list.add(new WeightObj("ISMB 500 x 180 mm", "86.92"));
+                list.add(new WeightObj("ISMB 600 x 210 mm", "122.60"));
                 break;
 
             case 7:
@@ -300,14 +297,14 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 break;
 
             case 8:
-                list.add(new WeightObj("20 x 20 x 3", "0.274"));
-                list.add(new WeightObj("30 x 30 x 3", "0.426"));
-                list.add(new WeightObj("40 x 40 x 6", "1.0266"));
-                list.add(new WeightObj("50 x 50 x 6", "1.344"));
-                list.add(new WeightObj("60 x 60 x 6", "1.646"));
-                list.add(new WeightObj("75 x 75 x 10", "3.337"));
-                list.add(new WeightObj("100 x 100 x 10", "4.572"));
-                list.add(new WeightObj("150 x 150 x 150", "6.95"));
+                list.add(new WeightObj("20 x 20 x 3 mm", "0.274"));
+                list.add(new WeightObj("30 x 30 x 3 mm", "0.426"));
+                list.add(new WeightObj("40 x 40 x 6 mm", "1.0266"));
+                list.add(new WeightObj("50 x 50 x 6 mm", "1.344"));
+                list.add(new WeightObj("60 x 60 x 6 mm", "1.646"));
+                list.add(new WeightObj("75 x 75 x 10 mm", "3.337"));
+                list.add(new WeightObj("100 x 100 x 10 mm", "4.572"));
+                list.add(new WeightObj("150 x 150 x 150 mm", "6.95"));
                 break;
 
             case 9:
@@ -319,33 +316,33 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 break;
 
             case 10:
-                list.add(new WeightObj("6(R)", "0.067"));
-                list.add(new WeightObj("8", "0.120"));
-                list.add(new WeightObj("10", "0.188"));
-                list.add(new WeightObj("12", "0.270"));
-                list.add(new WeightObj("16", "0.480"));
-                list.add(new WeightObj("20", "0.751"));
-                list.add(new WeightObj("16", "0.480"));
-                list.add(new WeightObj("16", "0.480"));
-                list.add(new WeightObj("20", "0.751"));
-                list.add(new WeightObj("25", "1.174"));
-                list.add(new WeightObj("32", "1.925"));
+                list.add(new WeightObj("6(R) mm", "0.067"));
+                list.add(new WeightObj("8 mm", "0.120"));
+                list.add(new WeightObj("10 mm", "0.188"));
+                list.add(new WeightObj("12 mm", "0.270"));
+                list.add(new WeightObj("16 mm", "0.480"));
+                list.add(new WeightObj("20 mm", "0.751"));
+                list.add(new WeightObj("16 mm", "0.480"));
+                list.add(new WeightObj("16 mm", "0.480"));
+                list.add(new WeightObj("20 mm", "0.751"));
+                list.add(new WeightObj("25 mm", "1.174"));
+                list.add(new WeightObj("32 mm", "1.925"));
                 break;
 
             case 11:
-                list.add(new WeightObj("6", "0.222"));
-                list.add(new WeightObj("8", "0.395"));
-                list.add(new WeightObj("10", "0.617"));
-                list.add(new WeightObj("12", "0.888"));
-                list.add(new WeightObj("16", "1.578"));
-                list.add(new WeightObj("20", "2.466"));
-                list.add(new WeightObj("22", "2.980"));
-                list.add(new WeightObj("25", "3.854"));
-                list.add(new WeightObj("28", "4.830"));
-                list.add(new WeightObj("32", "6.313"));
-                list.add(new WeightObj("36", "7.990"));
-                list.add(new WeightObj("40", "9.864"));
-                list.add(new WeightObj("50", "15.410"));
+                list.add(new WeightObj("6 mm", "0.222"));
+                list.add(new WeightObj("8 mm", "0.395"));
+                list.add(new WeightObj("10 mm", "0.617"));
+                list.add(new WeightObj("12 mm", "0.888"));
+                list.add(new WeightObj("16 mm", "1.578"));
+                list.add(new WeightObj("20 mm", "2.466"));
+                list.add(new WeightObj("22 mm", "2.980"));
+                list.add(new WeightObj("25 mm", "3.854"));
+                list.add(new WeightObj("28 mm", "4.830"));
+                list.add(new WeightObj("32 mm", "6.313"));
+                list.add(new WeightObj("36 mm", "7.990"));
+                list.add(new WeightObj("40 mm", "9.864"));
+                list.add(new WeightObj("50 mm", "15.410"));
                 break;
 
             case 12:

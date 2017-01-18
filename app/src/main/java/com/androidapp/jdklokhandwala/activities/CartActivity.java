@@ -198,19 +198,11 @@ public class CartActivity extends AppCompatActivity {
                         new PaymentMethodDialog(CartActivity.this, getResources().getString(R.string.payment_mode_dialog), new PaymentMethodDialog.OnSelectClick() {
                             @Override
                             public void onSelectClick(int id) {
-                                Functions.showAlertDialogWithOkCancel(CartActivity.this, "", new Functions.DialogOptionsSelectedListener() {
-                                    @Override
-                                    public void onSelect(boolean isYes) {
-                                        if (isYes) {
-                                            Intent i = new Intent(CartActivity.this, LoginActivity.class);
-                                            i.putExtra(AppConstants.isPlaceOrder, 0);
-                                            i.putExtra(AppConstants.paymentMethodID, id);
-                                            Functions.fireIntent(CartActivity.this, i);
-                                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                        }
-                                    }
-                                });
-
+                                Intent i = new Intent(CartActivity.this, LoginActivity.class);
+                                i.putExtra(AppConstants.isPlaceOrder, 0);
+                                i.putExtra(AppConstants.paymentMethodID, id);
+                                Functions.fireIntent(CartActivity.this, i);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
                         }).show();
                     }

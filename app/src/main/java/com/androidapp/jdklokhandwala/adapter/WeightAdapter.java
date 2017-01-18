@@ -58,7 +58,7 @@ public class WeightAdapter extends ArrayAdapter<WeightObj> {
         View convertView = inflater.inflate(textViewResourceId, parent, false);
 
         TfTextView txtItem = (TfTextView) convertView.findViewById(R.id.spinnerItem);
-        txtItem.setText(models.get(position).getName()+" mm");
+        txtItem.setText(models.get(position).getName());
 
         return convertView;
     }

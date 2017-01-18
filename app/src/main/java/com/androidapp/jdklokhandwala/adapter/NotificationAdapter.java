@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.model.NotificationItem;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
-import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 
 import java.util.ArrayList;
@@ -24,10 +23,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private Context context;
     private ArrayList<NotificationItem> productList;
     private OnClickListener onClickListener;
-    public NotificationAdapter(Context context, ArrayList<NotificationItem> productList) {
+    public NotificationAdapter(Context context, ArrayList<NotificationItem> productList, OnClickListener onClickListener) {
         this.context = context;
         this.productList = productList;
-       // this.onClickListener=onClickListener;
+        this.onClickListener=onClickListener;
     }
 
     @Override
@@ -40,6 +39,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         NotificationItem notification = productList.get(position);
         holder.setDetails(notification);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickListener.onClickListener(position);
+            }
+        });
     }
 
     @Override
@@ -62,7 +67,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public void setDetails(NotificationItem notification) {
             Log.e("Notification type", Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
                     Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
-            txtTitle.setText(AppConstants.NotificationTypeId.getRequestTypeName(notification.NotificationTypeId));
+            txtTitle.setText(notification.Title);
+            //txtTitle.setText(AppConstants.NotificationTypeId.getRequestTypeName(notification.NotificationTypeId));
             txtContent.setText(notification.getContent());
             txtTime.setText(Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
                     Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
@@ -70,7 +76,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
     }
 
-    private interface OnClickListener {
+    public interface OnClickListener {
         public void onClickListener(int pos);
     }
 }

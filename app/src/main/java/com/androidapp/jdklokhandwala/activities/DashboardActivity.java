@@ -291,7 +291,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private ArrayList<NotificationItem> callNotificationApi() {
         notificationItems = new ArrayList<>();
-        if(PrefUtils.getUserFullProfileDetails(this)!=null) {
+        if (PrefUtils.isUserLoggedIn(DashboardActivity.this))  {
             AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
             appApi.getNotificationList(PrefUtils.getUserFullProfileDetails(this).getUserID(), 0).enqueue(new Callback<NotificationItemRes>() {
                 @Override

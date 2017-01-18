@@ -3,6 +3,7 @@ package com.androidapp.jdklokhandwala.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         statusID= getIntent().getIntExtra(AppConstants.statusID, 10);
         isInquiry = getIntent().getBooleanExtra(AppConstants.isInquiry, true);
 
-
+        Log.e("details come",orderID + " || " + statusID +" || "+ isInquiry);
         txtReferCode = (TfTextView) findViewById(R.id.txtReferCode);
 
         orderContainer = (LinearLayout) findViewById(R.id.orderListContainer);

@@ -10,18 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.activities.DashboardActivity;
-import com.androidapp.jdklokhandwala.activities.LoginActivity;
 import com.androidapp.jdklokhandwala.api.AppApi;
-import com.androidapp.jdklokhandwala.api.model.AddToCart;
-import com.androidapp.jdklokhandwala.api.model.AddToCartTemp;
-import com.androidapp.jdklokhandwala.api.model.BaseResponse;
-import com.androidapp.jdklokhandwala.api.model.CityRes;
-import com.androidapp.jdklokhandwala.api.model.PlaceOrderReq;
 import com.androidapp.jdklokhandwala.api.model.RegistrationRes;
 import com.androidapp.jdklokhandwala.api.model.UpdateUserRequest;
 import com.androidapp.jdklokhandwala.api.model.UpdateUserResp;
@@ -33,9 +25,6 @@ import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
@@ -189,8 +178,8 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() == 6) {
-                   // setBillingCity(Integer.valueOf(charSequence.toString().trim()));
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()),enterBCity,enterBArea);
+                    // setBillingCity(Integer.valueOf(charSequence.toString().trim()));
+                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterBCity, enterBArea);
                 } else {
                     enterBCity.setText("");
                     enterBArea.setText("");
@@ -214,7 +203,7 @@ public class MyProfileFragment extends Fragment {
 
                 if (charSequence.toString().trim().length() == 6) {
                     //setShippingCity(Integer.valueOf(charSequence.toString().trim()));
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()),enterSCity,enterSArea);
+                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterSCity, enterSArea);
                 } else {
                     enterSCity.setText("");
                     enterSArea.setText("");
@@ -237,17 +226,17 @@ public class MyProfileFragment extends Fragment {
                 if (validateField()) {
                     dialog.show();
 
-                    UpdateUserRequest updateUserRequest=new UpdateUserRequest();
-                    updateUserRequest.UserID=userPojo.getUserID();
-                    updateUserRequest.Name=userPojo.getName();
-                    updateUserRequest.Mobile=userPojo.getMobile();
-                    updateUserRequest.EmailID=userPojo.getEmailID();
-                    updateUserRequest.BillingAddress1=enterBAddress1.getText().toString().trim();
-                    updateUserRequest.BillingAddress2=enterBAddress2.getText().toString().trim();
-                    updateUserRequest.BillingPinCode=enterBPincode.getText().toString().trim();
-                    updateUserRequest.ShippingAddress1=enterSAddress1.getText().toString().trim();
-                    updateUserRequest.ShippingAddress2=enterSAddress2.getText().toString().trim();
-                    updateUserRequest.ShippingPinCode=enterSPincode.getText().toString().trim();
+                    UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+                    updateUserRequest.UserID = userPojo.getUserID();
+                    updateUserRequest.Name = enterName.getText().toString().trim();
+                    updateUserRequest.Mobile = userPojo.getMobile();
+                    updateUserRequest.EmailID = enterEmailId.getText().toString().trim();
+                    updateUserRequest.BillingAddress1 = enterBAddress1.getText().toString().trim();
+                    updateUserRequest.BillingAddress2 = enterBAddress2.getText().toString().trim();
+                    updateUserRequest.BillingPinCode = enterBPincode.getText().toString().trim();
+                    updateUserRequest.ShippingAddress1 = enterSAddress1.getText().toString().trim();
+                    updateUserRequest.ShippingAddress2 = enterSAddress2.getText().toString().trim();
+                    updateUserRequest.ShippingPinCode = enterSPincode.getText().toString().trim();
 
                     updateUserApiCall(updateUserRequest);
                 }
@@ -266,14 +255,14 @@ public class MyProfileFragment extends Fragment {
                 dialog.dismiss();
                 if (response.body() != null && response.body().getResponseMessage() != null) {
                     Log.e("update user resp", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseCode()==1) {
+                    if (response.body().getResponseCode() == 1) {
                         Functions.showToast(getActivity(), response.body().getResponseMessage());
                         updateUserPojo(response.body().getData());
                         Intent i = new Intent(getActivity(), DashboardActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         Functions.fireIntent(getActivity(), i);
-                        ((Activity)getActivity()).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        ((Activity)getActivity()).finish();
+                        ((Activity) getActivity()).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        ((Activity) getActivity()).finish();
                     } else {
                         Functions.showToast(getActivity(), "Fail");
                     }
@@ -305,42 +294,47 @@ public class MyProfileFragment extends Fragment {
     }
 
     private boolean validateField() {
-        if (enterBAddress1.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter billing address line 1");
+        if (enterName.getText().toString().trim().length() == 0) {
+            Functions.showToast(getActivity(), "Please enter UserName");
             return false;
-        } else if (enterBAddress2.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter billing address line 2");
+        } else if (enterEmailId.getText().toString().trim().length() == 0) {
+            Functions.showToast(getActivity(), "Please enter Email");
             return false;
-        } else if (enterBPincode.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter billing pin code");
+        } else if (enterMobileNo.getText().toString().trim().length() == 0) {
+            Functions.showToast(getActivity(), "Please enter MobileNo");
             return false;
-        } else if (enterBPincode.getText().toString().trim().length() != 6) {
-            Functions.showToast(getActivity(), "Please enter valid billing pin code");
-            return false;
-        } else if (enterSAddress1.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter shipping address line 1");
-            return false;
-        } else if (enterSAddress2.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter shipping address line 2");
-            return false;
-        } else if (enterSPincode.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter shipping pin code");
-            return false;
-        } else if (enterSPincode.getText().toString().trim().length() != 6) {
-            Functions.showToast(getActivity(), "Please enter valid shipping pin code");
-            return false;
-        } else if (enterBCity.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter valid billing pin code");
-            return false;
-        } else if (enterSCity.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter valid shipping pin code");
-            return false;
-        } else if (enterBArea.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter valid billing pin code");
-            return false;
-        } else if (enterSArea.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter valid shipping pin code");
-            return false;
+        } else if (enterBAddress1.getText().toString().trim().length() != 0 ||
+                enterBAddress2.getText().toString().trim().length() != 0 ||
+                enterBPincode.getText().toString().trim().length() != 0) {
+            if (enterBAddress1.getText().toString().trim().length() == 0) {
+                Functions.showToast(getActivity(), "Please enter billing address line 1");
+                return false;
+            } else if (enterBAddress2.getText().toString().trim().length() == 0) {
+                Functions.showToast(getActivity(), "Please enter billing address line 2");
+                return false;
+            } else if (enterBPincode.getText().toString().trim().length() == 0) {
+                Functions.showToast(getActivity(), "Please enter billing pin code");
+                return false;
+            } else if (enterBPincode.getText().toString().trim().length() != 6) {
+                Functions.showToast(getActivity(), "Please enter valid billing pin code");
+                return false;
+            }
+        } else if (enterSAddress1.getText().toString().trim().length() != 0 ||
+                enterSAddress2.getText().toString().trim().length() != 0 ||
+                enterSPincode.getText().toString().trim().length() != 0) {
+            if (enterSAddress1.getText().toString().trim().length() == 0) {
+                Functions.showToast(getActivity(), "Please enter shipping address line 1");
+                return false;
+            } else if (enterSAddress2.getText().toString().trim().length() == 0) {
+                Functions.showToast(getActivity(), "Please enter shipping address line 2");
+                return false;
+            } else if (enterSPincode.getText().toString().trim().length() == 0) {
+                Functions.showToast(getActivity(), "Please enter shipping pin code");
+                return false;
+            } else if (enterSPincode.getText().toString().trim().length() != 6) {
+                Functions.showToast(getActivity(), "Please enter valid shipping pin code");
+                return false;
+            }
         }
         return true;
     }

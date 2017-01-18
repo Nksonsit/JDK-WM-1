@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -20,6 +21,8 @@ import com.androidapp.jdklokhandwala.custom.EmptyLayout;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.custom.familiarrecyclerview.FamiliarRecyclerView;
 import com.androidapp.jdklokhandwala.custom.familiarrecyclerview.FamiliarRecyclerViewOnScrollListener;
+import com.androidapp.jdklokhandwala.helper.AppConstants;
+import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
 
@@ -87,7 +90,36 @@ public class NotificationActivity extends AppCompatActivity {
 
         emptyLayout.setContent("No Notifications", R.drawable.ic_action_notification);
 
-        adapter = new NotificationAdapter(NotificationActivity.this, notificationItems);
+        adapter = new NotificationAdapter(NotificationActivity.this, notificationItems, new NotificationAdapter.OnClickListener() {
+            @Override
+            public void onClickListener(int pos) {
+              //  Log.e("item clicked",notificationItems.get(pos).OrderID+" || "+ notificationItems.get(pos).NotificationTypeId);
+                Intent i = new Intent(NotificationActivity.this, OrderDetailActivity.class);
+                i.putExtra("orderID", notificationItems.get(pos).OrderID);
+                switch (notificationItems.get(pos).NotificationTypeId)
+                {
+                    case 8:
+                    case 9:
+                    case 10:
+                    case 11:
+                        i.putExtra(AppConstants.isInquiry, true);
+                        break;
+                    case 12:
+                    case 13:
+                    case 14:
+                        i.putExtra(AppConstants.isInquiry, false);
+                        break;
+
+                    default:
+                        i.putExtra(AppConstants.isInquiry, false);
+                        break;
+                }
+                //i.putExtra(AppConstants.isInquiry, false);
+                i.putExtra(AppConstants.statusID, notificationItems.get(pos).NotificationId);
+                Functions.fireIntent(NotificationActivity.this, i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
         notificationRV.setAdapter(adapter);
         // callNotificationApi();
 

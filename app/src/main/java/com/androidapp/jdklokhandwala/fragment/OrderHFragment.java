@@ -90,6 +90,7 @@ public class OrderHFragment extends Fragment {
         mAdapter = new OrderAdapter(getActivity(), orderList, new OrderAdapter.OnOptionSelectedListener() {
             @Override
             public void doPerformAction(int position) {
+
                 Intent i = new Intent(getActivity(), OrderDetailActivity.class);
                 i.putExtra("orderID", orderList.get(position).getOrderID());
                 i.putExtra(AppConstants.isInquiry, false);

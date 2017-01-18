@@ -54,10 +54,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false"
                     android:hint="Mobile Number"
                     android:maxLines="1"
                     android:inputType="phone"
                     android:longClickable="false"
+                    android:textColor="@color/black"
                     android:maxLength="14"
                     android:textSize="@dimen/M_TEXT" />
             </LinearLayout>
@@ -97,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Address Line 1"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="@dimen/M_TEXT" />
 
                 <com.androidapp.jdklokhandwala.custom.TfEditText
@@ -105,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:hint="Address Line 2"
+                    android:singleLine="true"
                     android:textSize="@dimen/M_TEXT" />
 
                 <LinearLayout
@@ -119,6 +124,7 @@
                         android:hint="Pincode"
                         android:maxLength="6"
                         android:maxLines="1"
+                        android:singleLine="true"
                         android:paddingLeft="@dimen/dimen_2dp"
                         android:paddingRight="@dimen/dimen_2dp"
                         android:textSize="@dimen/M_TEXT" />
@@ -134,9 +140,13 @@
                         android:layout_weight="1"
                         android:maxLines="1"
                         android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:textColor="@color/black"
                         android:hint="Area"
                         android:longClickable="false"
                         android:maxLength="14"
+                        android:singleLine="true"
                         android:textSize="@dimen/M_TEXT" />
 
                     <Space
@@ -150,9 +160,13 @@
                         android:layout_weight="1"
                         android:maxLines="1"
                         android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:textColor="@color/black"
                         android:hint="City"
                         android:longClickable="false"
                         android:maxLength="14"
+                        android:singleLine="true"
                         android:textSize="@dimen/M_TEXT" />
 
 
@@ -194,6 +208,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:hint="Address Line 1"
+                    android:singleLine="true"
                     android:textSize="@dimen/M_TEXT" />
 
                 <com.androidapp.jdklokhandwala.custom.TfEditText
@@ -202,6 +217,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Address Line 2"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="@dimen/M_TEXT" />
 
                 <LinearLayout
@@ -218,6 +234,7 @@
                         android:maxLines="1"
                         android:paddingLeft="@dimen/dimen_2dp"
                         android:paddingRight="@dimen/dimen_2dp"
+                        android:singleLine="true"
                         android:textSize="@dimen/M_TEXT" />
 
                     <Space
@@ -231,7 +248,11 @@
                         android:layout_weight="1"
                         android:maxLines="1"
                         android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:textColor="@color/black"
                         android:hint="Area"
+                        android:singleLine="true"
                         android:longClickable="false"
                         android:maxLength="14"
                         android:textSize="@dimen/M_TEXT" />
@@ -246,8 +267,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:textColor="@color/black"
                         android:maxLines="1"
                         android:hint="City"
+                        android:singleLine="true"
                         android:longClickable="false"
                         android:maxLength="14"
                         android:textSize="@dimen/M_TEXT" />

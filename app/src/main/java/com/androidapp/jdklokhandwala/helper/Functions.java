@@ -198,7 +198,7 @@ public class Functions {
                 .margin(128)
                 .padding(22)
                 .spacing(1)
-                .gravity(Gravity.TOP)
+                .gravity(Gravity.BOTTOM)
                 .show();
     }
 

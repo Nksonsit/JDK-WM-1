@@ -5,6 +5,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 
@@ -85,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         dialog = new SpotsDialog(LoginActivity.this, R.style.Custom);
 
         isPlaceOrder = getIntent().getIntExtra(AppConstants.isPlaceOrder, 2);
-        paymentMethodID= getIntent().getIntExtra(AppConstants.paymentMethodID, 20);
+        paymentMethodID = getIntent().getIntExtra(AppConstants.paymentMethodID, 20);
 
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
@@ -112,10 +113,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
         signUpBtn = (TfTextView) findViewById(R.id.signUpBtn);
+        signUpBtn.setText(Html.fromHtml("<u>New User? Sign Up</u>"));
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(LoginActivity.this, RegistrationActivity.class);
+                Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
                 i.putExtra(AppConstants.isPlaceOrder, isPlaceOrder);
                 i.putExtra(AppConstants.paymentMethodID, paymentMethodID);
                 Functions.fireIntent(LoginActivity.this, i);

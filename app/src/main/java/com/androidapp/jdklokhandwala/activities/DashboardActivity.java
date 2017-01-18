@@ -71,7 +71,7 @@ public class DashboardActivity extends AppCompatActivity {
         callNotificationApi();
         hideUserAction();
         int cartSize = AddToCart.getCartList().size();
-        if (cartSize > 0 && badgeCart != null) {
+        if (badgeCart != null) {
             badgeCart.displayBadge(cartSize);
         }
     }

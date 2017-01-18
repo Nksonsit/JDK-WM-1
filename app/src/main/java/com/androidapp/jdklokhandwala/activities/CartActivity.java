@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,6 @@ import com.androidapp.jdklokhandwala.api.model.AddToCartPojo;
 import com.androidapp.jdklokhandwala.api.model.AddToCartTemp;
 import com.androidapp.jdklokhandwala.api.model.BaseResponse;
 import com.androidapp.jdklokhandwala.api.model.PlaceOrderReq;
-import com.androidapp.jdklokhandwala.api.model.Product;
-import com.androidapp.jdklokhandwala.api.model.UnitMeasure;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.AddToCartDialog;
 import com.androidapp.jdklokhandwala.custom.EmptyLayout;
@@ -115,15 +114,27 @@ public class CartActivity extends AppCompatActivity {
                 AddToCart product = addToCartList.get(adapterPosition);
                 switch (actionType) {
                     case AppConstants.DELETE_CART_PRODUCT:
-                        addToCartList.remove(adapterPosition);
-                        adapter.notifyItemRemoved(adapterPosition);
-                        AddToCart.DeleteItem(product.CategoryID(), product.ProductID());
-                        Functions.showToast(CartActivity.this, "Delete");
-                        if (addToCartList.size() == 0) {
-                            buttonLayout.setVisibility(View.GONE);
-                        } else {
-                            buttonLayout.setVisibility(View.VISIBLE);
-                        }
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+                        builder.setMessage("Are you sure want to remove this product?")
+                                .setCancelable(true)
+                                .setPositiveButton("YES", (dialog, id) -> {
+                                    addToCartList.remove(adapterPosition);
+                                    adapter.notifyItemRemoved(adapterPosition);
+                                    AddToCart.DeleteItem(product.CategoryID(), product.ProductID());
+                                    Functions.showToast(CartActivity.this, "Delete product from cart.");
+                                    if (addToCartList.size() == 0) {
+                                        buttonLayout.setVisibility(View.GONE);
+                                    } else {
+                                        buttonLayout.setVisibility(View.VISIBLE);
+                                    }
+                                    dialog.dismiss();
+                                })
+                                .setNegativeButton("NO", (dialog, id) -> {
+                                    dialog.dismiss();
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.setCanceledOnTouchOutside(false);
+                        alert.show();
                         break;
 
                     case AppConstants.EDIT_CART_PRODUCT:

@@ -12,15 +12,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_margin="@dimen/dimen_16dp"
         android:gravity="center"
         android:orientation="vertical">
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login to your account"
+            android:textSize="@dimen/XXL_TEXT"
+            app:isBold="true" />
 
         <com.androidapp.jdklokhandwala.custom.TfEditText
             android:id="@+id/enterPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
             android:hint="Phone"
             android:inputType="phone"
             android:maxLength="10"

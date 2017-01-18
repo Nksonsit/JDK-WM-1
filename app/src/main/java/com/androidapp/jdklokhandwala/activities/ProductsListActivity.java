@@ -65,7 +65,7 @@ public class ProductsListActivity extends AppCompatActivity {
         cartItem = menu.findItem(R.id.menu_cart);
         badgeCart = new BadgeHelper(this, menu.findItem(R.id.menu_cart), ActionItemBadge.BadgeStyles.GREY);
         int cartSize = AddToCart.getCartList().size();
-        if (cartSize > 0 && badgeCart != null) {
+        if (badgeCart != null) {
             badgeCart.displayBadge(cartSize);
         }
         return true;
@@ -75,7 +75,7 @@ public class ProductsListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         int cartSize = AddToCart.getCartList().size();
-        if (cartSize > 0 && badgeCart != null) {
+        if (badgeCart != null) {
             badgeCart.displayBadge(cartSize);
         }
     }
@@ -148,6 +148,10 @@ public class ProductsListActivity extends AppCompatActivity {
                                 AddToCart.InsertProduct(addToCart);
                             } else {
                                 Functions.showToast(ProductsListActivity.this, "You have already added this product to cart.");
+                            }
+                            int cartSize = AddToCart.getCartList().size();
+                            if (badgeCart != null) {
+                                badgeCart.displayBadge(cartSize);
                             }
                         }
                     }).show();

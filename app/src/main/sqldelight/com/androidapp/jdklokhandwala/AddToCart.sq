@@ -6,7 +6,8 @@ CREATE TABLE AddToCart (
 	UnitType	TEXT,
 	UnitTypes	TEXT,
 	UnitValue	REAL,
-	KgWeight	REAL
+	KgWeight	REAL,
+	DefaultWeight	REAL
 );
 
 select_all_data:

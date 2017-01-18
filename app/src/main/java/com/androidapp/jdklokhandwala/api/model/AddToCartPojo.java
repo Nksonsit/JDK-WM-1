@@ -16,7 +16,37 @@ public class AddToCartPojo extends AddToCart {
     private String UnitTypes;
     private Double UnitValue;
     private Double KgWeight;
+    private Double DefaultWeight;
 
+    @Nullable
+    @Override
+    public Long id() {
+        return id;
+    }
+
+    @Nullable
+    @Override
+    public Long CategoryID() {
+        return CategoryID;
+    }
+
+    @Nullable
+    @Override
+    public Long ProductID() {
+        return ProductID;
+    }
+
+    @Nullable
+    @Override
+    public String Name() {
+        return Name;
+    }
+
+    @Nullable
+    @Override
+    public String UnitType() {
+        return UnitType;
+    }
 
     public Long getId() {
         return id;
@@ -82,37 +112,16 @@ public class AddToCartPojo extends AddToCart {
         KgWeight = kgWeight;
     }
 
-    @Nullable
-    @Override
-    public Long id() {
-        return id;
+    public Double getDefaultWeight() {
+        return DefaultWeight;
+    }
+
+    public void setDefaultWeight(Double defaultWeight) {
+        DefaultWeight = defaultWeight;
     }
 
     @Nullable
-    @Override
-    public Long CategoryID() {
-        return CategoryID;
-    }
 
-    @Nullable
-    @Override
-    public Long ProductID() {
-        return ProductID;
-    }
-
-    @Nullable
-    @Override
-    public String Name() {
-        return Name;
-    }
-
-    @Nullable
-    @Override
-    public String UnitType() {
-        return UnitType;
-    }
-
-    @Nullable
     @Override
     public String UnitTypes() {
         return UnitTypes;
@@ -130,6 +139,12 @@ public class AddToCartPojo extends AddToCart {
         return KgWeight;
     }
 
+    @Nullable
+    @Override
+    public Double DefaultWeight() {
+        return DefaultWeight;
+    }
+
     @Override
     public String toString() {
         return "AddToCart{"
@@ -140,7 +155,8 @@ public class AddToCartPojo extends AddToCart {
                 + "UnitType=" + UnitType + ", "
                 + "UnitTypes=" + UnitTypes + ", "
                 + "UnitValue=" + UnitValue + ", "
-                + "KgWeight=" + KgWeight
+                + "KgWeight=" + KgWeight + ", "
+                + "DefaultWeight=" + DefaultWeight
                 + "}";
     }
 
@@ -158,7 +174,8 @@ public class AddToCartPojo extends AddToCart {
                     && ((this.UnitType == null) ? (that.UnitType() == null) : this.UnitType.equals(that.UnitType()))
                     && ((this.UnitTypes == null) ? (that.UnitTypes() == null) : this.UnitTypes.equals(that.UnitTypes()))
                     && ((this.UnitValue == null) ? (that.UnitValue() == null) : this.UnitValue.equals(that.UnitValue()))
-                    && ((this.KgWeight == null) ? (that.KgWeight() == null) : this.KgWeight.equals(that.KgWeight()));
+                    && ((this.KgWeight == null) ? (that.KgWeight() == null) : this.KgWeight.equals(that.KgWeight()))
+                    && ((this.DefaultWeight == null) ? (that.DefaultWeight() == null) : this.DefaultWeight.equals(that.DefaultWeight()));
         }
         return false;
     }
@@ -182,6 +199,8 @@ public class AddToCartPojo extends AddToCart {
         h ^= (UnitValue == null) ? 0 : this.UnitValue.hashCode();
         h *= 1000003;
         h ^= (KgWeight == null) ? 0 : this.KgWeight.hashCode();
+        h *= 1000003;
+        h ^= (DefaultWeight == null) ? 0 : this.DefaultWeight.hashCode();
         return h;
     }
 }

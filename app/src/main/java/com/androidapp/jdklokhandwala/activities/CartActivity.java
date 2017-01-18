@@ -137,9 +137,21 @@ public class CartActivity extends AppCompatActivity {
                                 addToCartPojo.setName(product.Name());
                                 addToCartPojo.setUnitValue(Double.valueOf(quantity));
                                 addToCartPojo.setUnitType(type);
-                                addToCartPojo.setKgWeight(product.KgWeight());
+                                addToCartPojo.setUnitTypes(product.UnitTypes());
+
+
+                                Log.e("type",type);
+                                if (type.toString().toLowerCase().trim().contains("kg")) {
+                                    addToCartPojo.setKgWeight(Double.valueOf(quantity));
+                                } else {
+                                    addToCartPojo.setKgWeight((product.DefaultWeight() * Double.valueOf(quantity)));
+                                }
+
+                                addToCartPojo.setDefaultWeight(product.DefaultWeight());
+
                                 AddToCart.UpdateItem(addToCartPojo);
-                                adapter.updateList();
+                                addToCartList=AddToCart.getCartList();
+                                adapter.notifyDataSetChanged();
                             }
                         }).show();
                         break;
@@ -163,11 +175,13 @@ public class CartActivity extends AppCompatActivity {
                     if (PrefUtils.isUserLoggedIn(CartActivity.this)) {
                         Intent i = new Intent(CartActivity.this, BillingActivity.class);
                         i.putExtra(AppConstants.isPlaceOrder, 1);
+                        i.putExtra(AppConstants.paymentMethodID, 21);
                         Functions.fireIntent(CartActivity.this, i);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     } else {
                         Intent i = new Intent(CartActivity.this, LoginActivity.class);
                         i.putExtra(AppConstants.isPlaceOrder, 1);
+                        i.putExtra(AppConstants.paymentMethodID, 21);
                         Functions.fireIntent(CartActivity.this, i);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
@@ -248,7 +262,7 @@ public class CartActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if (response.body() != null && response.body().getResponseMessage() != null) {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
+                    if (response.body().getResponseCode()==1) {
                         AddToCart.DeleteAllData();
                         Functions.showToast(CartActivity.this, "Request for Quotation sent successfully.");
                         Intent i = new Intent(CartActivity.this, DashboardActivity.class);

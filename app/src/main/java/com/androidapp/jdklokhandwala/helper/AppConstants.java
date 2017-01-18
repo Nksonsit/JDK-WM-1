@@ -72,6 +72,7 @@ public class AppConstants {
     public static String paymentMethodID = "paymentMethodID";
     public static String isInquiry = "isInquiry";
     public static String statusID = "statusID";
+    public static String isAccept="isAccept";
 
 
     public enum NotificationTypeId {

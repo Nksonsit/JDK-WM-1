@@ -130,8 +130,13 @@ public class ProductsListActivity extends AppCompatActivity {
                             addToCart.setProductID((long) product.getProductID());
                             addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + Functions.getFormatedInt(product.getWeight()));
                             addToCart.setUnitType(type);
+                            addToCart.setDefaultWeight(product.getWeight());
                             addToCart.setUnitValue(Double.valueOf(quantity));
-                            addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));
+                            if (type.toString().toLowerCase().trim().contains("kg")) {
+                                addToCart.setKgWeight(Double.valueOf(quantity));
+                            } else {
+                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));
+                            }
                             String unitTypes = "";
                             for (int i = 0; i < product.getUnitsOfMeasure().size(); i++) {
                                 unitTypes = unitTypes + "," + product.getUnitsOfMeasure().get(i).getUnitOfMeasure();
@@ -214,7 +219,12 @@ public class ProductsListActivity extends AppCompatActivity {
                                             addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight());
                                             addToCart.setUnitType(type);
                                             addToCart.setUnitValue(Double.valueOf(quantity));
-                                            addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));
+                                            if (type.toString().toLowerCase().trim().contains("kg")) {
+                                                addToCart.setKgWeight(Double.valueOf(quantity));
+                                            } else {
+                                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));
+                                            }
+                                            addToCart.setDefaultWeight(product.getWeight());
                                             String unitTypes = "";
                                             for (int i = 0; i < product.getUnitsOfMeasure().size(); i++) {
                                                 unitTypes = unitTypes + "," + product.getUnitsOfMeasure().get(i).getUnitOfMeasure();

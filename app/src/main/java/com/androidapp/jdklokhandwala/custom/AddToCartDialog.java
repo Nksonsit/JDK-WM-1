@@ -54,7 +54,7 @@ public class AddToCartDialog extends Dialog {
         radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
 
         if (unitValue > 0) {
-            quantity.setText(unitValue + "");
+            quantity.setText(Functions.getFormatedInt(unitValue) + "");
         }
 
         for (int i = 0; i < unitMeasureList.size(); i++) {
@@ -67,8 +67,8 @@ public class AddToCartDialog extends Dialog {
 
         if (selected != null && selected.toString().trim().length() > 0) {
             for (int i = 0; i < radioGroup.getChildCount(); i++) {
-                if (((RadioButton) radioGroup.getChildAt(0)).getText().equals(selected)) {
-                    ((RadioButton) radioGroup.getChildAt(0)).setChecked(true);
+                if (((RadioButton) radioGroup.getChildAt(i)).getText().equals(selected)) {
+                    ((RadioButton) radioGroup.getChildAt(i)).setChecked(true);
                 }
             }
         }
@@ -87,7 +87,7 @@ public class AddToCartDialog extends Dialog {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!quantity.getText().toString().trim().equals("")) {
+                if (!quantity.getText().toString().trim().equals("") && (Integer.valueOf(quantity.getText().toString().trim()) > 0)) {
                     seletedType = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString().trim();
                     if (seletedType != null && !seletedType.toString().trim().equals("")) {
                         OnAddClick.onAddClick(quantity.getText().toString().trim(), seletedType);

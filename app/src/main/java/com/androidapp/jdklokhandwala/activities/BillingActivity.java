@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,15 +14,19 @@ import android.widget.CompoundButton;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.AppApi;
+import com.androidapp.jdklokhandwala.api.model.AcceptOrder;
 import com.androidapp.jdklokhandwala.api.model.AddToCart;
 import com.androidapp.jdklokhandwala.api.model.AddToCartTemp;
 import com.androidapp.jdklokhandwala.api.model.BaseResponse;
 import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.PlaceOrderReq;
+import com.androidapp.jdklokhandwala.api.model.UpdateUserRequest;
+import com.androidapp.jdklokhandwala.api.model.UpdateUserResp;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfEditText;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
@@ -52,6 +57,8 @@ public class BillingActivity extends AppCompatActivity {
     private TfEditText enterBArea;
     private TfEditText enterSArea;
     private SpotsDialog dialog;
+    private boolean isAccept = false;
+    private int OrderID;
 
     private void doFinish() {
         finish();
@@ -88,6 +95,9 @@ public class BillingActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        isAccept = getIntent().getBooleanExtra(AppConstants.isAccept, false);
+        OrderID = getIntent().getIntExtra("OrderID", 0);
 
         dialog = new SpotsDialog(BillingActivity.this, R.style.Custom);
 
@@ -166,14 +176,37 @@ public class BillingActivity extends AppCompatActivity {
                     placeOrderReq.setShippingAddress1(enterShippingAddress1.getText().toString().trim());
                     placeOrderReq.setShippingAddress2(enterShippingAddress2.getText().toString().trim());
                     placeOrderReq.setShippingPinCode(enterSPincode.getText().toString().trim());
-                    placeOrderReq.setPaymentMethodID(1);
+                    placeOrderReq.setPaymentMethodID(21);
                     placeOrderReq.setTotalCartItem(listInput.size());
                     placeOrderReq.setCartItemList(listInput);
 
-                    doPlaceOrderApiCall(placeOrderReq);
+
+                    if (isAccept) {
+                        doupdateProfile();
+                    } else {
+                        doPlaceOrderApiCall(placeOrderReq);
+                    }
+
+
                 }
             }
         });
+    }
+
+    private void doupdateProfile() {
+        UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+        updateUserRequest.UserID = userPojo.getUserID();
+        updateUserRequest.Name = userPojo.getName().trim();
+        updateUserRequest.Mobile = userPojo.getMobile();
+        updateUserRequest.EmailID = userPojo.getEmailID().trim();
+        updateUserRequest.BillingAddress1 = enterBillingAddress1.getText().toString().trim();
+        updateUserRequest.BillingAddress2 = enterBillingAddress2.getText().toString().trim();
+        updateUserRequest.BillingPinCode = enterBPincode.getText().toString().trim();
+        updateUserRequest.ShippingAddress1 = enterShippingAddress1.getText().toString().trim();
+        updateUserRequest.ShippingAddress2 = enterShippingAddress2.getText().toString().trim();
+        updateUserRequest.ShippingPinCode = enterSPincode.getText().toString().trim();
+
+        updateUserApiCall(updateUserRequest);
     }
 
     private void textChangedListener() {
@@ -188,7 +221,7 @@ public class BillingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() == 6) {
                     //setBillingCity(Integer.valueOf(charSequence.toString().trim()));
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()),enterBcity,enterBArea);
+                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterBcity, enterBArea);
                 } else {
                     enterBcity.setText("");
                     enterBArea.setText("");
@@ -211,7 +244,7 @@ public class BillingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 if (charSequence.toString().trim().length() == 6) {
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()),enterScity,enterSArea);
+                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterScity, enterSArea);
                     //setShippingCity(Integer.valueOf(charSequence.toString().trim()));
                 } else {
                     enterScity.setText("");
@@ -372,7 +405,7 @@ public class BillingActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if (response.body() != null && response.body().getResponseMessage() != null) {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
+                    if (response.body().getResponseCode()==1) {
                         AddToCart.DeleteAllData();
                         Functions.showToast(BillingActivity.this, response.body().getResponseMessage());
                         Intent i = new Intent(BillingActivity.this, DashboardActivity.class);
@@ -389,6 +422,57 @@ public class BillingActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
                 dialog.dismiss();
+            }
+        });
+    }
+
+
+    private void updateUserApiCall(UpdateUserRequest updateUserRequest) {
+
+        Log.e("place order req", MyApplication.getGson().toJson(updateUserRequest).toString());
+
+        AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
+        appApi.updateUser(updateUserRequest).enqueue(new Callback<UpdateUserResp>() {
+            @Override
+            public void onResponse(Call<UpdateUserResp> call, Response<UpdateUserResp> response) {
+                dialog.dismiss();
+                if (response.body() != null && response.body().getResponseMessage() != null) {
+                    Log.e("update user resp", MyApplication.getGson().toJson(response.body()).toString());
+                    if (response.body().getResponseCode() == 1) {
+                        AcceptOrder acceptOrder = new AcceptOrder();
+                        acceptOrder.setOrderID(OrderID);
+                        acceptOrder.setIsAccept(1);
+                        callApi(acceptOrder);
+                    } else {
+                        Functions.showToast(BillingActivity.this, "Fail");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateUserResp> call, Throwable t) {
+                dialog.dismiss();
+            }
+
+        });
+    }
+
+
+    private void callApi(AcceptOrder acceptOrder) {
+        AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
+        appApi.acceptRejectQuotation(acceptOrder).enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (response.body() != null) {
+                    if (response.body().getResponseCode() == 1) {
+                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
+
             }
         });
     }

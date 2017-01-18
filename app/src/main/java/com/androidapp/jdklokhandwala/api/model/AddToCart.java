@@ -31,6 +31,7 @@ public abstract class AddToCart implements AddToCartModel {
                     .UnitValue(addToCart.UnitValue())
                     .KgWeight(addToCart.KgWeight())
                     .UnitTypes(addToCart.UnitTypes())
+                    .DefaultWeight(addToCart.DefaultWeight())
                     .asContentValues());
             DatabaseManager.getInstance().closeDatabase();
         }
@@ -94,6 +95,7 @@ public abstract class AddToCart implements AddToCartModel {
                 .UnitValue(addToCart.UnitValue())
                 .KgWeight(addToCart.KgWeight())
                 .UnitTypes(addToCart.UnitTypes())
+                .DefaultWeight(addToCart.DefaultWeight())
                 .asContentValues(), AddToCart.CATEGORYID + " = ? AND " + AddToCart.PRODUCTID + " = ? ", new String[]{String.valueOf(addToCart.CategoryID()), String.valueOf(addToCart.ProductID())});
         DatabaseManager.getInstance().closeDatabase();
     }

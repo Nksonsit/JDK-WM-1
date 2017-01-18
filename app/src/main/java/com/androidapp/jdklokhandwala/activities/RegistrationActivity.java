@@ -341,7 +341,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().getResponseMessage() != null) {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
+                    if (response.body().getResponseCode()==1) {
                         AddToCart.DeleteAllData();
                         Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage());
                         Intent i = new Intent(RegistrationActivity.this, DashboardActivity.class);

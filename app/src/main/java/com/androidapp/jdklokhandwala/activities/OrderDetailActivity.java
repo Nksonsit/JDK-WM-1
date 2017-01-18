@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -145,10 +146,20 @@ public class OrderDetailActivity extends AppCompatActivity {
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AcceptOrder acceptOrder = new AcceptOrder();
+
+
+                Intent i = new Intent(OrderDetailActivity.this, BillingActivity.class);
+                i.putExtra(AppConstants.isPlaceOrder, 1);
+                i.putExtra(AppConstants.paymentMethodID, 21);
+                i.putExtra("OrderID", orderDetail.getOrderID());
+                i.putExtra(AppConstants.isAccept, true);
+                Functions.fireIntent(OrderDetailActivity.this, i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+/*                AcceptOrder acceptOrder = new AcceptOrder();
                 acceptOrder.setOrderID(orderDetail.getOrderID());
                 acceptOrder.setIsAccept(1);
-                callApi(acceptOrder);
+                callApi(acceptOrder);*/
             }
         });
         btnReject.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +179,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null) {
-                    if (response.body().getResponseMessage().toString().toLowerCase().contains("success")) {
+                    if (response.body().getResponseCode()==1) {
                         Functions.showToast(OrderDetailActivity.this, response.body().getResponseMessage());
                     }
                 }

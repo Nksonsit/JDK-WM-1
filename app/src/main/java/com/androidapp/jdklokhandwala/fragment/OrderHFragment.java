@@ -92,7 +92,7 @@ public class OrderHFragment extends Fragment {
             public void doPerformAction(int position) {
 
                 Intent i = new Intent(getActivity(), OrderDetailActivity.class);
-                i.putExtra("orderID", orderList.get(position).getOrderID());
+                i.putExtra("OrderID", orderList.get(position).getOrderID());
                 i.putExtra(AppConstants.isInquiry, false);
                 i.putExtra(AppConstants.statusID, orderList.get(position).getStatusID());
                 Functions.fireIntent(getActivity(), i);

@@ -166,17 +166,10 @@ public class CartActivity extends AppCompatActivity {
                         Functions.fireIntent(CartActivity.this, i);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     } else {
-                        Functions.showAlertDialogWithOkCancel(CartActivity.this, "", new Functions.DialogOptionsSelectedListener() {
-                            @Override
-                            public void onSelect(boolean isYes) {
-                                if (isYes) {
-                                    Intent i = new Intent(CartActivity.this, LoginActivity.class);
-                                    i.putExtra(AppConstants.isPlaceOrder, 1);
-                                    Functions.fireIntent(CartActivity.this, i);
-                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                }
-                            }
-                        });
+                        Intent i = new Intent(CartActivity.this, LoginActivity.class);
+                        i.putExtra(AppConstants.isPlaceOrder, 1);
+                        Functions.fireIntent(CartActivity.this, i);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 } else {
                     Functions.showToast(CartActivity.this, "Please first add item to cart.");

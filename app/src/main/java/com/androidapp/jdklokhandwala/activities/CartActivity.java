@@ -265,7 +265,7 @@ public class CartActivity extends AppCompatActivity {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
                     if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
                         AddToCart.DeleteAllData();
-                        Functions.showToast(CartActivity.this, response.body().getResponseMessage());
+                        Functions.showToast(CartActivity.this, "Request for Quotation sent successfully.");
                         Intent i = new Intent(CartActivity.this, DashboardActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         Functions.fireIntent(CartActivity.this, i);

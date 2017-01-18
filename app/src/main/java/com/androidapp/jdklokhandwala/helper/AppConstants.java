@@ -6,6 +6,8 @@ package com.androidapp.jdklokhandwala.helper;
 
 public class AppConstants {
 
+    public static final int RESPONSE_SUCCESS = 1;
+
     // Adhar Card Regex : ^\d{4}\s\d{4}\s\d{4}$
     // e.g. 4552 6369 3654
     public static final String AADHAR_CARD = "^\\d{4}\\s\\d{4}\\s\\d{4}$";
@@ -58,7 +60,7 @@ public class AppConstants {
 
     public static final String GET_NOTIFICATION = "Notification/GetNotifications";
 
-    public static final String NOTIFICATION_READ="Notification/NotificationRead/{UserId}";
+    public static final String NOTIFICATION_READ = "Notification/GetNotificationRead/{UserId}";
 
     public static final String GetOrderDetailUrl = "Order/GetOrderDetail/{OrderID}";
 
@@ -66,10 +68,10 @@ public class AppConstants {
 
     public static final String LOGGED_IN = "is_logged_in";
     public static final String FCM_TOKEN = "fcm_token";
-    public static String isPlaceOrder="isPlaceOrder";
-    public static String paymentMethodID="paymentMethodID";
-    public static String isInquiry="isInquiry";
-    public static String statusID="statusID";
+    public static String isPlaceOrder = "isPlaceOrder";
+    public static String paymentMethodID = "paymentMethodID";
+    public static String isInquiry = "isInquiry";
+    public static String statusID = "statusID";
 
 
     public enum NotificationTypeId {

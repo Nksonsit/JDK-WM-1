@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,11 +21,13 @@ import com.androidapp.jdklokhandwala.api.model.AddToCartPojo;
 import com.androidapp.jdklokhandwala.api.model.Category;
 import com.androidapp.jdklokhandwala.api.model.Product;
 import com.androidapp.jdklokhandwala.custom.AddToCartDialog;
+import com.androidapp.jdklokhandwala.custom.BadgeHelper;
 import com.androidapp.jdklokhandwala.custom.EmptyLayout;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.custom.familiarrecyclerview.FamiliarRecyclerView;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
+import com.mikepenz.actionitembadge.library.ActionItemBadge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,8 @@ public class ProductsListActivity extends AppCompatActivity {
     private ImageView imgCart;
     private SwipeRefreshLayout swipeRefresh;
     private AlertDialog dialog;
+    private MenuItem cartItem;
+    private BadgeHelper badgeCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,27 @@ public class ProductsListActivity extends AppCompatActivity {
         category = (Category) getIntent().getSerializableExtra("category");
 
         init();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_product, menu);
+        cartItem = menu.findItem(R.id.menu_cart);
+        badgeCart = new BadgeHelper(this, menu.findItem(R.id.menu_cart), ActionItemBadge.BadgeStyles.GREY);
+        int cartSize = AddToCart.getCartList().size();
+        if (cartSize > 0 && badgeCart != null) {
+            badgeCart.displayBadge(cartSize);
+        }
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int cartSize = AddToCart.getCartList().size();
+        if (cartSize > 0 && badgeCart != null) {
+            badgeCart.displayBadge(cartSize);
+        }
     }
 
     private void init() {

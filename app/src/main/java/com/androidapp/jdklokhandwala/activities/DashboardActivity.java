@@ -19,6 +19,7 @@ import android.view.View;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.AppApi;
+import com.androidapp.jdklokhandwala.api.model.AddToCart;
 import com.androidapp.jdklokhandwala.api.model.NotificationItem;
 import com.androidapp.jdklokhandwala.api.model.NotificationItemRes;
 import com.androidapp.jdklokhandwala.custom.BadgeHelper;
@@ -52,7 +53,8 @@ public class DashboardActivity extends AppCompatActivity {
     private TfTextView txtCustomTitle;
     private ArrayList<NotificationItem> notificationItems;
     private int no_of_notification;
-    private BadgeHelper badgeHelper;
+    private BadgeHelper badgeHelper, badgeCart;
+    MenuItem cartItem;
 
 
     @Override
@@ -68,6 +70,10 @@ public class DashboardActivity extends AppCompatActivity {
         super.onResume();
         callNotificationApi();
         hideUserAction();
+        int cartSize = AddToCart.getCartList().size();
+        if (cartSize > 0 && badgeCart != null) {
+            badgeCart.displayBadge(cartSize);
+        }
     }
 
     public void selectMenuItem(int position) {
@@ -250,12 +256,16 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
-        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.menu_noti), ActionItemBadge.BadgeStyles.RED);
+        cartItem = menu.findItem(R.id.menu_cart);
+        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.menu_noti), ActionItemBadge.BadgeStyles.GREY);
+        badgeCart = new BadgeHelper(this, menu.findItem(R.id.menu_cart), ActionItemBadge.BadgeStyles.GREY);
         if (no_of_notification > 0) {
             badgeHelper.displayBadge(no_of_notification);
         }
-
-
+        int cartSize = AddToCart.getCartList().size();
+        if (cartSize > 0 && badgeCart != null) {
+            badgeCart.displayBadge(cartSize);
+        }
         return true;
     }
 
@@ -269,7 +279,7 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_noti:
-                Intent i1=new Intent(this,NotificationActivity.class);
+                Intent i1 = new Intent(this, NotificationActivity.class);
                 i1.putExtra("notificationItems", (Serializable) notificationItems);
                 startActivity(i1);
                 overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
@@ -291,16 +301,18 @@ public class DashboardActivity extends AppCompatActivity {
 
     private ArrayList<NotificationItem> callNotificationApi() {
         notificationItems = new ArrayList<>();
-        if (PrefUtils.isUserLoggedIn(DashboardActivity.this))  {
+        if (PrefUtils.isUserLoggedIn(DashboardActivity.this)) {
             AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
             appApi.getNotificationList(PrefUtils.getUserFullProfileDetails(this).getUserID(), 0).enqueue(new Callback<NotificationItemRes>() {
                 @Override
                 public void onResponse(Call<NotificationItemRes> call, Response<NotificationItemRes> response) {
 
                     if (response.body() != null) {
-                       // Log.e("resp", response.body().getResponseMessage() + " || " + response.body().Data.lstnotification.size());
+                        // Log.e("resp", response.body().getResponseMessage() + " || " + response.body().Data.lstnotification.size());
                         if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
-                            no_of_notification=response.body().Data.UnReadCount;
+                            no_of_notification = response.body().Data.UnReadCount;
+                            badgeHelper.displayBadge(no_of_notification);
+
                             notificationItems.addAll(response.body().Data.lstnotification);
                         }
                     }

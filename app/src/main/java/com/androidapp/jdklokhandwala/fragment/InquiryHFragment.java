@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,8 +89,9 @@ public class InquiryHFragment extends Fragment {
         mAdapter = new OrderAdapter(getActivity(), historyList, new OrderAdapter.OnOptionSelectedListener() {
             @Override
             public void doPerformAction(int position) {
+                Log.e("click",Functions.jsonString(historyList.get(position)));
                 Intent i = new Intent(getActivity(), OrderDetailActivity.class);
-                i.putExtra("orderID", historyList.get(position).getOrderID());
+                i.putExtra("OrderID", historyList.get(position).getOrderID());
                 i.putExtra(AppConstants.isInquiry, true);
                 i.putExtra(AppConstants.statusID, historyList.get(position).getStatusID());
                 Functions.fireIntent(getActivity(), i);

@@ -132,7 +132,7 @@ public class AboutUsFragment extends Fragment {
         protected Bitmap doInBackground(TextView... params) {
             t = params[0];
             try {
-                Log.e("Loader", "Downloading the image from: " + source);
+                //Log.e("Loader", "Downloading the image from: " + source);
                 return imageLoader.getBitmap(source);
             } catch (Exception e) {
                 return null;

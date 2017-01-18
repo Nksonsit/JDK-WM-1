@@ -18,9 +18,11 @@ import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.BaseResponse;
 import com.androidapp.jdklokhandwala.api.model.ChangePasswordReq;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
+import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +34,7 @@ import retrofit2.Response;
 
 public class ChangePasswordDialog extends Dialog {
     private final Context context;
-    private final UserPojo userPojo;
+    private UserPojo userPojo;
     private View view;
     private TfEditText oldPassword;
     private TfEditText newPassword;
@@ -40,7 +42,6 @@ public class ChangePasswordDialog extends Dialog {
     private View.OnTouchListener touch;
     private Button update, btnCancel;
     private OnUpdateClick OnUpdateClick;
-
 
     public ChangePasswordDialog(final Context context, final OnUpdateClick OnUpdateClick) {
         super(context);
@@ -53,13 +54,18 @@ public class ChangePasswordDialog extends Dialog {
         this.setCanceledOnTouchOutside(true);
         this.setCancelable(true);
 
+        init();
+
+    }
+
+    private void init() {
+
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.CENTER;
         getWindow().setAttributes(lp);
-
 
         userPojo = PrefUtils.getUserFullProfileDetails(context);
 
@@ -68,6 +74,14 @@ public class ChangePasswordDialog extends Dialog {
         conformPassword = (TfEditText) view.findViewById(R.id.conformPassword);
         update = (Button) view.findViewById(R.id.updatePassword);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        actionListener();
+    }
+
+    private void actionListener() {
+        oldPassword.setOnTouchListener(touch);
+        newPassword.setOnTouchListener(touch);
+        conformPassword.setOnTouchListener(touch);
 
         touch = new View.OnTouchListener() {
             @Override
@@ -96,10 +110,6 @@ public class ChangePasswordDialog extends Dialog {
             }
         };
 
-        oldPassword.setOnTouchListener(touch);
-        newPassword.setOnTouchListener(touch);
-        conformPassword.setOnTouchListener(touch);
-
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,29 +127,34 @@ public class ChangePasswordDialog extends Dialog {
                 dismiss();
             }
         });
-
-
     }
 
     private void changePassword(ChangePasswordReq changePasswordReq) {
-        Log.e("changepassword req", MyApplication.getGson().toJson(changePasswordReq).toString());
+        Log.e("changepassword req", Functions.jsonString(changePasswordReq));
 
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.changePassword(changePasswordReq).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null) {
-                    Log.e("changepassword res", MyApplication.getGson().toJson(response.body()).toString());
-                    Functions.showToast(context, response.body().getResponseMessage().toString().trim());
-                    if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
+                    BaseResponse baseResponse = response.body();
+                    Log.e("changepassword res", Functions.jsonString(baseResponse));
+
+                    if (baseResponse.getResponseCode() == AppConstants.RESPONSE_SUCCESS) {
+                        Functions.showToast(context, "Password changed successfully.");
+                        oldPassword.setText("");
+                        newPassword.setText("");
+                        conformPassword.setText("");
                         dismiss();
+                    } else {
+                        Functions.showToast(context, baseResponse.getResponseMessage().trim());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }

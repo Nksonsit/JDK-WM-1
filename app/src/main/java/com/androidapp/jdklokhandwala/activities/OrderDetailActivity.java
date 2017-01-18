@@ -85,7 +85,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         formatter = new DecimalFormat("#,##,##,###");
 
-        orderID = getIntent().getIntExtra("orderID", 0);
+        orderID = getIntent().getIntExtra("OrderID", 0);
         statusID= getIntent().getIntExtra(AppConstants.statusID, 10);
         isInquiry = getIntent().getBooleanExtra(AppConstants.isInquiry, true);
 

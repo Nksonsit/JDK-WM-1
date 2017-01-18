@@ -22,10 +22,10 @@
             android:orientation="vertical">
 
             <Spinner
-                android:layout_margin="@dimen/dimen_16dp"
                 android:id="@+id/calculateType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_16dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -44,7 +44,6 @@
         </LinearLayout>
 
 
-
         <View
             android:id="@+id/line"
             android:layout_width="match_parent"
@@ -55,7 +54,7 @@
         <RelativeLayout
             android:id="@+id/bottomView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
@@ -63,27 +62,32 @@
             <com.androidapp.jdklokhandwala.custom.TfTextView
                 android:id="@+id/answer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_8dp"
-                android:layout_toLeftOf="@+id/line2"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/calculate"
+                android:background="@color/colorPrimary"
                 android:gravity="center"
-                android:hint="0.0"
-                android:padding="@dimen/dimen_8dp"
+                android:hint="0.0 kg"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="@dimen/XL_TEXT"
                 app:isBold="true" />
-
+<!--
             <View
                 android:id="@+id/line2"
-                android:layout_toLeftOf="@+id/calculate"
                 android:layout_width="@dimen/dimen_1dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary" />
+                android:layout_toLeftOf="@+id/calculate"
+                android:background="@color/colorPrimary" />-->
 
             <ImageView
+                android:layout_marginLeft="@dimen/dimen_1dp"
                 android:id="@+id/calculate"
                 android:layout_width="70dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:tint="@color/white"
+                android:background="@color/colorPrimary"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_equal"

@@ -258,14 +258,14 @@ public class WeightCalculatorActivity extends AppCompatActivity {
         switch (pos) {
             case 5:
                 list.add(new WeightObj("75 x 40 mm", "2.172"));
-                list.add(new WeightObj("7100 x 50 mm", "2.925"));
-                list.add(new WeightObj("7125 x 65 mm", "3.992"));
-                list.add(new WeightObj("7150 x 75 mm", "5.120"));
-                list.add(new WeightObj("7175 x 75 mm", "5.973"));
-                list.add(new WeightObj("7200 x 75 mm", "6.796"));
-                list.add(new WeightObj("7250 x 80 mm", "9.326"));
-                list.add(new WeightObj("7300 x 90 mm", "11.063"));
-                list.add(new WeightObj("7400 x 100 mm", "15.270"));
+                list.add(new WeightObj("100 x 50 mm", "2.925"));
+                list.add(new WeightObj("125 x 65 mm", "3.992"));
+                list.add(new WeightObj("150 x 75 mm", "5.120"));
+                list.add(new WeightObj("175 x 75 mm", "5.973"));
+                list.add(new WeightObj("200 x 75 mm", "6.796"));
+                list.add(new WeightObj("250 x 80 mm", "9.326"));
+                list.add(new WeightObj("300 x 90 mm", "11.063"));
+                list.add(new WeightObj("400 x 100 mm", "15.270"));
                 break;
 
             case 6:

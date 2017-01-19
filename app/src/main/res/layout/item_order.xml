@@ -20,13 +20,14 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/dimen_8dp"
-        android:paddingRight="@dimen/dimen_8dp"
-        android:paddingTop="@dimen/dimen_8dp">
+        android:paddingLeft="@dimen/dimen_4dp"
+        android:paddingRight="@dimen/dimen_4dp"
+        android:paddingTop="@dimen/dimen_4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_4dp">
 
             <com.androidapp.jdklokhandwala.custom.TfTextView
                 android:id="@+id/referCodeTV"
@@ -35,7 +36,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="20X40 ISI 1Kg"
+                android:textColor="@color/black"
                 android:textSize="@dimen/XL_TEXT" />
+
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -57,14 +60,19 @@
 
         </RelativeLayout>
 
+
+
+
         <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:padding="@dimen/dimen_4dp"
             android:id="@+id/totalWeightTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="total weight"
-            android:textSize="@dimen/M_TEXT" />
+            android:textSize="@dimen/L_TEXT" />
 
         <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:padding="@dimen/dimen_4dp"
             android:id="@+id/statusTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

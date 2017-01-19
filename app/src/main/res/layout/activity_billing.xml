@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/half_black"
-                    android:text="Use shipping adress"
+                    android:text="Use shipping address"
                     android:textColor="@color/half_black"
                     android:textSize="@dimen/M_TEXT" />
 
@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/half_black"
-                    android:text="Use billing adress"
+                    android:text="Use billing address"
                     android:textColor="@color/half_black"
                     android:textSize="@dimen/M_TEXT" />
 

@@ -104,6 +104,9 @@ public class BillingActivity extends AppCompatActivity {
         useShippingAddressCB = (CheckBox) findViewById(R.id.useShippingAddress);
         useBillingAddressCB = (CheckBox) findViewById(R.id.useBillingAddress);
 
+        useShippingAddressCB.setTypeface(Functions.getBoldFont(BillingActivity.this));
+        useBillingAddressCB.setTypeface(Functions.getBoldFont(BillingActivity.this));
+
         enterShippingAddress1 = (TfEditText) findViewById(R.id.enterSAddress1);
         enterShippingAddress2 = (TfEditText) findViewById(R.id.enterSAddress2);
         enterSPincode = (TfEditText) findViewById(R.id.enterSPincode);

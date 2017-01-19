@@ -29,6 +29,7 @@
 
     <com.androidapp.jdklokhandwala.custom.TfTextView
         android:id="@+id/txtCPrice"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Current Market Price : 1000"

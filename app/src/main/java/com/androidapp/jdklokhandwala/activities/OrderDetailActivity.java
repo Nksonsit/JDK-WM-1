@@ -232,7 +232,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         for (int i = 0; i < orderList.size(); i++) {
             orderItemView = LayoutInflater.from(this).inflate(R.layout.item_order_detail, null);
             orderContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ((TfTextView) orderItemView.findViewById(R.id.txtName)).setText("Order Name : " + orderList.get(i).getName());
+            ((TfTextView) orderItemView.findViewById(R.id.txtName)).setText("Product Name : " + orderList.get(i).getName());
             ((TfTextView) orderItemView.findViewById(R.id.txtUnitValue)).setText("Unit Value : " + orderList.get(i).getUnitValue() + " " + orderList.get(i).getUnitType());
             ((TfTextView) orderItemView.findViewById(R.id.txtKgWeight)).setText("Kg Weight : " + orderList.get(i).getKGWeight() + " Kg");
             ((TfTextView) orderItemView.findViewById(R.id.txtCPrice)).setText("Current Market Price : " + formatter.format(orderList.get(i).getCurrentMarketPrice()) + " Rs.");

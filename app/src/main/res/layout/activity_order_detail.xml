@@ -247,7 +247,7 @@
                     <com.androidapp.jdklokhandwala.custom.TfTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Shipping Address1"
+                        android:text="Shipping Address"
                         android:textColor="@color/half_black"
                         android:textSize="@dimen/L_TEXT" />
 

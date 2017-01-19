@@ -311,7 +311,8 @@ public class DashboardActivity extends AppCompatActivity {
                         // Log.e("resp", response.body().getResponseMessage() + " || " + response.body().Data.lstnotification.size());
                         if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
                             no_of_notification = response.body().Data.UnReadCount;
-                            badgeHelper.displayBadge(no_of_notification);
+                            if (badgeHelper != null)
+                                badgeHelper.displayBadge(no_of_notification);
 
                             notificationItems.addAll(response.body().Data.lstnotification);
                         }

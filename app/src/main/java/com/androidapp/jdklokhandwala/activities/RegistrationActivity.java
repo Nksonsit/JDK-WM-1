@@ -30,6 +30,7 @@ import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
@@ -99,7 +100,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
         getUserIdentityType();
 
-        dialog = new SpotsDialog(RegistrationActivity.this, R.style.Custom);
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
         nameTV = (TfEditText) findViewById(R.id.enterName);
@@ -116,7 +116,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (validateField()) {
-                    dialog.show();
+                    showProgress();
                     RegistrationReq registrationReq = new RegistrationReq();
                     registrationReq.setName(nameTV.getText().toString().trim());
                     registrationReq.setEmailID(emailTV.getText().toString().trim());
@@ -149,7 +149,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 appApi.registrationApi(input).enqueue(new Callback<RegistrationRes>() {
                     @Override
                     public void onResponse(Call<RegistrationRes> call, Response<RegistrationRes> response) {
-                        dialog.dismiss();
+
+                        hideProgress();
+
                         if (response.body() != null) {
                             Log.e("registration res", MyApplication.getGson().toJson(response.body()).toString());
                             if (response.body().getData() != null) {
@@ -312,6 +314,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void doGetQuotation() {
+        showProgress();
+
         List<AddToCart> list = AddToCart.getCartList();
         List<AddToCartTemp> listInput = new ArrayList<AddToCartTemp>();
         Double totalWeight = Double.valueOf(0);
@@ -333,17 +337,23 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void doPlaceOrderApiCall(PlaceOrderReq placeOrderReq) {
-        Log.e("place order req", MyApplication.getGson().toJson(placeOrderReq).toString());
+        Log.e("place order req", Functions.jsonString(placeOrderReq));
 
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.placeQuotationOrOrder(placeOrderReq).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.body() != null && response.body().getResponseMessage() != null) {
-                    Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseCode()==1) {
+
+                hideProgress();
+
+                if (response.body() != null) {
+                    BaseResponse baseResponse = response.body();
+
+                    Log.e("place order res", Functions.jsonString(baseResponse));
+
+                    if (baseResponse.getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
-                        Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage());
+                        Functions.showToast(RegistrationActivity.this, "Request for quotation sent successfully.");
                         Intent i = new Intent(RegistrationActivity.this, DashboardActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         Functions.fireIntent(RegistrationActivity.this, i);
@@ -355,8 +365,22 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, RegistrationActivity.this);
+                hideProgress();
             }
         });
+    }
+
+    private void showProgress() {
+        if (dialog == null) {
+            dialog = new SpotsDialog(RegistrationActivity.this, R.style.Custom);
+        }
+        dialog.show();
+    }
+
+    private void hideProgress() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 }

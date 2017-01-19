@@ -87,10 +87,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         formatter = new DecimalFormat("#,##,##,###");
 
         orderID = getIntent().getIntExtra("OrderID", 0);
-        statusID= getIntent().getIntExtra(AppConstants.statusID, 10);
+        statusID = getIntent().getIntExtra(AppConstants.statusID, 10);
         isInquiry = getIntent().getBooleanExtra(AppConstants.isInquiry, true);
 
-        Log.e("details come",orderID + " || " + statusID +" || "+ isInquiry);
+        Log.e("details come", orderID + " || " + statusID + " || " + isInquiry);
         txtReferCode = (TfTextView) findViewById(R.id.txtReferCode);
 
         orderContainer = (LinearLayout) findViewById(R.id.orderListContainer);
@@ -134,10 +134,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         btnAccept = (TfButton) findViewById(R.id.btnAccept);
         btnReject = (TfButton) findViewById(R.id.btnReject);
 
-        if(statusID==10){
+        if (statusID == 10) {
             bottomView.setVisibility(View.VISIBLE);
-        }else{
-            bottomView.setVisibility(View.GONE);}
+        } else {
+            bottomView.setVisibility(View.GONE);
+        }
 
         clickListener();
     }
@@ -179,7 +180,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null) {
-                    if (response.body().getResponseCode()==1) {
+                    if (response.body().getResponseCode() == 1) {
                         Functions.showToast(OrderDetailActivity.this, response.body().getResponseMessage());
                     }
                 }

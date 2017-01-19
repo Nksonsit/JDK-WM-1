@@ -95,7 +95,7 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClickListener(int pos) {
               //  Log.e("item clicked",notificationItems.get(pos).OrderID+" || "+ notificationItems.get(pos).NotificationTypeId);
                 Intent i = new Intent(NotificationActivity.this, OrderDetailActivity.class);
-                i.putExtra("orderID", notificationItems.get(pos).OrderID);
+                i.putExtra("OrderID", notificationItems.get(pos).OrderID);
                 switch (notificationItems.get(pos).NotificationTypeId)
                 {
                     case 8:

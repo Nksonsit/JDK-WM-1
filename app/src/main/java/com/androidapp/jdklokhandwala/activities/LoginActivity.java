@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
                     if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
                         AddToCart.DeleteAllData();
-                        Functions.showToast(LoginActivity.this, response.body().getResponseMessage());
+                        Functions.showToast(LoginActivity.this, "Request for quotation sent successfully.");
                         Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         Functions.fireIntent(LoginActivity.this, i);

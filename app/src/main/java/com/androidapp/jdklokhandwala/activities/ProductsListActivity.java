@@ -115,13 +115,13 @@ public class ProductsListActivity extends AppCompatActivity {
             }
         });
 
-     /*   productRV.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
+        productRV.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
                 Product product = productList.get(position);
                 if (!AddToCart.CheckDuplication(category.getCategoryID(), product.getProductID())) {
 
-                    new AddToCartDialog(ProductsListActivity.this, "ADD TO CART", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
+                    new AddToCartDialog(ProductsListActivity.this, "ADD TO ORDER BOOK", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
                         @Override
                         public void onAddClick(String quantity, String type) {
                             Log.e(quantity, type);
@@ -160,7 +160,7 @@ public class ProductsListActivity extends AppCompatActivity {
                     Functions.showToast(ProductsListActivity.this, "You have already added to cart.");
                 }
             }
-        });*/
+        });
     }
 
     private void initRecyclerView() {

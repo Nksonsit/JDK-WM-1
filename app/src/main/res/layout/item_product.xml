@@ -25,8 +25,9 @@
             android:id="@+id/tvAddCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:padding="@dimen/dimen_8dp"
-            android:text="Add To Cart"
+            android:text="Add To Order Book"
             android:textSize="@dimen/L_TEXT"
             android:tint="@color/half_black" />
     </LinearLayout>

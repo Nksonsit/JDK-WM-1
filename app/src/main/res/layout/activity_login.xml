@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login to your account"
-            android:textSize="@dimen/XXL_TEXT"
+            android:textSize="@dimen/XXXL_TEXT"
             app:isBold="true" />
 
         <com.androidapp.jdklokhandwala.custom.TfEditText

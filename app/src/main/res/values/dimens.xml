@@ -11,6 +11,7 @@
     <dimen name="L_TEXT">18sp</dimen>
     <dimen name="XL_TEXT">20sp</dimen>
     <dimen name="XXL_TEXT">22sp</dimen>
+    <dimen name="XXXL_TEXT">24sp</dimen>
     <dimen name="SPLASH_TEXT">28sp</dimen>
 
     <dimen name="toolbar_textsize">18sp</dimen>

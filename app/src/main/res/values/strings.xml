@@ -14,6 +14,8 @@
     <string name="transition_cat">transition_category</string>
     <string name="update">Update</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="home">Go to Home</string>
     <string name="request_quotation">Request Quotation</string>
 
     <!--Drawer string-->

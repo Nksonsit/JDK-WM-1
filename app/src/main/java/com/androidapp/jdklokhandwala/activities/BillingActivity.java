@@ -1,9 +1,8 @@
 package com.androidapp.jdklokhandwala.activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +25,7 @@ import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfEditText;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
@@ -183,14 +183,11 @@ public class BillingActivity extends AppCompatActivity {
                     placeOrderReq.setTotalCartItem(listInput.size());
                     placeOrderReq.setCartItemList(listInput);
 
-
-                    Log.e("IsAccept",isAccept+"");
                     if (isAccept) {
                         doupdateProfile();
                     } else {
                         doPlaceOrderApiCall(placeOrderReq);
                     }
-
 
                 }
             }
@@ -409,14 +406,9 @@ public class BillingActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if (response.body() != null && response.body().getResponseMessage() != null) {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseCode()==1) {
+                    if (response.body().getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
-                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage());
-                        Intent i = new Intent(BillingActivity.this, DashboardActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Functions.fireIntent(BillingActivity.this, i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                        new OrderSuccessDialog(BillingActivity.this).show();
                     } else {
                         Functions.showToast(BillingActivity.this, "Fail");
                     }
@@ -432,8 +424,6 @@ public class BillingActivity extends AppCompatActivity {
 
 
     private void updateUserApiCall(UpdateUserRequest updateUserRequest) {
-
-//        Log.e("update user",Functions.jsonString(updateUserRequest));
 
         Log.e("place order req", MyApplication.getGson().toJson(updateUserRequest).toString());
 
@@ -465,20 +455,13 @@ public class BillingActivity extends AppCompatActivity {
 
 
     private void callApi(AcceptOrder acceptOrder) {
-        Log.e("order accept",Functions.jsonString(acceptOrder));
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.acceptRejectQuotation(acceptOrder).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null) {
-                    Log.e("order accept res",Functions.jsonString(response.body()));
                     if (response.body().getResponseCode() == 1) {
-                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage());
-                        Intent i = new Intent(BillingActivity.this, DashboardActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Functions.fireIntent(BillingActivity.this, i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                        new OrderSuccessDialog(BillingActivity.this).show();
                     }
                 }
             }

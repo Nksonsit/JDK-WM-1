@@ -24,6 +24,7 @@ import com.androidapp.jdklokhandwala.api.model.NotificationItem;
 import com.androidapp.jdklokhandwala.api.model.NotificationItemRes;
 import com.androidapp.jdklokhandwala.custom.BadgeHelper;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.fragment.AboutUsFragment;
 import com.androidapp.jdklokhandwala.fragment.BookmarksFragment;
 import com.androidapp.jdklokhandwala.fragment.CategoryListFragment;

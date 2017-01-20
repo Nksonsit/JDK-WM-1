@@ -11,8 +11,18 @@ import java.io.Serializable;
 public class NotificationItem extends BaseResponse implements Serializable {
 
     public int NotificationId,NotificationTypeId,OrderID;
-    public String Description,CreatedDate;
+    public String Description;
+    public String CreatedDate;
+    public String ReferCode;
     public String Title;
+
+    public String getReferCode() {
+        return ReferCode;
+    }
+
+    public void setReferCode(String referCode) {
+        ReferCode = referCode;
+    }
 
     public String getContent() {
         return Description;

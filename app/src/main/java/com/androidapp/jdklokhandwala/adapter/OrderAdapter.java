@@ -83,7 +83,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             netAmount.setText(myString);
             totalWeight.setText("Total Weight : " + Functions.getFormatedInt(orderItem.getTotalCartWeight()) + "Kg");
             status.setText("Status : " + Functions.getStatus(orderItem.getStatusID()));
-            createdDate.setText(orderItem.getCreatedDate());
+            createdDate.setText(Functions.formatDate(orderItem.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
+                    Functions.formatDate(orderItem.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
         }
     }
 

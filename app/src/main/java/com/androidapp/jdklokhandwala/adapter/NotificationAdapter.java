@@ -72,7 +72,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             txtContent.setText(notification.getContent());
             txtTime.setText(Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
                     Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
-            txtOrder.setText("Order ID : " + notification.OrderID);
+            txtOrder.setText(notification.ReferCode);
         }
     }
 

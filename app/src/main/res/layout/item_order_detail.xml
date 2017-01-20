@@ -42,13 +42,4 @@
         android:text="Price : 6000"
         android:textSize="@dimen/L_TEXT" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/dimen_4dp"
-        android:layout_marginTop="@dimen/dimen_4dp"
-        android:layout_height="@dimen/dimen_.5dp"
-        android:layout_marginLeft="@dimen/dimen_8dp"
-        android:layout_marginRight="@dimen/dimen_8dp"
-        android:background="@color/half_black" />
-
 </LinearLayout>

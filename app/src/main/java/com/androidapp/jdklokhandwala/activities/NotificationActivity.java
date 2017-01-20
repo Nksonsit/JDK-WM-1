@@ -98,24 +98,17 @@ public class NotificationActivity extends AppCompatActivity {
                 i.putExtra("OrderID", notificationItems.get(pos).OrderID);
                 switch (notificationItems.get(pos).NotificationTypeId)
                 {
-                    case 8:
-                    case 9:
                     case 10:
-                    case 11:
                         i.putExtra(AppConstants.isInquiry, true);
+                        i.putExtra(AppConstants.isAccept, true);
                         break;
-                    case 12:
-                    case 13:
-                    case 14:
-                        i.putExtra(AppConstants.isInquiry, false);
-                        break;
-
                     default:
+                        i.putExtra(AppConstants.isAccept, false);
                         i.putExtra(AppConstants.isInquiry, false);
                         break;
                 }
                 //i.putExtra(AppConstants.isInquiry, false);
-                i.putExtra(AppConstants.statusID, notificationItems.get(pos).NotificationId);
+                i.putExtra(AppConstants.statusID, notificationItems.get(pos).NotificationTypeId);
                 Functions.fireIntent(NotificationActivity.this, i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

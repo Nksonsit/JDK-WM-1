@@ -64,8 +64,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
         }
 
         private void setProduct(AddToCart addToCart, final int position) {
-           textView.setText(addToCart.Name()+" Kg");
-            textViewQty.setText("Quantity : "+ Functions.getFormatedInt(addToCart.UnitValue())+" "+addToCart.UnitType());
+            textView.setText(addToCart.Name() + " Kg");
+            if (addToCart.UnitType().trim().toLowerCase().equals("kg")) {
+                textViewQty.setText("Quantity : " + Functions.getFormatedInt(addToCart.UnitValue()) + " " + addToCart.UnitType());
+            } else {
+                textViewQty.setText("Quantity : " + Functions.getFormatedInt(addToCart.UnitValue()) + " " + addToCart.UnitType() + " (" + Functions.getFormatedInt((addToCart.DefaultWeight() * addToCart.UnitValue())) + " Kg)");
+            }
             tvEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -86,10 +90,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
 
         }
     }
-    public void updateList(){
-        addToCartList=AddToCart.getCartList();
+
+    public void updateList() {
+        addToCartList = AddToCart.getCartList();
         notifyDataSetChanged();
     }
+
     public interface OnOptionSelectedListener {
         void doPerformAction(int actionType, int position);
     }

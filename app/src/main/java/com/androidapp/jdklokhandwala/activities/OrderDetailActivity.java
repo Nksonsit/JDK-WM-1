@@ -24,7 +24,10 @@ import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 
 import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +64,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private int statusID;
     private View categoryNameRow;
     private View dividerRow;
+    private View listDivider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +226,16 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private void setUi() {
+
+
+        Collections.sort(orderList, new Comparator<OrderListPojo>() {
+            @Override
+            public int compare(OrderListPojo orderListPojo, OrderListPojo t1) {
+                return orderListPojo.getCategoryName().compareTo(t1.getCategoryName());
+            }
+        });
+
+
         txtReferCode.setText(orderDetail.getReferCode());
         txtTotalAmount.setText(formatter.format(orderDetail.getTotalAmount()) + "");
         txtTotalCartWeight.setText(orderDetail.getTotalCartWeight() + " Kg");
@@ -232,24 +246,35 @@ public class OrderDetailActivity extends AppCompatActivity {
         orderContainer.removeAllViews();
 
         String categoryName = "";
+        int listLine=0;
         for (int i = 0; i < orderList.size(); i++) {
             orderItemView = LayoutInflater.from(this).inflate(R.layout.item_order_detail, null);
             orderContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
             categoryNameRow = LayoutInflater.from(this).inflate(R.layout.item_category_name, null);
             dividerRow = LayoutInflater.from(this).inflate(R.layout.item_divider, null);
+            listDivider = LayoutInflater.from(this).inflate(R.layout.item_list_divider, null);
+            categoryNameRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            dividerRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            listDivider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            if (!categoryName.toString().trim().equals(orderList.get(i).getName())) {
+            Log.e(categoryName.toString().trim(),orderList.get(i).getName().trim());
+            if (!categoryName.toString().trim().equals(orderList.get(i).getCategoryName().trim())) {
+                categoryName = orderList.get(i).getCategoryName().trim();
+                listLine=0;
                 if (i != 0) {
                     orderContainer.addView(dividerRow);
                 }
                 ((TfTextView) categoryNameRow.findViewById(R.id.txtCategoryName)).setText(orderList.get(i).getCategoryName());
                 orderContainer.addView(categoryNameRow);
             }
-
+            if (listLine != 0) {
+                orderContainer.addView(listDivider);
+            }
+            listLine++;
             ((TfTextView) orderItemView.findViewById(R.id.txtName)).setText("Product Name : " + orderList.get(i).getName());
-            ((TfTextView) orderItemView.findViewById(R.id.txtUnitValue)).setText("Unit Value : " + orderList.get(i).getUnitValue() + " " + orderList.get(i).getUnitType());
-            ((TfTextView) orderItemView.findViewById(R.id.txtKgWeight)).setText("Kg Weight : " + orderList.get(i).getKGWeight() + " Kg");
+            ((TfTextView) orderItemView.findViewById(R.id.txtUnitValue)).setText("Unit Value : " + Functions.getFormatedInt(orderList.get(i).getUnitValue()) + " " + orderList.get(i).getUnitType());
+            ((TfTextView) orderItemView.findViewById(R.id.txtKgWeight)).setText("Kg Weight : " + Functions.getFormatedInt(orderList.get(i).getKGWeight()) + " Kg");
             ((TfTextView) orderItemView.findViewById(R.id.txtCPrice)).setText("Current Market Price : " + formatter.format(orderList.get(i).getCurrentMarketPrice()) + " Rs.");
             ((TfTextView) orderItemView.findViewById(R.id.txtPrice)).setText("Price : " + formatter.format(orderList.get(i).getPrice()) + " Rs.");
             orderContainer.addView(orderItemView);

@@ -12,8 +12,46 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/topView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_8dp"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/dimen_8dp"
+            android:paddingLeft="@dimen/dimen_8dp"
+            android:paddingTop="@dimen/dimen_8dp">
 
+            <com.androidapp.jdklokhandwala.custom.TfTextView
+                android:id="@+id/txtReferCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#refercode"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/XL_TEXT" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/txtNetAmount"
+                android:src="@drawable/ic_rupee"
+                android:tint="@color/black" />
+            <com.androidapp.jdklokhandwala.custom.TfTextView
+                android:id="@+id/txtNetAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="7320"
+                android:textColor="@color/black"
+                android:textSize="@dimen/L_TEXT"/>
+
+        </RelativeLayout>
         <ScrollView
+            android:layout_below="@+id/topView"
             android:layout_marginBottom="@dimen/dimen_8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,42 +62,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_8dp"
-                    android:orientation="vertical"
-                    android:paddingRight="@dimen/dimen_8dp"
-                    android:paddingTop="@dimen/dimen_8dp">
 
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:id="@+id/txtReferCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="#refercode"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:textColor="@color/half_black"
-                        android:textSize="@dimen/XL_TEXT" />
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/txtNetAmount"
-                        android:src="@drawable/ic_rupee"
-                        android:tint="@color/black" />
-                    <com.androidapp.jdklokhandwala.custom.TfTextView
-                        android:id="@+id/txtNetAmount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="7320"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/L_TEXT"/>
-
-                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -255,7 +258,7 @@
                     <com.androidapp.jdklokhandwala.custom.TfTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Shipping Address"
+                        android:text="Delivery Address"
                         android:textColor="@color/half_black"
                         android:textSize="@dimen/L_TEXT" />
 
@@ -263,7 +266,7 @@
                         android:id="@+id/txtSAddress1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Shipping Address1"
+                        android:text="Delivery Address1"
                         android:textColor="@color/black_overlay"
                         android:textSize="@dimen/L_TEXT" />
 

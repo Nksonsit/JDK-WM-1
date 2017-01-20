@@ -323,16 +323,16 @@ public class MyProfileFragment extends Fragment {
                 enterSAddress2.getText().toString().trim().length() != 0 ||
                 enterSPincode.getText().toString().trim().length() != 0) {
             if (enterSAddress1.getText().toString().trim().length() == 0) {
-                Functions.showToast(getActivity(), "Please enter shipping address line 1");
+                Functions.showToast(getActivity(), "Please enter delivery address line 1");
                 return false;
             } else if (enterSAddress2.getText().toString().trim().length() == 0) {
-                Functions.showToast(getActivity(), "Please enter shipping address line 2");
+                Functions.showToast(getActivity(), "Please enter delivery address line 2");
                 return false;
             } else if (enterSPincode.getText().toString().trim().length() == 0) {
                 Functions.showToast(getActivity(), "Please enter shipping pin code");
                 return false;
             } else if (enterSPincode.getText().toString().trim().length() != 6) {
-                Functions.showToast(getActivity(), "Please enter valid shipping pin code");
+                Functions.showToast(getActivity(), "Please enter valid delivery pin code");
                 return false;
             }
         }

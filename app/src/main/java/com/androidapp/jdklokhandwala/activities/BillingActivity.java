@@ -184,6 +184,7 @@ public class BillingActivity extends AppCompatActivity {
                     placeOrderReq.setCartItemList(listInput);
 
 
+                    Log.e("IsAccept",isAccept+"");
                     if (isAccept) {
                         doupdateProfile();
                     } else {
@@ -277,28 +278,28 @@ public class BillingActivity extends AppCompatActivity {
             Functions.showToast(BillingActivity.this, "Please enter valid billing pin code");
             return false;
         } else if (enterShippingAddress1.getText().toString().trim().length() == 0) {
-            Functions.showToast(BillingActivity.this, "Please enter shipping address line 1");
+            Functions.showToast(BillingActivity.this, "Please enter delivery address line 1");
             return false;
         } else if (enterShippingAddress2.getText().toString().trim().length() == 0) {
-            Functions.showToast(BillingActivity.this, "Please enter shipping address line 2");
+            Functions.showToast(BillingActivity.this, "Please enter delivery address line 2");
             return false;
         } else if (enterSPincode.getText().toString().trim().length() == 0) {
-            Functions.showToast(BillingActivity.this, "Please enter shipping pin code");
+            Functions.showToast(BillingActivity.this, "Please enter delivery pin code");
             return false;
         } else if (enterSPincode.getText().toString().trim().length() != 6) {
-            Functions.showToast(BillingActivity.this, "Please enter valid shipping pin code");
+            Functions.showToast(BillingActivity.this, "Please enter valid delivery pin code");
             return false;
         } else if (enterBcity.getText().toString().trim().length() == 0) {
             Functions.showToast(BillingActivity.this, "Please enter valid billing pin code");
             return false;
         } else if (enterScity.getText().toString().trim().length() == 0) {
-            Functions.showToast(BillingActivity.this, "Please enter valid shipping pin code");
+            Functions.showToast(BillingActivity.this, "Please enter valid delivery pin code");
             return false;
         } else if (enterBArea.getText().toString().trim().length() == 0) {
             Functions.showToast(BillingActivity.this, "Please enter valid billing pin code");
             return false;
         } else if (enterSArea.getText().toString().trim().length() == 0) {
-            Functions.showToast(BillingActivity.this, "Please enter valid shipping pin code");
+            Functions.showToast(BillingActivity.this, "Please enter valid delivery pin code");
             return false;
         }
         return true;
@@ -432,6 +433,8 @@ public class BillingActivity extends AppCompatActivity {
 
     private void updateUserApiCall(UpdateUserRequest updateUserRequest) {
 
+//        Log.e("update user",Functions.jsonString(updateUserRequest));
+
         Log.e("place order req", MyApplication.getGson().toJson(updateUserRequest).toString());
 
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
@@ -462,13 +465,20 @@ public class BillingActivity extends AppCompatActivity {
 
 
     private void callApi(AcceptOrder acceptOrder) {
+        Log.e("order accept",Functions.jsonString(acceptOrder));
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.acceptRejectQuotation(acceptOrder).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null) {
+                    Log.e("order accept res",Functions.jsonString(response.body()));
                     if (response.body().getResponseCode() == 1) {
                         Functions.showToast(BillingActivity.this, response.body().getResponseMessage());
+                        Intent i = new Intent(BillingActivity.this, DashboardActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Functions.fireIntent(BillingActivity.this, i);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
                     }
                 }
             }

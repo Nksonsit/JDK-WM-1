@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/half_black"
-                    android:text="Use shipping address"
+                    android:text="Use delivery address"
                     android:textColor="@color/half_black"
                     android:textSize="@dimen/M_TEXT" />
 
@@ -137,7 +137,7 @@
                     android:layout_marginBottom="@dimen/dimen_4dp"
                     android:layout_marginLeft="@dimen/dimen_4dp"
                     android:layout_marginTop="@dimen/dimen_4dp"
-                    android:text="Shipping Address"
+                    android:text="Delivery Address"
                     android:textSize="@dimen/L_TEXT" />
 
                 <LinearLayout

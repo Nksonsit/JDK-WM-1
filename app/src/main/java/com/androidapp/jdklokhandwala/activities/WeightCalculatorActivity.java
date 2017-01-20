@@ -95,7 +95,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
         calculateType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-                ans.setText("0.0 Kg");
+                ans.setText("0.00 Kg/ft");
                 ll.removeAllViews();
 
                 LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
@@ -128,56 +128,83 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             if (weightList.size() > 0) {
                                 weightObj = weightList.get(i);
-                                ans.setText(weightObj.getWeight() + " Kg");
+                                Log.e("i 1",i+"");
+                                int pos=calculateType.getSelectedItemPosition();
+                                if (pos == 6 || pos == 7 || pos == 11 || pos == 12) {
+                                    ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
+                                }else {
+                                    ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                                }
                             }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-                    weightObj = (WeightObj) ((Spinner) spinnerRow.findViewById(R.id.spinnerWeight)).getSelectedItem();
-                    ans.setText(weightObj.getWeight() + " Kg");
-                    calculate.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        calculate = (ImageView) findViewById(R.id.calculate);
-        calculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Calculator obj = (Calculator) calculateType.getSelectedItem();
-                Log.e("obj", Functions.jsonString(obj));
-                if (obj.getType() == 0) {
-                    ArrayList<Double> list = new ArrayList<>();
-                    for (int i = 0; i < ll.getChildCount(); i++) {
-                        LinearLayout ll2 = ((LinearLayout) ll.getChildAt(i));
-                        String value = ((TfEditText) ll2.getChildAt(1)).getText().toString().trim();
-                        if (value != null && value.length() > 0) {
-                            list.add(Double.valueOf(value));
-                        } else {
-                            return;
-                        }
                     }
-                    ans.setText(getCalculation(list, calculateType.getSelectedItemPosition()) + "");
-                } else if (obj.getType() == 1) {
-                    if (weightObj != null) {
-                        ans.setText(weightObj.getWeight() + " Kg");
-                    } else {
-                        Functions.showToast(WeightCalculatorActivity.this, "Please select item.");
+
+                    @Override
+                    public void onNothingSelected (AdapterView < ? > adapterView){
+
                     }
-                }
+                });
+                weightObj = (WeightObj) ((Spinner) spinnerRow.findViewById(R.id.spinnerWeight)).getSelectedItem();
+                    int i=calculateType.getSelectedItemPosition();
+                    Log.e("i 2",i+"");
+                    if (i == 6 || i == 7 || i == 11 || i == 12) {
+                        ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
+                    }else {
+                        ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                    }
+                calculate.setVisibility(View.GONE);
             }
-        });
+        }
+
+        @Override
+        public void onNothingSelected (AdapterView < ? > adapterView){
+
+        }
     }
+
+    );
+
+    calculate=(ImageView)
+
+    findViewById(R.id.calculate);
+
+    calculate.setOnClickListener(new View.OnClickListener()
+
+    {
+        @Override
+        public void onClick (View view){
+
+        Calculator obj = (Calculator) calculateType.getSelectedItem();
+        Log.e("obj", Functions.jsonString(obj));
+        if (obj.getType() == 0) {
+            ArrayList<Double> list = new ArrayList<>();
+            for (int i = 0; i < ll.getChildCount(); i++) {
+                LinearLayout ll2 = ((LinearLayout) ll.getChildAt(i));
+                String value = ((TfEditText) ll2.getChildAt(1)).getText().toString().trim();
+                if (value != null && value.length() > 0) {
+                    list.add(Double.valueOf(value));
+                } else {
+                    return;
+                }
+            }
+            ans.setText(String.format("%.2f", getCalculation(list, calculateType.getSelectedItemPosition())) + "");
+        } else if (obj.getType() == 1) {
+            if (weightObj != null) {
+                int i=calculateType.getSelectedItemPosition();
+                Log.e("i 4",i+"");
+                if (i == 6 || i == 7 || i == 11 || i == 12) {
+                    ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
+                }else {
+                    ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                }
+            } else {
+                Functions.showToast(WeightCalculatorActivity.this, "Please select item.");
+            }
+        }
+    }
+    }
+
+    );
+}
 
     public int getNumberOfET(String type) {
         Log.e("type", type);
@@ -346,49 +373,49 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 break;
 
             case 12:
-                list.add(new WeightObj("0.193\"", "0.0531"));
+//                list.add(new WeightObj("0.193\"", "0.0531"));
                 list.add(new WeightObj("5 mm", "0.0519"));
                 list.add(new WeightObj("6 mm", "0.072"));
-                list.add(new WeightObj("0.248\"", "0.083"));
-                list.add(new WeightObj("0.250\"", "0.086"));
+//                list.add(new WeightObj("0.248\"", "0.083"));
+//                list.add(new WeightObj("0.250\"", "0.086"));
                 list.add(new WeightObj("7 mm", "0.102"));
-                list.add(new WeightObj("0.312\"", "0.131"));
+//                list.add(new WeightObj("0.312\"", "0.131"));
                 list.add(new WeightObj("8 mm", "0.133"));
-                list.add(new WeightObj("0.324\"", "0.141"));
-                list.add(new WeightObj("0.375\"", "0.195"));
+//                list.add(new WeightObj("0.324\"", "0.141"));
+//                list.add(new WeightObj("0.375\"", "0.195"));
                 list.add(new WeightObj("10 mm", "0.207"));
-                list.add(new WeightObj("0.413\"", "0.220"));
+//                list.add(new WeightObj("0.413\"", "0.220"));
                 list.add(new WeightObj("11 mm", "0.250"));
-                list.add(new WeightObj("0.437\"", "0.258"));
-                list.add(new WeightObj("0.445\"", "0.265"));
+//                list.add(new WeightObj("0.437\"", "0.258"));
+//                list.add(new WeightObj("0.445\"", "0.265"));
                 list.add(new WeightObj("12 mm", "0.295"));
-                list.add(new WeightObj("0.500\"", "0.338"));
+//                list.add(new WeightObj("0.500\"", "0.338"));
                 list.add(new WeightObj("13 mm", "0.350"));
-                list.add(new WeightObj("0.525\"", "0.368"));
+//                list.add(new WeightObj("0.525\"", "0.368"));
                 list.add(new WeightObj("14 mm", "0.402"));
-                list.add(new WeightObj("0.562\"", "0.423"));
+//                list.add(new WeightObj("0.562\"", "0.423"));
                 list.add(new WeightObj("15 mm", "0.465"));
-                list.add(new WeightObj("0.600\"", "0.475"));
-                list.add(new WeightObj("0.625\"", "0.522"));
+//                list.add(new WeightObj("0.600\"", "0.475"));
+//                list.add(new WeightObj("0.625\"", "0.522"));
                 list.add(new WeightObj("17 mm", "0.596"));
-                list.add(new WeightObj("0.687\"", "0.632"));
-                list.add(new WeightObj("0.710\"", "0.671"));
+//                list.add(new WeightObj("0.687\"", "0.632"));
+//                list.add(new WeightObj("0.710\"", "0.671"));
                 list.add(new WeightObj("19 mm", "0.746"));
-                list.add(new WeightObj("0.750\"", "0.762"));
+//                list.add(new WeightObj("0.750\"", "0.762"));
                 list.add(new WeightObj("20 mm", "0.828"));
-                list.add(new WeightObj("0.812\"", "0.882"));
-                list.add(new WeightObj("0.820\"", "0.885"));
+//                list.add(new WeightObj("0.812\"", "0.882"));
+//                list.add(new WeightObj("0.820\"", "0.885"));
                 list.add(new WeightObj("22 mm", "0.998"));
-                list.add(new WeightObj("0.875\"", "1.020"));
-                list.add(new WeightObj("0.920\"", "1.124"));
-                list.add(new WeightObj("0.937\"", "1.170"));
+//                list.add(new WeightObj("0.875\"", "1.020"));
+//                list.add(new WeightObj("0.920\"", "1.124"));
+//                list.add(new WeightObj("0.937\"", "1.170"));
                 list.add(new WeightObj("24 mm", "1.20"));
-                list.add(new WeightObj("1.00\"", "1.336"));
-                list.add(new WeightObj("1.01\"", "1.342"));
-                list.add(new WeightObj("1.062\"", "1.517"));
+//                list.add(new WeightObj("1.00\"", "1.336"));
+//                list.add(new WeightObj("1.01\"", "1.342"));
+//                list.add(new WeightObj("1.062\"", "1.517"));
                 list.add(new WeightObj("27 mm", "1.518"));
-                list.add(new WeightObj("1.100\"", "1.592"));
-                list.add(new WeightObj("1.125\"", "1.690"));
+//                list.add(new WeightObj("1.100\"", "1.592"));
+//                list.add(new WeightObj("1.125\"", "1.690"));
                 break;
         }
         return list;

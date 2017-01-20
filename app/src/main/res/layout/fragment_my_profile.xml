@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen_4dp"
                 android:layout_marginLeft="@dimen/dimen_4dp"
-                android:text="Shipping Address"
+                android:text="Delivery Address"
                 android:textSize="@dimen/L_TEXT" />
 
             <LinearLayout

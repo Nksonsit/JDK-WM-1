@@ -121,7 +121,7 @@ public class CartActivity extends AppCompatActivity {
                                     addToCartList.remove(adapterPosition);
                                     adapter.notifyItemRemoved(adapterPosition);
                                     AddToCart.DeleteItem(product.CategoryID(), product.ProductID());
-                                    Functions.showToast(CartActivity.this, "Delete product from cart.");
+                                    Functions.showToast(CartActivity.this, "Delete product from order book.");
                                     if (addToCartList.size() == 0) {
                                         buttonLayout.setVisibility(View.GONE);
                                     } else {
@@ -197,7 +197,7 @@ public class CartActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 } else {
-                    Functions.showToast(CartActivity.this, "Please first add item to cart.");
+                    Functions.showToast(CartActivity.this, "Please first add item to order book.");
                 }
             }
         });
@@ -225,7 +225,7 @@ public class CartActivity extends AppCompatActivity {
                         }).show();
                     }
                 } else {
-                    Functions.showToast(CartActivity.this, "Please first add item to cart.");
+                    Functions.showToast(CartActivity.this, "Please first add item to order book.");
                 }
             }
         });

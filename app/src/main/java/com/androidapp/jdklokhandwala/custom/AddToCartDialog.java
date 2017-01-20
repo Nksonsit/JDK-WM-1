@@ -96,7 +96,7 @@ public class AddToCartDialog extends Dialog {
                         Functions.showToast(context, "Please select unit type.");
                     }
                 } else {
-                    Functions.showToast(context, "Please enter quantity.");
+                    Functions.showToast(context, "Please enter valid quantity.");
                 }
             }
         });

@@ -6,11 +6,20 @@ package com.androidapp.jdklokhandwala.api.model;
 
 public class OrderListPojo {
     String Name;
+    String CategoryName;
     String UnitType;
     Double UnitValue;
     Double KGWeight;
     Double CurrentMarketPrice;
     Double Price;
+
+    public String getCategoryName() {
+        return CategoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        CategoryName = categoryName;
+    }
 
     public String getName() {
         return Name;

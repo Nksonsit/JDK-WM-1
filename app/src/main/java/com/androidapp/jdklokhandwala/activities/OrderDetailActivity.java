@@ -59,6 +59,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     private TfTextView txtNetAmount2;
     DecimalFormat formatter;
     private int statusID;
+    private View categoryNameRow;
+    private View dividerRow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,15 +231,30 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         orderContainer.removeAllViews();
 
+        String categoryName = "";
         for (int i = 0; i < orderList.size(); i++) {
             orderItemView = LayoutInflater.from(this).inflate(R.layout.item_order_detail, null);
             orderContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            categoryNameRow = LayoutInflater.from(this).inflate(R.layout.item_category_name, null);
+            dividerRow = LayoutInflater.from(this).inflate(R.layout.item_divider, null);
+
+            if (!categoryName.toString().trim().equals(orderList.get(i).getName())) {
+                if (i != 0) {
+                    orderContainer.addView(dividerRow);
+                }
+                ((TfTextView) categoryNameRow.findViewById(R.id.txtCategoryName)).setText(orderList.get(i).getCategoryName());
+                orderContainer.addView(categoryNameRow);
+            }
+
             ((TfTextView) orderItemView.findViewById(R.id.txtName)).setText("Product Name : " + orderList.get(i).getName());
             ((TfTextView) orderItemView.findViewById(R.id.txtUnitValue)).setText("Unit Value : " + orderList.get(i).getUnitValue() + " " + orderList.get(i).getUnitType());
             ((TfTextView) orderItemView.findViewById(R.id.txtKgWeight)).setText("Kg Weight : " + orderList.get(i).getKGWeight() + " Kg");
             ((TfTextView) orderItemView.findViewById(R.id.txtCPrice)).setText("Current Market Price : " + formatter.format(orderList.get(i).getCurrentMarketPrice()) + " Rs.");
             ((TfTextView) orderItemView.findViewById(R.id.txtPrice)).setText("Price : " + formatter.format(orderList.get(i).getPrice()) + " Rs.");
             orderContainer.addView(orderItemView);
+
+
         }
 
         if (!isInquiry) {

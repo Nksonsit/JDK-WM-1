@@ -93,6 +93,7 @@
                 android:id="@+id/addToCart"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
+                android:textColor="@color/colorPrimary"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/update" />
 
@@ -101,6 +102,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
+                android:textColor="@color/colorPrimary"
                 android:text="@string/cancel" />
         </LinearLayout>
 

@@ -100,7 +100,6 @@ public class NotificationActivity extends AppCompatActivity {
                 //  Log.e("item clicked",notificationItems.get(pos).OrderID+" || "+ notificationItems.get(pos).NotificationTypeId);
                 Intent i = new Intent(NotificationActivity.this, OrderDetailActivity.class);
                 i.putExtra("OrderID", notificationItems.get(pos).OrderID);
-                switch (notificationItems.get(pos).NotificationTypeId) {
                 i.putExtra(AppConstants.statusTxt, notificationItems.get(pos).Title);
                 switch (notificationItems.get(pos).NotificationTypeId)
                 {

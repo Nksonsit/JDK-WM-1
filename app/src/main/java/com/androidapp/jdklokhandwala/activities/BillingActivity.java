@@ -416,7 +416,7 @@ public class BillingActivity extends AppCompatActivity {
                     if (response.body().getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(BillingActivity.this, "O").show();
-                    }else {
+                    } else {
                         Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
                     }
                 } else {
@@ -449,7 +449,7 @@ public class BillingActivity extends AppCompatActivity {
                         acceptOrder.setOrderID(OrderID);
                         acceptOrder.setIsAccept(1);
                         callApi(acceptOrder);
-                    }else {
+                    } else {
                         Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
                     }
                 } else {
@@ -475,7 +475,7 @@ public class BillingActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.body().getResponseCode() == 1) {
                         new OrderSuccessDialog(BillingActivity.this, "O").show();
-                    }else {
+                    } else {
                         Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
                     }
                 } else {

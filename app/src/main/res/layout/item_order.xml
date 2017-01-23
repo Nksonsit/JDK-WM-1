@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/dimen_8dp"
-    android:paddingRight="@dimen/dimen_8dp">
+    android:padding="@dimen/dimen_8dp"
+    android:layout_margin="@dimen/dimen_8dp">
 
 
     <LinearLayout
@@ -54,6 +54,7 @@
         </RelativeLayout>
 
         <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:padding="@dimen/dimen_4dp"
             android:id="@+id/createdDateTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

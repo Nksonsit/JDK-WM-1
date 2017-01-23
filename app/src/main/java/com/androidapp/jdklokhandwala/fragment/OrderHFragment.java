@@ -158,6 +158,7 @@ public class OrderHFragment extends Fragment {
             public void showProgress() {
                 if (isPullRefresh) {
                     if (swipeRefresh != null) {
+                        recyclerView.setClickable(false);
                         swipeRefresh.setRefreshing(true);
                     }
                 } else {
@@ -171,6 +172,7 @@ public class OrderHFragment extends Fragment {
             public void dismissProgress() {
                 if (isPullRefresh) {
                     if (swipeRefresh != null) {
+                        recyclerView.setClickable(true);
                         swipeRefresh.setRefreshing(false);
                     }
                 } else {

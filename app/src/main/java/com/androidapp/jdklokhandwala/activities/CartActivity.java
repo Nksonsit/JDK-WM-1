@@ -185,18 +185,19 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (addToCartList.size() > 0) {
-                    if (PrefUtils.isUserLoggedIn(CartActivity.this)) {
-                        Intent i = new Intent(CartActivity.this, BillingActivity.class);
-                        i.putExtra(AppConstants.isPlaceOrder, 1);
-                        i.putExtra(AppConstants.paymentMethodID, 21);
-                        Functions.fireIntent(CartActivity.this, i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                    Log.e("total weight",Functions.getTotalWeight()+"");
+                    if (Functions.getTotalWeight() >= 5000) {
+                        Functions.showAlertDialogWithYesNo(CartActivity.this, getString(R.string.weight_limit), new Functions.DialogOptionsSelectedListener() {
+                            @Override
+                            public void onSelect(boolean isYes) {
+                                if (isYes) {
+                                    proceedlaceOrder();
+                                }
+                            }
+                        });
                     } else {
-                        Intent i = new Intent(CartActivity.this, LoginActivity.class);
-                        i.putExtra(AppConstants.isPlaceOrder, 1);
-                        i.putExtra(AppConstants.paymentMethodID, 21);
-                        Functions.fireIntent(CartActivity.this, i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        proceedlaceOrder();
                     }
                 } else {
                     Functions.showToast(CartActivity.this, "Please first add item to order book.");
@@ -231,6 +232,22 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void proceedlaceOrder() {
+        if (PrefUtils.isUserLoggedIn(CartActivity.this)) {
+            Intent i = new Intent(CartActivity.this, BillingActivity.class);
+            i.putExtra(AppConstants.isPlaceOrder, 1);
+            i.putExtra(AppConstants.paymentMethodID, 21);
+            Functions.fireIntent(CartActivity.this, i);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        } else {
+            Intent i = new Intent(CartActivity.this, LoginActivity.class);
+            i.putExtra(AppConstants.isPlaceOrder, 1);
+            i.putExtra(AppConstants.paymentMethodID, 21);
+            Functions.fireIntent(CartActivity.this, i);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
     private void doFinish() {

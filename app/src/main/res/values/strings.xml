@@ -58,5 +58,6 @@
     <string name="accept">Place Order</string>
     <string name="reject">Cancel Order</string>
     <string name="error">Some thing went wrong please try again later.</string>
+    <string name="weight_limit">Weight of your order is too large. Are you sure want to proceed ?</string>
 
 </resources>

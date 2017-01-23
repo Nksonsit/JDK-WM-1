@@ -26,6 +26,7 @@ import android.widget.EditText;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.AppApi;
+import com.androidapp.jdklokhandwala.api.model.AddToCart;
 import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.UnitMeasure;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
@@ -53,7 +54,7 @@ public class Functions {
     public static final String hhmmAMPM = "hh:mm a";
     public static final String ddMMMYYYY = "dd MMM, yyyy";
     //17 Jan, 2017 03:11pm
-    public static final String CommonDateTimeFormat = ddMMMYYYY +"" + hhmmAMPM;
+    public static final String CommonDateTimeFormat = ddMMMYYYY + "" + hhmmAMPM;
 
     public static final String ServerDateFormat = "yyyy-MM-dd";
 
@@ -230,6 +231,26 @@ public class Functions {
         alert.show();
     }
 
+    public static void showAlertDialogWithYesNo(Context mContext, String message, DialogOptionsSelectedListener dialogOptionsSelectedListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage(message)
+                .setCancelable(true)
+                .setPositiveButton("YES", (dialog, id) -> {
+                    if (dialogOptionsSelectedListener != null)
+                        dialogOptionsSelectedListener.onSelect(true);
+                    dialog.dismiss();
+                })
+                .setNegativeButton("NO", (dialog, id) -> {
+                    if (dialogOptionsSelectedListener != null)
+                        dialogOptionsSelectedListener.onSelect(false);
+                    dialog.dismiss();
+                });
+        AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.setCancelable(false);
+        alert.show();
+    }
+
     public interface DialogOptionsSelectedListener {
         void onSelect(boolean isYes);
     }
@@ -252,7 +273,7 @@ public class Functions {
         return output;
     }
 
-    public static void setCity(int pincode, EditText edtCity,EditText edtArea) {
+    public static void setCity(int pincode, EditText edtCity, EditText edtArea) {
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.getCity(pincode).enqueue(new Callback<CityRes>() {
             @Override
@@ -312,31 +333,45 @@ public class Functions {
         return str;
     }
 
-    public static String getStatus(int number){
-        String status="Order Dispatched";
-        switch (number){
+    public static String getStatus(int number) {
+        String status = "Order Dispatched";
+        switch (number) {
             case 8:
-                status="Quotation Request";
+                status = "Quotation Request";
                 break;
             case 9:
-                status="Quatation Cancelled By Admin";
+                status = "Quatation Cancelled By Admin";
                 break;
             case 10:
-                status="Quotation Generated";
+                status = "Quotation Generated";
                 break;
             case 11:
-                status="Cancelled By User";
+                status = "Cancelled By User";
                 break;
             case 12:
-                status="Order Placed";
+                status = "Order Placed";
                 break;
             case 13:
-                status="Order Cancelled By Admin";
+                status = "Order Cancelled By Admin";
                 break;
             case 14:
-                status="Order Dispatched";
+                status = "Order Dispatched";
                 break;
         }
         return status;
+    }
+
+    public static Double getTotalWeight() {
+        List<AddToCart> list = AddToCart.getCartList();
+        Log.e("size",list.size()+"");
+        Double totalWeight = Double.valueOf(0);
+        if (list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                totalWeight = totalWeight + list.get(i).KgWeight();
+            }
+            return totalWeight;
+        } else {
+            return Double.valueOf(0);
+        }
     }
 }

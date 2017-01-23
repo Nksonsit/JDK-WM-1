@@ -175,7 +175,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     finish();
                                 }
                             } else {
-                                Functions.showToast(RegistrationActivity.this, "Unsuccessful.");
+                                Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage());
                             }
                         } else {
                             Functions.showToast(RegistrationActivity.this, "Some thing went wrong please try again later.");

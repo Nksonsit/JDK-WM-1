@@ -65,6 +65,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     private View categoryNameRow;
     private View dividerRow;
     private View listDivider;
+    private String status = "";
+    private TfTextView txtStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,12 @@ public class OrderDetailActivity extends AppCompatActivity {
         toolbar.setTitle("");
         txtCustomTitle = (TfTextView) toolbar.findViewById(R.id.txtCustomTitle);
 
-        txtCustomTitle.setText(getString(R.string.order_detail_title));
+        statusID = getIntent().getIntExtra(AppConstants.statusID, 10);
+        if (statusID == 8||statusID == 9||statusID == 10||statusID == 11) {
+            txtCustomTitle.setText(getString(R.string.quotation_detail_title));
+        } else {
+            txtCustomTitle.setText(getString(R.string.order_detail_title));
+        }
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -93,10 +100,13 @@ public class OrderDetailActivity extends AppCompatActivity {
         formatter = new DecimalFormat("#,##,##,###");
 
         orderID = getIntent().getIntExtra("OrderID", 0);
-        statusID = getIntent().getIntExtra(AppConstants.statusID, 10);
         isInquiry = getIntent().getBooleanExtra(AppConstants.isInquiry, true);
+        status = getIntent().getStringExtra(AppConstants.statusTxt);
 
         Log.e("details come", orderID + " || " + statusID + " || " + isInquiry);
+
+        txtStatus = (TfTextView) findViewById(R.id.txtStatus);
+        txtStatus.setText("Status : " + status);
         txtReferCode = (TfTextView) findViewById(R.id.txtReferCode);
 
         orderContainer = (LinearLayout) findViewById(R.id.orderListContainer);
@@ -246,7 +256,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         orderContainer.removeAllViews();
 
         String categoryName = "";
-        int listLine=0;
+        int listLine = 0;
         for (int i = 0; i < orderList.size(); i++) {
             orderItemView = LayoutInflater.from(this).inflate(R.layout.item_order_detail, null);
             orderContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -258,10 +268,10 @@ public class OrderDetailActivity extends AppCompatActivity {
             dividerRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             listDivider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            Log.e(categoryName.toString().trim(),orderList.get(i).getName().trim());
+            Log.e(categoryName.toString().trim(), orderList.get(i).getName().trim());
             if (!categoryName.toString().trim().equals(orderList.get(i).getCategoryName().trim())) {
                 categoryName = orderList.get(i).getCategoryName().trim();
-                listLine=0;
+                listLine = 0;
                 if (i != 0) {
                     orderContainer.addView(dividerRow);
                 }
@@ -276,7 +286,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             ((TfTextView) orderItemView.findViewById(R.id.txtUnitValue)).setText("Unit Value : " + Functions.getFormatedInt(orderList.get(i).getUnitValue()) + " " + orderList.get(i).getUnitType());
             ((TfTextView) orderItemView.findViewById(R.id.txtKgWeight)).setText("Kg Weight : " + Functions.getFormatedInt(orderList.get(i).getKGWeight()) + " Kg");
             ((TfTextView) orderItemView.findViewById(R.id.txtCPrice)).setText("Current Market Price : " + formatter.format(orderList.get(i).getCurrentMarketPrice()) + " Rs.");
-            ((TfTextView) orderItemView.findViewById(R.id.txtPrice)).setText("Price : " + formatter.format(orderList.get(i).getPrice()) + " Rs.");
+            ((TfTextView) orderItemView.findViewById(R.id.txtPrice)).setText(formatter.format(orderList.get(i).getPrice()) + "");
             orderContainer.addView(orderItemView);
 
 

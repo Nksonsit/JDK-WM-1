@@ -6,13 +6,6 @@
     android:paddingLeft="@dimen/dimen_8dp"
     android:paddingRight="@dimen/dimen_8dp">
 
-    <com.androidapp.jdklokhandwala.custom.TfTextView
-        android:id="@+id/createdDateTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dimen_8dp"
-        android:text="Date"
-        android:textSize="@dimen/M_TEXT" />
 
     <LinearLayout
         android:id="@+id/parentView"
@@ -60,6 +53,12 @@
 
         </RelativeLayout>
 
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/createdDateTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize="@dimen/M_TEXT" />
 
 
 

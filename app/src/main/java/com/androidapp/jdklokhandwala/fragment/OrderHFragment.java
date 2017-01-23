@@ -94,6 +94,7 @@ public class OrderHFragment extends Fragment {
                 Intent i = new Intent(getActivity(), OrderDetailActivity.class);
                 i.putExtra("OrderID", orderList.get(position).getOrderID());
                 i.putExtra(AppConstants.isInquiry, false);
+                i.putExtra(AppConstants.statusTxt, Functions.getStatus(orderList.get(position).getStatusID()));
                 i.putExtra(AppConstants.statusID, orderList.get(position).getStatusID());
                 Functions.fireIntent(getActivity(), i);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

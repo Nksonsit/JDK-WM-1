@@ -73,6 +73,7 @@ public class AppConstants {
     public static String isInquiry = "isInquiry";
     public static String statusID = "statusID";
     public static String isAccept="isAccept";
+    public static String statusTxt="statusTxt";
 
 
     public enum NotificationTypeId {

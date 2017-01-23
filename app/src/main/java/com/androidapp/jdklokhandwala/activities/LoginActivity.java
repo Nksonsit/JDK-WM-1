@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         }
                     } else {
-                        Functions.showToast(LoginActivity.this, "Unsuccessful.");
+                        Functions.showToast(LoginActivity.this, response.body().getResponseMessage());
                     }
                 } else {
                     Functions.showToast(LoginActivity.this, "Some thing went wrong please try again later.");

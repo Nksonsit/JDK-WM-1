@@ -92,6 +92,7 @@ public class InquiryHFragment extends Fragment {
                 Log.e("click",Functions.jsonString(historyList.get(position)));
                 Intent i = new Intent(getActivity(), OrderDetailActivity.class);
                 i.putExtra("OrderID", historyList.get(position).getOrderID());
+                i.putExtra(AppConstants.statusTxt, Functions.getStatus(historyList.get(position).getStatusID()));
                 i.putExtra(AppConstants.isInquiry, true);
                 i.putExtra(AppConstants.statusID, historyList.get(position).getStatusID());
                 Functions.fireIntent(getActivity(), i);

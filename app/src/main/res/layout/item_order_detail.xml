@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="@dimen/dimen_8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_8dp">
 
     <com.androidapp.jdklokhandwala.custom.TfTextView
         android:id="@+id/txtName"
@@ -29,17 +29,39 @@
 
     <com.androidapp.jdklokhandwala.custom.TfTextView
         android:id="@+id/txtCPrice"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Current Market Price : 1000"
-        android:textSize="@dimen/L_TEXT" />
+        android:textSize="@dimen/L_TEXT"
+        android:visibility="gone" />
 
-    <com.androidapp.jdklokhandwala.custom.TfTextView
-        android:id="@+id/txtPrice"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Price : 6000"
-        android:textSize="@dimen/L_TEXT" />
+        android:layout_height="wrap_content">
 
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/txtxLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price :"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/L_TEXT" />
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/iconRupee"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@+id/txtxLabel"
+            android:src="@drawable/ic_rupee" />
+
+        <com.androidapp.jdklokhandwala.custom.TfTextView
+            android:id="@+id/txtPrice"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iconRupee"
+            android:text="6000"
+            android:textSize="@dimen/L_TEXT" />
+    </RelativeLayout>
 </LinearLayout>

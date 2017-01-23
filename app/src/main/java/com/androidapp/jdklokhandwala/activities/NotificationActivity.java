@@ -101,6 +101,9 @@ public class NotificationActivity extends AppCompatActivity {
                 Intent i = new Intent(NotificationActivity.this, OrderDetailActivity.class);
                 i.putExtra("OrderID", notificationItems.get(pos).OrderID);
                 switch (notificationItems.get(pos).NotificationTypeId) {
+                i.putExtra(AppConstants.statusTxt, notificationItems.get(pos).Title);
+                switch (notificationItems.get(pos).NotificationTypeId)
+                {
                     case 10:
                         i.putExtra(AppConstants.isInquiry, true);
                         i.putExtra(AppConstants.isAccept, true);

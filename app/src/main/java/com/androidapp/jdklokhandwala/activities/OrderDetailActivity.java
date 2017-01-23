@@ -22,6 +22,7 @@ import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
@@ -198,13 +199,17 @@ public class OrderDetailActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.body().getResponseCode() == 1) {
                         Functions.showToast(OrderDetailActivity.this, response.body().getResponseMessage());
+                    } else {
+                        Functions.showToast(OrderDetailActivity.this, response.body().getResponseMessage().trim());
                     }
+                } else {
+                    Functions.showToast(OrderDetailActivity.this, getResources().getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, OrderDetailActivity.this);
             }
         });
     }
@@ -220,6 +225,8 @@ public class OrderDetailActivity extends AppCompatActivity {
                         orderList = response.body().getDataList();
 
                         setUi();
+                    } else {
+                        Functions.showToast(OrderDetailActivity.this, response.body().getResponseMessage().trim());
                     }
                 } else {
                     Functions.showToast(OrderDetailActivity.this, "Did not find your order please try again.");
@@ -229,7 +236,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<OrderListRes> call, Throwable t) {
-                Functions.showToast(OrderDetailActivity.this, "Did not find your order please try again.");
+                RetrofitErrorHelper.showErrorMsg(t, OrderDetailActivity.this);
                 finish();
             }
         });

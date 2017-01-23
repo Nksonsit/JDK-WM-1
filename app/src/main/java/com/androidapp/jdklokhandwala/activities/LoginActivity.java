@@ -26,6 +26,7 @@ import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegistrationRes> call, Throwable t) {
-                Functions.showToast(LoginActivity.this, "Some thing went wrong please try again later.");
+                RetrofitErrorHelper.showErrorMsg(t, LoginActivity.this);
                 dialog.dismiss();
             }
         });
@@ -206,13 +207,14 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(LoginActivity.this, "Q").show();
-                    }
+                    }else {
+                    Functions.showToast(LoginActivity.this, "Some thing went wrong please try again later.");}
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, LoginActivity.this);
             }
         });
     }

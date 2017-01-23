@@ -186,7 +186,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                     return;
                 }
             }
-            ans.setText(String.format("%.2f", getCalculation(list, calculateType.getSelectedItemPosition())) + "");
+            ans.setText(String.format("%.2f", getCalculation(list, calculateType.getSelectedItemPosition())) + " Kg/ft");
         } else if (obj.getType() == 1) {
             if (weightObj != null) {
                 int i=calculateType.getSelectedItemPosition();

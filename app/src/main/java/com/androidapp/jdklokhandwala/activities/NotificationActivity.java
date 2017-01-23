@@ -25,6 +25,7 @@ import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 
@@ -160,24 +161,26 @@ public class NotificationActivity extends AppCompatActivity {
                         // Log.e("resp",response.body().getResponseMessage() +" || " + response.body().Data.lstnotification.size());
                         if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
                             notificationItems.addAll(response.body().Data.lstnotification);
-                            if (notificationItems.size() < 10) {
+                            if(notificationItems.size()<10){
                                 isLoadMore = false;
                                 notificationRV.removeFooterView(footer);
-                            } else {
+                            }else{
                                 isLoadMore = true;
                                 notificationRV.addFooterView(footer);
                             }
-                        } else {
+                        }else {
                             isLoadMore = false;
                             notificationRV.removeFooterView(footer);
                         }
+                    }  else {
+                        Functions.showToast(NotificationActivity.this, getResources().getString(R.string.error));
                     }
                     adapter.notifyDataSetChanged();
                 }
 
                 @Override
                 public void onFailure(Call<NotificationItemRes> call, Throwable t) {
-
+                    RetrofitErrorHelper.showErrorMsg(t, NotificationActivity.this);
                 }
             });
         }
@@ -195,13 +198,15 @@ public class NotificationActivity extends AppCompatActivity {
 
                 if (response.body() != null) {
                     Log.e("resp", response.body().getResponseMessage());
+                } else {
+                    Functions.showToast(NotificationActivity.this, getResources().getString(R.string.error));
                 }
 
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, NotificationActivity.this);
             }
         });
 

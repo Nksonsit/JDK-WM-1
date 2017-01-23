@@ -57,5 +57,6 @@
     <string name="payment_mode_dialog">Choose your payment mode</string>
     <string name="accept">Place Order</string>
     <string name="reject">Cancel Order</string>
+    <string name="error">Some thing went wrong please try again later.</string>
 
 </resources>

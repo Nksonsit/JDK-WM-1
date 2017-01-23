@@ -30,6 +30,7 @@ import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -368,11 +369,14 @@ public class BillingActivity extends AppCompatActivity {
                 if (response.body() != null && response.body().getData() != null) {
                     enterBcity.setText(response.body().getData().getCity());
                     enterBArea.setText(response.body().getData().getArea());
+                } else {
+                    Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<CityRes> call, Throwable t) {
+                RetrofitErrorHelper.showErrorMsg(t, BillingActivity.this);
                 Log.e("error", t.getMessage());
             }
         });
@@ -386,11 +390,14 @@ public class BillingActivity extends AppCompatActivity {
                 if (response.body() != null && response.body().getData() != null) {
                     enterScity.setText(response.body().getData().getCity());
                     enterSArea.setText(response.body().getData().getArea());
+                } else {
+                    Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<CityRes> call, Throwable t) {
+                RetrofitErrorHelper.showErrorMsg(t, BillingActivity.this);
                 Log.e("error", t.getMessage());
             }
         });
@@ -409,15 +416,18 @@ public class BillingActivity extends AppCompatActivity {
                     if (response.body().getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(BillingActivity.this, "O").show();
-                    } else {
-                        Functions.showToast(BillingActivity.this, "Fail");
+                    }else {
+                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
                     }
+                } else {
+                    Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
                 dialog.dismiss();
+                RetrofitErrorHelper.showErrorMsg(t, BillingActivity.this);
             }
         });
     }
@@ -439,15 +449,18 @@ public class BillingActivity extends AppCompatActivity {
                         acceptOrder.setOrderID(OrderID);
                         acceptOrder.setIsAccept(1);
                         callApi(acceptOrder);
-                    } else {
-                        Functions.showToast(BillingActivity.this, "Fail");
+                    }else {
+                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
                     }
+                } else {
+                    Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<UpdateUserResp> call, Throwable t) {
                 dialog.dismiss();
+                RetrofitErrorHelper.showErrorMsg(t, BillingActivity.this);
             }
 
         });
@@ -462,13 +475,17 @@ public class BillingActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.body().getResponseCode() == 1) {
                         new OrderSuccessDialog(BillingActivity.this, "O").show();
+                    }else {
+                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
                     }
+                } else {
+                    Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, BillingActivity.this);
             }
         });
     }

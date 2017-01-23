@@ -19,10 +19,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.androidapp.jdklokhandwala.R;
+import com.androidapp.jdklokhandwala.activities.LoginActivity;
 import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.AboutUsResponse;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 import com.androidapp.jdklokhandwala.support.ImageLoader;
 
 import dmax.dialog.SpotsDialog;
@@ -103,6 +106,7 @@ public class AboutUsFragment extends Fragment {
                     }
                 }else {
                     aboutUsTV.setText("There is no data available.");
+
                 }
             }
 
@@ -110,6 +114,7 @@ public class AboutUsFragment extends Fragment {
             public void onFailure(Call<AboutUsResponse> call, Throwable t) {
                 dialog.dismiss();
                 aboutUsTV.setText("There is no data available.");
+                RetrofitErrorHelper.showErrorMsg(t, getActivity());
             }
         });
     }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.activities.DashboardActivity;
+import com.androidapp.jdklokhandwala.activities.NotificationActivity;
 import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.RegistrationRes;
 import com.androidapp.jdklokhandwala.api.model.UpdateUserRequest;
@@ -25,6 +26,7 @@ import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
@@ -137,12 +139,15 @@ public class MyProfileFragment extends Fragment {
                     Log.e("user", MyApplication.getGson().toJson(userPojo).toString());
                     PrefUtils.setUserFullProfileDetails(getActivity(), userPojo);
                     updateUI(userPojo);
+                } else {
+                    Functions.showToast(getActivity(), getResources().getString(R.string.error));
                 }
             }
 
             @Override
             public void onFailure(Call<RegistrationRes> call, Throwable t) {
                 Log.e("error", t.getMessage());
+                RetrofitErrorHelper.showErrorMsg(t, getActivity());
             }
         });
     }
@@ -264,7 +269,7 @@ public class MyProfileFragment extends Fragment {
                         ((Activity) getActivity()).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         ((Activity) getActivity()).finish();
                     } else {
-                        Functions.showToast(getActivity(), "Fail");
+                        Functions.showToast(getActivity(), getResources().getString(R.string.error));
                     }
                 }
             }
@@ -272,6 +277,7 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onFailure(Call<UpdateUserResp> call, Throwable t) {
                 dialog.dismiss();
+                RetrofitErrorHelper.showErrorMsg(t, getActivity());
             }
 
         });

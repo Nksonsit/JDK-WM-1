@@ -278,11 +278,11 @@ public class CartActivity extends AppCompatActivity {
                     if (response.body().getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(CartActivity.this, "Q").show();
-                    } else {
-                        Functions.showToast(CartActivity.this, "Fail");
+                    }else {
+                        Functions.showToast(CartActivity.this, response.body().getResponseMessage().trim());
                     }
-                } else {
-                    Functions.showToast(CartActivity.this, getString(R.string.try_again));
+                }  else {
+                    Functions.showToast(CartActivity.this, getResources().getString(R.string.error));
                 }
             }
 

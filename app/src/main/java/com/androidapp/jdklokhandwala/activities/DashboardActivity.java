@@ -35,6 +35,7 @@ import com.androidapp.jdklokhandwala.helper.CustomTypefaceSpan;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 
 import java.io.Serializable;
@@ -336,12 +337,14 @@ public class DashboardActivity extends AppCompatActivity {
 
                             notificationItems.addAll(response.body().Data.lstnotification);
                         }
+                    } else {
+                        Functions.showToast(DashboardActivity.this, getResources().getString(R.string.error));
                     }
                 }
 
                 @Override
                 public void onFailure(Call<NotificationItemRes> call, Throwable t) {
-
+                    RetrofitErrorHelper.showErrorMsg(t, DashboardActivity.this);
                 }
             });
 

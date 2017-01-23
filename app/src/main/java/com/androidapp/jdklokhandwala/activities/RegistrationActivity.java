@@ -185,7 +185,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<RegistrationRes> call, Throwable t) {
                         dialog.dismiss();
-                        Functions.showToast(RegistrationActivity.this, "Some thing went wrong please try again later.");
+                        RetrofitErrorHelper.showErrorMsg(t, RegistrationActivity.this);
                     }
                 });
             }
@@ -302,13 +302,15 @@ public class RegistrationActivity extends AppCompatActivity {
 
                         }
                     });
+                } else {
+                    Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage().trim());
                 }
 
             }
 
             @Override
             public void onFailure(Call<UserIdentityTypeRes> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, RegistrationActivity.this);
             }
         });
     }
@@ -355,7 +357,11 @@ public class RegistrationActivity extends AppCompatActivity {
                     if (baseResponse.getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(RegistrationActivity.this, "Q").show();
+                    } else {
+                        Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage().trim());
                     }
+                } else {
+                    Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage().trim());
                 }
             }
 

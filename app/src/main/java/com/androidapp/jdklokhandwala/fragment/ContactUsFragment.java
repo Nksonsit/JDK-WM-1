@@ -24,6 +24,7 @@ import com.androidapp.jdklokhandwala.api.model.AboutUsResponse;
 import com.androidapp.jdklokhandwala.api.model.ContactUsResponse;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 import com.androidapp.jdklokhandwala.support.ImageLoader;
 
 import dmax.dialog.SpotsDialog;
@@ -110,6 +111,7 @@ public class ContactUsFragment extends Fragment {
             public void onFailure(Call<ContactUsResponse> call, Throwable t) {
                 dialog.dismiss();
                 contactUsTV.setText("There is no data available.");
+                RetrofitErrorHelper.showErrorMsg(t, getActivity());
             }
         });
     }

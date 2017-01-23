@@ -25,10 +25,12 @@ import com.androidapp.jdklokhandwala.custom.PaymentMethodDialog;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.custom.familiarrecyclerview.FamiliarRecyclerView;
+import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +153,7 @@ public class CartActivity extends AppCompatActivity {
                                 addToCartPojo.setUnitTypes(product.UnitTypes());
 
 
-                                Log.e("type",type);
+                                Log.e("type", type);
                                 if (type.toString().toLowerCase().trim().contains("kg")) {
                                     addToCartPojo.setKgWeight(Double.valueOf(quantity));
                                 } else {
@@ -161,7 +163,7 @@ public class CartActivity extends AppCompatActivity {
                                 addToCartPojo.setDefaultWeight(product.DefaultWeight());
 
                                 AddToCart.UpdateItem(addToCartPojo);
-                                addToCartList=AddToCart.getCartList();
+                                addToCartList = AddToCart.getCartList();
                                 adapter.notifyDataSetChanged();
                             }
                         }).show();
@@ -273,23 +275,21 @@ public class CartActivity extends AppCompatActivity {
                 dialog.dismiss();
                 if (response.body() != null && response.body().getResponseMessage() != null) {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseCode()==1) {
+                    if (response.body().getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
-                        Functions.showToast(CartActivity.this, "Request for Quotation sent successfully.");
-                        Intent i = new Intent(CartActivity.this, DashboardActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Functions.fireIntent(CartActivity.this, i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                        new OrderSuccessDialog(CartActivity.this, "Q").show();
                     } else {
                         Functions.showToast(CartActivity.this, "Fail");
                     }
+                } else {
+                    Functions.showToast(CartActivity.this, getString(R.string.try_again));
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
                 dialog.dismiss();
+                RetrofitErrorHelper.showErrorMsg(t, CartActivity.this);
 
             }
         });

@@ -26,6 +26,7 @@ import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfEditText;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
@@ -353,12 +354,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (baseResponse.getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
-                        Functions.showToast(RegistrationActivity.this, "Request for quotation sent successfully.");
-                        Intent i = new Intent(RegistrationActivity.this, DashboardActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Functions.fireIntent(RegistrationActivity.this, i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                        new OrderSuccessDialog(RegistrationActivity.this, "Q").show();
                     }
                 }
             }

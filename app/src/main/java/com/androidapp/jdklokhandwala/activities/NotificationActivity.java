@@ -68,7 +68,11 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        readNotificationApi();
+
+        if (PrefUtils.isUserLoggedIn(this)) {
+            readNotificationApi();
+        }
+
         notificationItems = (ArrayList<NotificationItem>) getIntent().getSerializableExtra("notificationItems");
         initRecyclerView();
 
@@ -93,11 +97,10 @@ public class NotificationActivity extends AppCompatActivity {
         adapter = new NotificationAdapter(NotificationActivity.this, notificationItems, new NotificationAdapter.OnClickListener() {
             @Override
             public void onClickListener(int pos) {
-              //  Log.e("item clicked",notificationItems.get(pos).OrderID+" || "+ notificationItems.get(pos).NotificationTypeId);
+                //  Log.e("item clicked",notificationItems.get(pos).OrderID+" || "+ notificationItems.get(pos).NotificationTypeId);
                 Intent i = new Intent(NotificationActivity.this, OrderDetailActivity.class);
                 i.putExtra("OrderID", notificationItems.get(pos).OrderID);
-                switch (notificationItems.get(pos).NotificationTypeId)
-                {
+                switch (notificationItems.get(pos).NotificationTypeId) {
                     case 10:
                         i.putExtra(AppConstants.isInquiry, true);
                         i.putExtra(AppConstants.isAccept, true);
@@ -155,14 +158,14 @@ public class NotificationActivity extends AppCompatActivity {
                         // Log.e("resp",response.body().getResponseMessage() +" || " + response.body().Data.lstnotification.size());
                         if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
                             notificationItems.addAll(response.body().Data.lstnotification);
-                            if(notificationItems.size()<10){
+                            if (notificationItems.size() < 10) {
                                 isLoadMore = false;
                                 notificationRV.removeFooterView(footer);
-                            }else{
+                            } else {
                                 isLoadMore = true;
                                 notificationRV.addFooterView(footer);
                             }
-                        }else {
+                        } else {
                             isLoadMore = false;
                             notificationRV.removeFooterView(footer);
                         }

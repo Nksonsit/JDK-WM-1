@@ -21,6 +21,7 @@ import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfEditText;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
@@ -204,12 +205,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
                     if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
                         AddToCart.DeleteAllData();
-                        Functions.showToast(LoginActivity.this, "Request for quotation sent successfully.");
-                        Intent i = new Intent(LoginActivity.this, DashboardActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Functions.fireIntent(LoginActivity.this, i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                        new OrderSuccessDialog(LoginActivity.this, "Q").show();
                     }
                 }
             }

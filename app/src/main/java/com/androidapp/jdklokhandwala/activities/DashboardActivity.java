@@ -24,7 +24,6 @@ import com.androidapp.jdklokhandwala.api.model.NotificationItem;
 import com.androidapp.jdklokhandwala.api.model.NotificationItemRes;
 import com.androidapp.jdklokhandwala.custom.BadgeHelper;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
-import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.fragment.AboutUsFragment;
 import com.androidapp.jdklokhandwala.fragment.BookmarksFragment;
 import com.androidapp.jdklokhandwala.fragment.CategoryListFragment;
@@ -55,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
     private ArrayList<NotificationItem> notificationItems;
     private int no_of_notification;
     private BadgeHelper badgeHelper, badgeCart;
-    MenuItem cartItem;
+    MenuItem cartItem, notificationItem;
 
 
     @Override
@@ -75,6 +74,18 @@ public class DashboardActivity extends AppCompatActivity {
         if (badgeCart != null) {
             badgeCart.displayBadge(cartSize);
         }
+        if (PrefUtils.isUserLoggedIn(this)) {
+            if (notificationItem != null) {
+                notificationItem.setVisible(true);
+                badgeHelper = new BadgeHelper(this, notificationItem, ActionItemBadge.BadgeStyles.GREY);
+                if (no_of_notification > 0) {
+                    badgeHelper.displayBadge(no_of_notification);
+                }
+            }
+        } else {
+            if (notificationItem != null)
+                notificationItem.setVisible(false);
+        }
     }
 
     public void selectMenuItem(int position) {
@@ -90,7 +101,6 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         initDrawer();
-
 
     }
 
@@ -258,14 +268,22 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
         cartItem = menu.findItem(R.id.menu_cart);
-        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.menu_noti), ActionItemBadge.BadgeStyles.GREY);
+        notificationItem = menu.findItem(R.id.menu_noti);
+
         badgeCart = new BadgeHelper(this, menu.findItem(R.id.menu_cart), ActionItemBadge.BadgeStyles.GREY);
-        if (no_of_notification > 0) {
-            badgeHelper.displayBadge(no_of_notification);
-        }
         int cartSize = AddToCart.getCartList().size();
         if (cartSize > 0 && badgeCart != null) {
             badgeCart.displayBadge(cartSize);
+        }
+
+        if (PrefUtils.isUserLoggedIn(this)) {
+            notificationItem.setVisible(true);
+            badgeHelper = new BadgeHelper(this, menu.findItem(R.id.menu_noti), ActionItemBadge.BadgeStyles.GREY);
+            if (no_of_notification > 0) {
+                badgeHelper.displayBadge(no_of_notification);
+            }
+        } else {
+            notificationItem.setVisible(false);
         }
         return true;
     }
@@ -312,8 +330,9 @@ public class DashboardActivity extends AppCompatActivity {
                         // Log.e("resp", response.body().getResponseMessage() + " || " + response.body().Data.lstnotification.size());
                         if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
                             no_of_notification = response.body().Data.UnReadCount;
-                            if(badgeHelper!=null){
-                            badgeHelper.displayBadge(no_of_notification);}
+                            if (badgeHelper != null) {
+                                badgeHelper.displayBadge(no_of_notification);
+                            }
 
                             notificationItems.addAll(response.body().Data.lstnotification);
                         }

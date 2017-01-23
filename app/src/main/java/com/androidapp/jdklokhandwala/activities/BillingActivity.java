@@ -408,7 +408,7 @@ public class BillingActivity extends AppCompatActivity {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
                     if (response.body().getResponseCode() == 1) {
                         AddToCart.DeleteAllData();
-                        new OrderSuccessDialog(BillingActivity.this).show();
+                        new OrderSuccessDialog(BillingActivity.this, "O").show();
                     } else {
                         Functions.showToast(BillingActivity.this, "Fail");
                     }
@@ -461,7 +461,7 @@ public class BillingActivity extends AppCompatActivity {
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null) {
                     if (response.body().getResponseCode() == 1) {
-                        new OrderSuccessDialog(BillingActivity.this).show();
+                        new OrderSuccessDialog(BillingActivity.this, "O").show();
                     }
                 }
             }

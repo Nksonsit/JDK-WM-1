@@ -25,12 +25,18 @@ public class OrderSuccessDialog extends Dialog {
     private final Context context;
     private View view;
     private Button btnOk;
+    private String str;
 
-    public OrderSuccessDialog(final Context context) {
+    public OrderSuccessDialog(final Context context, String str) {
         super(context);
         this.context = context;
+        this.str = str;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        view = LayoutInflater.from(context).inflate(R.layout.order_success_dialog, null);
+        if (str.equals("O")) {
+            view = LayoutInflater.from(context).inflate(R.layout.order_success_dialog, null);
+        } else {
+            view = LayoutInflater.from(context).inflate(R.layout.quotation_success_dialog, null);
+        }
         setContentView(view);
 
         this.setCancelable(true);
@@ -40,7 +46,7 @@ public class OrderSuccessDialog extends Dialog {
     }
 
     private void init() {
-        btnOk  = (Button) view.findViewById(R.id.btnOk);
+        btnOk = (Button) view.findViewById(R.id.btnOk);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(getWindow().getAttributes());

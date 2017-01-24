@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.DisplayMetrics;
@@ -32,6 +33,8 @@ import com.androidapp.jdklokhandwala.api.model.UnitMeasure;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.droidbyme.toastlib.ToastEnum;
 import com.droidbyme.toastlib.ToastLib;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -373,5 +376,17 @@ public class Functions {
         } else {
             return Double.valueOf(0);
         }
+    }
+
+    public static void setPermission(final Context context, @NonNull String[] permissions, PermissionListener permissionListene) {
+
+        if (permissions != null && permissions.length == 0 && permissionListene != null) {
+            return;
+        }
+        new TedPermission(context)
+                .setPermissionListener(permissionListene)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(permissions)
+                .check();
     }
 }

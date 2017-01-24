@@ -8,7 +8,7 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.androidapp.jdklokhandwala"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -80,5 +80,8 @@ dependencies {
     compile('com.mikepenz:actionitembadge:3.1.2@aar') {
         transitive = true
     }
+
+    //ted permission
+    compile 'gun0912.ted:tedpermission:1.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,9 +24,13 @@ import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.AboutUsResponse;
 import com.androidapp.jdklokhandwala.api.model.ContactUsResponse;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 import com.androidapp.jdklokhandwala.support.ImageLoader;
+import com.gun0912.tedpermission.PermissionListener;
+
+import java.util.ArrayList;
 
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
@@ -60,6 +65,22 @@ public class ContactUsFragment extends Fragment {
         imageLoader = new ImageLoader(getActivity());
         dialog = new SpotsDialog(getActivity(), R.style.Custom);
 
+        Functions.setPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                callApi();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Functions.showToast(getActivity(),"You have denied service.");
+            }
+        });
+
+
+    }
+
+    private void callApi() {
         dialog.show();
         AppApi appApi= MyApplication.getRetrofit().create(AppApi.class);
         appApi.getContactUsApi().enqueue(new Callback<ContactUsResponse>() {

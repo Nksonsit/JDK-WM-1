@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,6 +28,9 @@ import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 import com.androidapp.jdklokhandwala.support.ImageLoader;
+import com.gun0912.tedpermission.PermissionListener;
+
+import java.util.ArrayList;
 
 import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
@@ -59,17 +63,35 @@ public class AboutUsFragment extends Fragment {
     private void init() {
 
         dialog = new SpotsDialog(getActivity(), R.style.Custom);
-        aboutUsTV=(TfTextView)parentView.findViewById(R.id.contactUsTV);
+        aboutUsTV = (TfTextView) parentView.findViewById(R.id.contactUsTV);
         imageLoader = new ImageLoader(getActivity());
 
+
+        Functions.setPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                callApi();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Functions.showToast(getActivity(),"You have denied service.");
+            }
+        });
+
+
+
+    }
+
+    private void callApi() {
         dialog.show();
-        AppApi appApi= MyApplication.getRetrofit().create(AppApi.class);
+        AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.getAboutUsApi().enqueue(new Callback<AboutUsResponse>() {
             @Override
             public void onResponse(Call<AboutUsResponse> call, Response<AboutUsResponse> response) {
                 dialog.dismiss();
-                if(response.body()!=null){
-                    if(response.body().getData()!=null&&response.body().getData().getDescription()!=null&&response.body().getData().getDescription().length()>0){
+                if (response.body() != null) {
+                    if (response.body().getData() != null && response.body().getData().getDescription() != null && response.body().getData().getDescription().length() > 0) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             aboutUsTV.setText(Html.fromHtml(response.body().getData().getDescription(), 0, new Html.ImageGetter() {
                                 @Override
@@ -86,8 +108,8 @@ public class AboutUsFragment extends Fragment {
                                     return d;
                                 }
                             }, null));
-                        }else {
-                            aboutUsTV.setText(Html.fromHtml(response.body().getData().getDescription(),new Html.ImageGetter() {
+                        } else {
+                            aboutUsTV.setText(Html.fromHtml(response.body().getData().getDescription(), new Html.ImageGetter() {
                                 @Override
                                 public Drawable getDrawable(String s) {
                                     LevelListDrawable d = new LevelListDrawable();
@@ -101,10 +123,10 @@ public class AboutUsFragment extends Fragment {
 
                                     return d;
                                 }
-                            },null));
+                            }, null));
                         }
                     }
-                }else {
+                } else {
                     aboutUsTV.setText("There is no data available.");
 
                 }

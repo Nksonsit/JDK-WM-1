@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.androidapp.jdklokhandwala.custom.EmptyLayout;
 import com.androidapp.jdklokhandwala.custom.LineDividerItemDecoration;
 import com.androidapp.jdklokhandwala.custom.familiarrecyclerview.FamiliarRecyclerView;
 import com.androidapp.jdklokhandwala.helper.Functions;
+import com.gun0912.tedpermission.PermissionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +103,19 @@ public class CategoryListFragment extends Fragment {
             @Override
             public void run() {
                 getList(false);
+            }
+        });
+
+
+        Functions.setPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+
             }
         });
 

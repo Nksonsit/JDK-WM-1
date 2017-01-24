@@ -19,7 +19,6 @@
         <item name="android:textColor">@color/half_black</item>
     </style>
 
-
     <style name="Custom" parent="android:Theme.DeviceDefault.Light.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Loading…</item>

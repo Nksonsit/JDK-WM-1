@@ -1,9 +1,9 @@
 package com.androidapp.jdklokhandwala.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -27,6 +27,7 @@ import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
 import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,13 @@ public class LoginActivity extends AppCompatActivity {
                     loginReq.setMobile(phoneTV.getText().toString().trim());
                     loginReq.setPassword(passwordTV.getText().toString().trim());
                     loginReq.setDeviceID(deviceId);
-                    loginReq.setGCMToken("12345");
+                    //loginReq.setGCMToken("12345");
+                    String fcmToken = PrefUtils.getFCMToken(LoginActivity.this);
+                    if (fcmToken != null && fcmToken.trim().length() > 0) {
+                        loginReq.setGCMToken(fcmToken);
+                    } else {
+                        loginReq.setGCMToken(FirebaseInstanceId.getInstance().getToken());
+                    }
                     loginReq.setDeviceType("Android");
                     doLogin(loginReq);
 

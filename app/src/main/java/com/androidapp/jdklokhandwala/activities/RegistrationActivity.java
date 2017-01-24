@@ -375,7 +375,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void showProgress() {
         if (dialog == null) {
-            dialog = new SpotsDialog(RegistrationActivity.this, R.style.Custom);
+            dialog = new SpotsDialog(RegistrationActivity.this, "", R.style.Custom);
         }
         dialog.show();
     }

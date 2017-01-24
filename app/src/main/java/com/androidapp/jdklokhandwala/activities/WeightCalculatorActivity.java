@@ -289,7 +289,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
             Double w = Double.valueOf(inputList.get(0));
             Double h = Double.valueOf(inputList.get(1));
             Double t = Double.valueOf(inputList.get(2));
-            ans = (((w + h) * 2) - 4 * t * t * 0.00785) / 3.2808;
+            ans = ((((w + h) * 2) - (4 * t)) * t * 0.00785) / 3.2808;
         }
         return ans;
     }

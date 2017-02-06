@@ -7,10 +7,10 @@ package com.androidapp.jdklokhandwala.api.model;
 public class OrderDetail {
     int OrderID;
     String ReferCode;
-    int TotalAmount;
-    int TotalCartWeight;
-    int NetAmount;
-    int DiscountAmount;
+    double TotalAmount;
+    double TotalCartWeight;
+    double NetAmount;
+    double DiscountAmount;
     String CreatedDate;
     String BillingAddress1;
     String BillingAddress2;
@@ -35,35 +35,35 @@ public class OrderDetail {
         ReferCode = referCode;
     }
 
-    public int getTotalAmount() {
+    public double getTotalAmount() {
         return TotalAmount;
     }
 
-    public void setTotalAmount(int totalAmount) {
+    public void setTotalAmount(double totalAmount) {
         TotalAmount = totalAmount;
     }
 
-    public int getTotalCartWeight() {
+    public double getTotalCartWeight() {
         return TotalCartWeight;
     }
 
-    public void setTotalCartWeight(int totalCartWeight) {
+    public void setTotalCartWeight(double totalCartWeight) {
         TotalCartWeight = totalCartWeight;
     }
 
-    public int getNetAmount() {
+    public double getNetAmount() {
         return NetAmount;
     }
 
-    public void setNetAmount(int netAmount) {
+    public void setNetAmount(double netAmount) {
         NetAmount = netAmount;
     }
 
-    public int getDiscountAmount() {
+    public double getDiscountAmount() {
         return DiscountAmount;
     }
 
-    public void setDiscountAmount(int discountAmount) {
+    public void setDiscountAmount(double discountAmount) {
         DiscountAmount = discountAmount;
     }
 

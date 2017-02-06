@@ -5,6 +5,7 @@ import android.content.Context;
 import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.OrderItemRes;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class GetOrderList {
 
             @Override
             public void onFailure(Call<OrderItemRes> call, Throwable t) {
+                RetrofitErrorHelper.showErrorMsg(t, context);
                 OnGetOrders.onGetOrders(new OrderItemRes());
                 if (OnGetOrders != null) {
                     OnGetOrders.dismissProgress();

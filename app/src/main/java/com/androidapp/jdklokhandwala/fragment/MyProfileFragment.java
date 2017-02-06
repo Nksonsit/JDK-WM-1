@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.activities.DashboardActivity;
 import com.androidapp.jdklokhandwala.activities.NotificationActivity;
+import com.androidapp.jdklokhandwala.activities.RegistrationActivity;
 import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.RegistrationRes;
 import com.androidapp.jdklokhandwala.api.model.UpdateUserRequest;
@@ -99,8 +100,12 @@ public class MyProfileFragment extends Fragment {
         dialog = new SpotsDialog(getActivity(), R.style.Custom);
         userPojo = PrefUtils.getUserFullProfileDetails(getActivity());
         updateUI(userPojo);
-        getUserProfile(PrefUtils.getUserID(getActivity()));
+        if (Functions.isConnected(getActivity())) {
 
+            getUserProfile(PrefUtils.getUserID(getActivity()));
+        } else {
+            Functions.showToast(getActivity(), getResources().getString(R.string.no_internet_connection));
+        }
         textChangedListener();
 
         clickListener();
@@ -113,7 +118,7 @@ public class MyProfileFragment extends Fragment {
 
             @Override
             public void onError(String error) {
-                Log.e("error", error);
+                Functions.showToast(getActivity(),error.trim());
             }
         });
         changePassword = (TfTextView) parentView.findViewById(R.id.changePassword);
@@ -184,7 +189,8 @@ public class MyProfileFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() == 6) {
                     // setBillingCity(Integer.valueOf(charSequence.toString().trim()));
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterBCity, enterBArea);
+                    if (Functions.isConnected(getActivity()))
+                        Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterBCity, enterBArea);
                 } else {
                     enterBCity.setText("");
                     enterBArea.setText("");
@@ -208,7 +214,8 @@ public class MyProfileFragment extends Fragment {
 
                 if (charSequence.toString().trim().length() == 6) {
                     //setShippingCity(Integer.valueOf(charSequence.toString().trim()));
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterSCity, enterSArea);
+                    if (Functions.isConnected(getActivity()))
+                        Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterSCity, enterSArea);
                 } else {
                     enterSCity.setText("");
                     enterSArea.setText("");
@@ -228,7 +235,9 @@ public class MyProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Functions.hideKeyPad(getActivity(), view);
-                if (validateField()) {
+                if (Functions.isConnected(getActivity())) {
+
+                    if (validateField()) {
                     dialog.show();
 
                     UpdateUserRequest updateUserRequest = new UpdateUserRequest();
@@ -244,6 +253,8 @@ public class MyProfileFragment extends Fragment {
                     updateUserRequest.ShippingPinCode = enterSPincode.getText().toString().trim();
 
                     updateUserApiCall(updateUserRequest);
+                }} else {
+                    Functions.showToast(getActivity(), getResources().getString(R.string.no_internet_connection));
                 }
             }
         });
@@ -303,9 +314,10 @@ public class MyProfileFragment extends Fragment {
         if (enterName.getText().toString().trim().length() == 0) {
             Functions.showToast(getActivity(), "Please enter UserName");
             return false;
-        } else if (enterEmailId.getText().toString().trim().length() == 0) {
-            Functions.showToast(getActivity(), "Please enter Email");
+        } else if (enterEmailId.getText().toString().trim().length() != 0  &&  !Functions.emailValidation(enterEmailId.getText().toString().trim())) {
+            Functions.showToast(getActivity(), "Please enter your valid email id.");
             return false;
+
         } else if (enterMobileNo.getText().toString().trim().length() == 0) {
             Functions.showToast(getActivity(), "Please enter MobileNo");
             return false;

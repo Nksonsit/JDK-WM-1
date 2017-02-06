@@ -1,5 +1,7 @@
 package com.androidapp.jdklokhandwala.activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.AppApi;
@@ -17,11 +20,15 @@ import com.androidapp.jdklokhandwala.api.model.BaseResponse;
 import com.androidapp.jdklokhandwala.api.model.OrderDetail;
 import com.androidapp.jdklokhandwala.api.model.OrderListPojo;
 import com.androidapp.jdklokhandwala.api.model.OrderListRes;
+import com.androidapp.jdklokhandwala.api.model.RegistrationRes;
+import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.UserInActiveDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
+import com.androidapp.jdklokhandwala.helper.PrefUtils;
 import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.text.DecimalFormat;
@@ -30,6 +37,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,6 +76,11 @@ public class OrderDetailActivity extends AppCompatActivity {
     private View listDivider;
     private String status = "";
     private TfTextView txtStatus;
+    private RelativeLayout parentView;
+    private AlertDialog dialog;
+    private RelativeLayout netAmountView;
+    private RelativeLayout totalAmountView;
+    private RelativeLayout discountView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +96,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtCustomTitle = (TfTextView) toolbar.findViewById(R.id.txtCustomTitle);
 
         statusID = getIntent().getIntExtra(AppConstants.statusID, 10);
-        if (statusID == 8||statusID == 9||statusID == 10||statusID == 11) {
+        if (statusID == 8 || statusID == 9 || statusID == 10 || statusID == 11) {
             txtCustomTitle.setText(getString(R.string.quotation_detail_title));
         } else {
             txtCustomTitle.setText(getString(R.string.order_detail_title));
@@ -99,6 +112,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         formatter = new DecimalFormat("#,##,##,###");
+
+        parentView = (RelativeLayout) findViewById(R.id.parentView);
+        parentView.setVisibility(View.GONE);
+        dialog = new SpotsDialog(OrderDetailActivity.this, R.style.Custom);
 
         orderID = getIntent().getIntExtra("OrderID", 0);
         isInquiry = getIntent().getBooleanExtra(AppConstants.isInquiry, true);
@@ -118,6 +135,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtNetAmount = (TfTextView) findViewById(R.id.txtNetAmount);
         txtNetAmount2 = (TfTextView) findViewById(R.id.txtNetAmount2);
 
+
+        netAmountView=(RelativeLayout)findViewById(R.id.netAmountView);
+        totalAmountView=(RelativeLayout)findViewById(R.id.totalAmountView);
+        discountView=(RelativeLayout)findViewById(R.id.discountView);
+
         txtBAddress1 = (TfTextView) findViewById(R.id.txtBAddress1);
 //        txtBAddress2 = (TfTextView) findViewById(R.id.txtBAddress2);
 //        txtBPincode = (TfTextView) findViewById(R.id.txtBPincode);
@@ -132,7 +154,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         bottomView = (LinearLayout) findViewById(R.id.bottomView);
 
         if (orderID != 0) {
-            getOrderDetail(orderID);
+            if (Functions.isConnected(OrderDetailActivity.this)) {
+                getOrderDetail(orderID);
+            } else {
+                Functions.showToast(OrderDetailActivity.this, getResources().getString(R.string.no_internet_connection));
+            }
         } else {
             Functions.showToast(OrderDetailActivity.this, "Did not find your order please try again.");
             finish();
@@ -164,16 +190,17 @@ public class OrderDetailActivity extends AppCompatActivity {
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                Intent i = new Intent(OrderDetailActivity.this, BillingActivity.class);
-                i.putExtra(AppConstants.isPlaceOrder, 1);
-                i.putExtra(AppConstants.paymentMethodID, 21);
-                i.putExtra("OrderID", orderDetail.getOrderID());
-                i.putExtra(AppConstants.isAccept, true);
-                Functions.fireIntent(OrderDetailActivity.this, i);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+                if (Functions.isConnected(OrderDetailActivity.this)) {
+                    Intent i = new Intent(OrderDetailActivity.this, BillingActivity.class);
+                    i.putExtra(AppConstants.isPlaceOrder, 1);
+                    i.putExtra(AppConstants.paymentMethodID, 21);
+                    i.putExtra("OrderID", orderDetail.getOrderID());
+                    i.putExtra(AppConstants.isAccept, true);
+                    Functions.fireIntent(OrderDetailActivity.this, i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else {
+                    Functions.showToast(OrderDetailActivity.this, getString(R.string.no_internet_connection));
+                }
 /*                AcceptOrder acceptOrder = new AcceptOrder();
                 acceptOrder.setOrderID(orderDetail.getOrderID());
                 acceptOrder.setIsAccept(1);
@@ -183,24 +210,43 @@ public class OrderDetailActivity extends AppCompatActivity {
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AcceptOrder acceptOrder = new AcceptOrder();
-                acceptOrder.setOrderID(orderDetail.getOrderID());
-                acceptOrder.setIsAccept(0);
-                callApi(acceptOrder);
+                if (Functions.isConnected(OrderDetailActivity.this)) {
+                    AcceptOrder acceptOrder = new AcceptOrder();
+                    acceptOrder.setOrderID(orderDetail.getOrderID());
+                    acceptOrder.setIsAccept(0);
+                    if (Functions.isConnected(OrderDetailActivity.this)) {
+                        callApi(acceptOrder);
+                    } else {
+                        Functions.showToast(OrderDetailActivity.this, getResources().getString(R.string.no_internet_connection));
+                    }
+                } else {
+                    Functions.showToast(OrderDetailActivity.this, getString(R.string.no_internet_connection));
+                }
             }
         });
     }
 
     private void callApi(AcceptOrder acceptOrder) {
+        if (dialog != null) {
+            dialog.show();
+        }
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.acceptRejectQuotation(acceptOrder).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 if (response.body() != null) {
                     if (response.body().getResponseCode() == 1) {
-                        Functions.showToast(OrderDetailActivity.this, response.body().getResponseMessage());
+                        Functions.showToast(OrderDetailActivity.this, "Order cancel successfully.");
+                        Intent i = new Intent(OrderDetailActivity.this, DashboardActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Functions.fireIntent(OrderDetailActivity.this, i);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
                     } else {
-                        Functions.showToast(OrderDetailActivity.this, response.body().getResponseMessage().trim());
+                        new UserInActiveDialog(OrderDetailActivity.this, response.body().getResponseMessage().trim()).show();
                     }
                 } else {
                     Functions.showToast(OrderDetailActivity.this, getResources().getString(R.string.error));
@@ -209,16 +255,25 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 RetrofitErrorHelper.showErrorMsg(t, OrderDetailActivity.this);
             }
         });
     }
 
     private void getOrderDetail(int orderID) {
+        if (dialog != null) {
+            dialog.show();
+        }
         AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
         appApi.getOrderDetailApi(orderID).enqueue(new Callback<OrderListRes>() {
             @Override
             public void onResponse(Call<OrderListRes> call, Response<OrderListRes> response) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 if (response.body() != null) {
                     if (response.body().getData() != null && response.body().getDataList() != null && response.body().getDataList().size() > 0) {
                         orderDetail = response.body().getData();
@@ -236,6 +291,9 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<OrderListRes> call, Throwable t) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 RetrofitErrorHelper.showErrorMsg(t, OrderDetailActivity.this);
                 finish();
             }
@@ -244,6 +302,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private void setUi() {
 
+        parentView.setVisibility(View.VISIBLE);
 
         Collections.sort(orderList, new Comparator<OrderListPojo>() {
             @Override
@@ -253,12 +312,34 @@ public class OrderDetailActivity extends AppCompatActivity {
         });
 
 
+        Log.e("total cart weight", orderDetail.getTotalCartWeight() + "");
+        Log.e("total cart weight", Functions.jsonString(orderDetail));
         txtReferCode.setText(orderDetail.getReferCode());
-        txtTotalAmount.setText(formatter.format(orderDetail.getTotalAmount()) + "");
-        txtTotalCartWeight.setText(orderDetail.getTotalCartWeight() + " Kg");
-        txtDiscount.setText(formatter.format(orderDetail.getDiscountAmount()) + "");
-        txtNetAmount.setText(formatter.format(orderDetail.getNetAmount()) + "");
-        txtNetAmount2.setText(formatter.format(orderDetail.getNetAmount()) + "");
+        txtTotalAmount.setText(getString(R.string.Rs) + " " + formatter.format(orderDetail.getTotalAmount()) + "");
+        txtTotalCartWeight.setText(Functions.getFormatedInt(orderDetail.getTotalCartWeight()) + " Kg");
+        txtDiscount.setText(getString(R.string.Rs) + " " + formatter.format(orderDetail.getDiscountAmount()) + "");
+        txtNetAmount.setText(getString(R.string.Rs) + " " + formatter.format(orderDetail.getNetAmount()) + "");
+        txtNetAmount2.setText(getString(R.string.Rs) + " " + formatter.format(orderDetail.getNetAmount()) + "");
+
+        if (getPriceVisiblity()) {
+            txtTotalAmount.setVisibility(View.VISIBLE);
+            txtDiscount.setVisibility(View.VISIBLE);
+            txtNetAmount.setVisibility(View.VISIBLE);
+            txtNetAmount2.setVisibility(View.VISIBLE);
+
+            discountView.setVisibility(View.VISIBLE);
+            netAmountView.setVisibility(View.VISIBLE);
+            totalAmountView.setVisibility(View.VISIBLE);
+        } else {
+            txtTotalAmount.setVisibility(View.GONE);
+            txtDiscount.setVisibility(View.GONE);
+            txtNetAmount.setVisibility(View.GONE);
+            txtNetAmount2.setVisibility(View.GONE);
+
+            discountView.setVisibility(View.GONE);
+            netAmountView.setVisibility(View.GONE);
+            totalAmountView.setVisibility(View.GONE);
+        }
 
         orderContainer.removeAllViews();
 
@@ -292,8 +373,15 @@ public class OrderDetailActivity extends AppCompatActivity {
             ((TfTextView) orderItemView.findViewById(R.id.txtName)).setText("Product Name : " + orderList.get(i).getName());
             ((TfTextView) orderItemView.findViewById(R.id.txtUnitValue)).setText("Unit Value : " + Functions.getFormatedInt(orderList.get(i).getUnitValue()) + " " + orderList.get(i).getUnitType());
             ((TfTextView) orderItemView.findViewById(R.id.txtKgWeight)).setText("Kg Weight : " + Functions.getFormatedInt(orderList.get(i).getKGWeight()) + " Kg");
-            ((TfTextView) orderItemView.findViewById(R.id.txtCPrice)).setText("Current Market Price : " + formatter.format(orderList.get(i).getCurrentMarketPrice()) + " Rs.");
-            ((TfTextView) orderItemView.findViewById(R.id.txtPrice)).setText(formatter.format(orderList.get(i).getPrice()) + "");
+            ((TfTextView) orderItemView.findViewById(R.id.txtCPrice)).setText("Current Market Price : " + getString(R.string.Rs) + " " + formatter.format(orderList.get(i).getCurrentMarketPrice()) + " Rs.");
+            ((TfTextView) orderItemView.findViewById(R.id.txtPrice)).setText(getString(R.string.Rs) + " " + formatter.format(orderList.get(i).getPrice()) + "");
+
+            if (getPriceVisiblity()) {
+                ((RelativeLayout) orderItemView.findViewById(R.id.priceView)).setVisibility(View.VISIBLE);
+            } else {
+                ((RelativeLayout) orderItemView.findViewById(R.id.priceView)).setVisibility(View.GONE);
+            }
+
             orderContainer.addView(orderItemView);
 
 
@@ -309,5 +397,13 @@ public class OrderDetailActivity extends AppCompatActivity {
     private void doFinish() {
         finish();
         overridePendingTransition(R.anim.push_down_in, R.anim.push_up_out);
+    }
+
+    public boolean getPriceVisiblity() {
+        if (statusID == 12 || statusID == 13 || statusID == 14) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

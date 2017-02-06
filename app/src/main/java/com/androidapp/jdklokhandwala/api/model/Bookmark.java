@@ -49,7 +49,11 @@ public abstract class Bookmark implements BookmarkModel {
         sqLiteDatabase.delete(Bookmark.TABLE_NAME, Bookmark.CATEGORYID + " = ?", new String[]{String.valueOf(id)});
         DatabaseManager.getInstance().closeDatabase();
     }
-
+    public static void DeleteAllData() {
+        SQLiteDatabase sqLiteDatabase = DatabaseManager.getInstance().openDatabase();
+        sqLiteDatabase.delete(Bookmark.TABLE_NAME, null, null);
+        DatabaseManager.getInstance().closeDatabase();
+    }
     public static boolean IsBookmark(int id) {
         SQLiteDatabase sqLiteDatabase = DatabaseManager.getInstance().openDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(Bookmark.SELECT_ALL_DATA_BY_ID, new String[]{String.valueOf(id)});

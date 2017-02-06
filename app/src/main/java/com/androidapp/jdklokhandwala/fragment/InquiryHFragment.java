@@ -86,7 +86,7 @@ public class InquiryHFragment extends Fragment {
             }
         });
         historyList = new ArrayList<>();
-        mAdapter = new OrderAdapter(getActivity(), historyList, new OrderAdapter.OnOptionSelectedListener() {
+        mAdapter = new OrderAdapter(getActivity(), false,historyList, new OrderAdapter.OnOptionSelectedListener() {
             @Override
             public void doPerformAction(int position) {
                 Log.e("click",Functions.jsonString(historyList.get(position)));

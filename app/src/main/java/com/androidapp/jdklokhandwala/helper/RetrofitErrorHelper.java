@@ -17,9 +17,6 @@ public class RetrofitErrorHelper {
         if (throwable instanceof TimeoutException) {
             Functions.showToast(context, context.getString(R.string.time_out));
 
-        } else if (throwable instanceof UnknownHostException) {
-            Functions.showToast(context, context.getString(R.string.no_internet_connection));
-
         } else {
             Functions.showToast(context, context.getString(R.string.try_again));
         }

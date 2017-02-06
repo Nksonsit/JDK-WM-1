@@ -87,7 +87,8 @@ public class AddToCartDialog extends Dialog {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!quantity.getText().toString().trim().equals("") && (Integer.valueOf(quantity.getText().toString().trim()) > 0)) {
+                String txtQuntity=quantity.getText().toString().trim();
+                if (!txtQuntity.equals("") && (Double.valueOf(txtQuntity) > 0)) {
                     seletedType = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString().trim();
                     if (seletedType != null && !seletedType.toString().trim().equals("")) {
                         OnAddClick.onAddClick(quantity.getText().toString().trim(), seletedType);

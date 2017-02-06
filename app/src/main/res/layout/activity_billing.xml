@@ -55,6 +55,8 @@
                         android:id="@+id/enterBAddress1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLength="140"
+                        android:maxLines="4"
                         android:hint="Address Line 1"
                         android:longClickable="false"
                         android:textSize="@dimen/M_TEXT" />
@@ -64,6 +66,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Address Line 2"
+                        android:maxLength="140"
+                        android:maxLines="4"
                         android:longClickable="false"
                         android:textSize="@dimen/M_TEXT" />
 
@@ -78,6 +82,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="Pincode"
+                            android:inputType="number"
                             android:longClickable="false"
                             android:maxLength="6"
                             android:textSize="@dimen/M_TEXT" />
@@ -152,6 +157,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Address Line 1"
+                        android:maxLength="140"
+                        android:maxLines="4"
                         android:longClickable="false"
                         android:textSize="@dimen/M_TEXT" />
 
@@ -160,6 +167,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Address Line 2"
+                        android:maxLength="140"
+                        android:maxLines="4"
                         android:longClickable="false"
                         android:textSize="@dimen/M_TEXT" />
 
@@ -174,6 +183,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="Pincode"
+                            android:inputType="number"
                             android:longClickable="false"
                             android:maxLength="6"
                             android:textSize="@dimen/M_TEXT" />

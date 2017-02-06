@@ -73,20 +73,21 @@ public class WeightCalculatorActivity extends AppCompatActivity {
 
         calculateType = (Spinner) findViewById(R.id.calculateType);
         typeList = new ArrayList<>();
-        typeList.add(new Calculator(0, "Ms Flat Bar"));
-        typeList.add(new Calculator(0, "Ms plates/sheets"));
-        typeList.add(new Calculator(0, "Ms square bar"));
-        typeList.add(new Calculator(0, "Ms Round Bar"));
-        typeList.add(new Calculator(0, "Ms Round Pipe"));
-        typeList.add(new Calculator(1, "M.s. channels"));
-        typeList.add(new Calculator(1, "M.s. Beams"));
-        typeList.add(new Calculator(1, "M.s. Rails"));
-        typeList.add(new Calculator(1, "M.s. Tees"));
-        typeList.add(new Calculator(1, "Chequered plates"));
-        typeList.add(new Calculator(1, "M.s. TMT Bars"));
-        typeList.add(new Calculator(1, "Torsteel or Twisted bar"));
-        typeList.add(new Calculator(1, "Hexagon bar"));
-        typeList.add(new Calculator(0, "MS Square/Rectangular Pipes"));
+        typeList.add(new Calculator(0, "Ms Flat Bar"));//0
+        typeList.add(new Calculator(0, "Ms plates/sheets"));//1
+        typeList.add(new Calculator(0, "Ms square bar"));//2
+        typeList.add(new Calculator(0, "Ms Round Bar"));//3
+        typeList.add(new Calculator(0, "Ms Round Pipe"));//4
+        typeList.add(new Calculator(0, "MS Square/Rectangular Pipes"));//12    5
+
+        typeList.add(new Calculator(1, "M.s. channels"));//5  6
+        typeList.add(new Calculator(1, "M.s. Beams"));//6  7
+        typeList.add(new Calculator(1, "M.s. Rails"));//7  8
+        typeList.add(new Calculator(1, "M.s. Tees"));//8  9
+        typeList.add(new Calculator(1, "Chequered plates"));//9   10
+//        typeList.add(new Calculator(1, "M.s. TMT Bars"));//10
+        typeList.add(new Calculator(1, "Torsteel or Twisted bar"));//10  11
+        typeList.add(new Calculator(1, "Hexagon bar"));//11  12
 
         CalculatorAdapter adapter = new CalculatorAdapter(this, R.layout.spinner_item, typeList);
         calculateType.setAdapter(adapter);
@@ -131,10 +132,14 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                                                                         weightObj = weightList.get(i);
                                                                         Log.e("i 1", i + "");
                                                                         int pos = calculateType.getSelectedItemPosition();
-                                                                        if (pos == 6 || pos == 7 || pos == 11 || pos == 12) {
+                                                                        if (pos == 7 || pos == 8 || pos == 11) {
                                                                             ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
                                                                         } else {
-                                                                            ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                                                                            if (pos == 1 || pos == 10) {
+                                                                                ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg");
+                                                                            } else {
+                                                                                ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
@@ -147,10 +152,14 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                                                             weightObj = (WeightObj) ((Spinner) spinnerRow.findViewById(R.id.spinnerWeight)).getSelectedItem();
                                                             int i = calculateType.getSelectedItemPosition();
                                                             Log.e("i 2", i + "");
-                                                            if (i == 6 || i == 7 || i == 11 || i == 12) {
+                                                            if (i == 7 || i == 8 || i == 11) {
                                                                 ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
                                                             } else {
-                                                                ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                                                                if (pos == 1 || pos == 10) {
+                                                                    ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg");
+                                                                } else {
+                                                                    ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                                                                }
                                                             }
                                                             calculate.setVisibility(View.GONE);
                                                         }
@@ -182,11 +191,11 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                                                      String value = ((TfEditText) ll2.getChildAt(1)).getText().toString().trim();
                                                      if (value != null && value.length() > 0) {
                                                      } else {
-                                                         Functions.showToast(WeightCalculatorActivity.this,"Please enter value.");
+                                                         Functions.showToast(WeightCalculatorActivity.this, "Please enter value.");
                                                          return;
                                                      }
                                                  }
-                                                 Log.e("1","1");
+                                                 Log.e("1", "1");
                                                  ArrayList<Double> list = new ArrayList<>();
                                                  for (int i = 0; i < ll.getChildCount(); i++) {
                                                      LinearLayout ll2 = ((LinearLayout) ll.getChildAt(i));
@@ -203,10 +212,14 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                                                  if (weightObj != null) {
                                                      int i = calculateType.getSelectedItemPosition();
                                                      Log.e("i 4", i + "");
-                                                     if (i == 6 || i == 7 || i == 11 || i == 12) {
+                                                     if (i == 7 || i == 8 || i == 11) {
                                                          ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
                                                      } else {
-                                                         ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                                                         if (i == 1 || i == 10) {
+                                                             ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg");
+                                                         } else {
+                                                             ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
+                                                         }
                                                      }
                                                  } else {
                                                      Functions.showToast(WeightCalculatorActivity.this, "Please select item.");
@@ -243,7 +256,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
 
     public String getHint(int type, int pos) {
         String hint = "";
-        if (type == 0 || type == 1 || type == 13) {
+        if (type == 0 || type == 1 || type == 5) {
             switch (pos) {
                 case 0:
                     hint = "Length (mm)";
@@ -284,8 +297,9 @@ public class WeightCalculatorActivity extends AppCompatActivity {
         } else if (type == 3) {
             ans = ((((Double.valueOf(inputList.get(0)) * Double.valueOf(inputList.get(0))) / 160)) / 3.2808);
         } else if (type == 4) {
+            Log.e("equation--> ", ((Double.valueOf(inputList.get(0)) + " " + Double.valueOf(inputList.get(1)) + " " + Double.valueOf(inputList.get(1)) + " " + 0.024) + " " + 3.2808));
             ans = ((Double.valueOf(inputList.get(0)) - Double.valueOf(inputList.get(1)) * Double.valueOf(inputList.get(1)) * 0.024) / 3.2808);
-        } else if (type == 13) {
+        } else if (type == 5) {
             Double w = Double.valueOf(inputList.get(0));
             Double h = Double.valueOf(inputList.get(1));
             Double t = Double.valueOf(inputList.get(2));
@@ -303,7 +317,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
 
         List<WeightObj> list = new ArrayList<>();
         switch (pos) {
-            case 5:
+            case 6:
                 list.add(new WeightObj("75 x 40 mm", "2.172"));
                 list.add(new WeightObj("100 x 50 mm", "2.925"));
                 list.add(new WeightObj("125 x 65 mm", "3.992"));
@@ -315,7 +329,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 list.add(new WeightObj("400 x 100 mm", "15.270"));
                 break;
 
-            case 6:
+            case 7:
                 list.add(new WeightObj("ISLAB 100 x 50 mm", "8.00"));
                 list.add(new WeightObj("ISMB 116 x 100 mm", "23.00"));
                 list.add(new WeightObj("ISMB 125 x 75 mm", "13.20"));
@@ -335,7 +349,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 list.add(new WeightObj("ISMB 600 x 210 mm", "122.60"));
                 break;
 
-            case 7:
+            case 8:
                 list.add(new WeightObj("BS 30 lb./Yard", "14.88"));
                 list.add(new WeightObj("BS 90 lb./Yard", "44.61"));
                 list.add(new WeightObj("BS 105 lb./Yard", "52.08"));
@@ -343,7 +357,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 list.add(new WeightObj("CR 100", "88.73"));
                 break;
 
-            case 8:
+            case 9:
                 list.add(new WeightObj("20 x 20 x 3 mm", "0.274"));
                 list.add(new WeightObj("30 x 30 x 3 mm", "0.426"));
                 list.add(new WeightObj("40 x 40 x 6 mm", "1.0266"));
@@ -354,7 +368,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 list.add(new WeightObj("150 x 150 x 150 mm", "6.95"));
                 break;
 
-            case 9:
+            case 10:
                 list.add(new WeightObj("5 mm", " 3.969"));
                 list.add(new WeightObj("6 mm ", "5.216"));
                 list.add(new WeightObj("8 mm ", "6.123"));
@@ -362,7 +376,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 list.add(new WeightObj("12 mm ", "9.639"));
                 break;
 
-            case 10:
+        /*    case 10:
                 list.add(new WeightObj("6(R) mm", "0.067"));
                 list.add(new WeightObj("8 mm", "0.120"));
                 list.add(new WeightObj("10 mm", "0.188"));
@@ -374,7 +388,7 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                 list.add(new WeightObj("20 mm", "0.751"));
                 list.add(new WeightObj("25 mm", "1.174"));
                 list.add(new WeightObj("32 mm", "1.925"));
-                break;
+                break;*/
 
             case 11:
                 list.add(new WeightObj("6 mm", "0.222"));

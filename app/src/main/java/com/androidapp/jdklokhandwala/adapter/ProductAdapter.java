@@ -65,15 +65,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             textView.setText(product.getName() + "  " + product.getCodeValue() + "  " + Functions.getFormatedInt(product.getWeight()) +" KG");
 
-            tvAddCart.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (OnOptionSelectedListener != null) {
-                        OnOptionSelectedListener.doPerformAction(AppConstants.ADD_CART_PRODUCT, getAdapterPosition());
-                    }
-                }
-            });
-
         }
     }
 

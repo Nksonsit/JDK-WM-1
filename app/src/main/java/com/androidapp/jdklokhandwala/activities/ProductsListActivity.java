@@ -29,6 +29,7 @@ import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,11 +133,15 @@ public class ProductsListActivity extends AppCompatActivity {
                             addToCart.setUnitType(type);
                             addToCart.setDefaultWeight(product.getWeight());
                             addToCart.setUnitValue(Double.valueOf(quantity));
+
+                            Log.e("new valuew",String.format("%.2f",new BigDecimal((Double.valueOf("222.2")*Double.valueOf("99999.0")))));
+
                             if (type.toString().toLowerCase().trim().contains("kg")) {
                                 addToCart.setKgWeight(Double.valueOf(quantity));
                             } else {
-                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));
+                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
                             }
+
                             String unitTypes = "";
                             for (int i = 0; i < product.getUnitsOfMeasure().size(); i++) {
                                 unitTypes = unitTypes + "," + product.getUnitsOfMeasure().get(i).getUnitOfMeasure();
@@ -193,7 +198,7 @@ public class ProductsListActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getList(true);
+                getList(false);
             }
         });
 
@@ -216,17 +221,23 @@ public class ProductsListActivity extends AppCompatActivity {
                                     new AddToCartDialog(ProductsListActivity.this, "ADD TO ORDER BOOK", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
                                         @Override
                                         public void onAddClick(String quantity, String type) {
+                                            Log.e("quantity-->",quantity+" "+Double.valueOf(quantity)+" "+Double.valueOf(String.format("%.2f",Double.valueOf(quantity))));
                                             Log.e(quantity, type);
                                             AddToCartPojo addToCart = new AddToCartPojo();
                                             addToCart.setCategoryID((long) category.getCategoryID());
                                             addToCart.setProductID((long) product.getProductID());
                                             addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight());
                                             addToCart.setUnitType(type);
-                                            addToCart.setUnitValue(Double.valueOf(quantity));
+                                            addToCart.setUnitValue(Double.valueOf(String.format("%.2f",Double.valueOf(quantity))));
+
+
+                                            Log.e(""+(product.getWeight() * Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))),(product.getWeight() +" "+ Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
+                                            Log.e(""+(Float.valueOf(String.format("%.2f",product.getWeight())) * Float.valueOf(String.format("%.2f",Double.valueOf(quantity)))),(Float.valueOf(String.format("%.2f",product.getWeight())) +" "+ Float.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
+
                                             if (type.toString().toLowerCase().trim().contains("kg")) {
                                                 addToCart.setKgWeight(Double.valueOf(quantity));
                                             } else {
-                                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(quantity)));
+                                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
                                             }
                                             addToCart.setDefaultWeight(product.getWeight());
                                             String unitTypes = "";
@@ -264,14 +275,14 @@ public class ProductsListActivity extends AppCompatActivity {
 
             @Override
             public void showProgress() {
-                if (dialog != null) {
+                if (dialog != null && !isPullToRefresh) {
                     dialog.show();
                 }
             }
 
             @Override
             public void dismissProgress() {
-                if (dialog != null) {
+                if (dialog != null && !isPullToRefresh) {
                     dialog.dismiss();
                 }
                 if (swipeRefresh != null) {

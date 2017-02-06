@@ -68,7 +68,10 @@ public class ContactUsFragment extends Fragment {
         Functions.setPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                callApi();
+                if (Functions.isConnected(getActivity())) {
+                    callApi();} else {
+                    Functions.showToast(getActivity(), getResources().getString(R.string.no_internet_connection));
+                }
             }
 
             @Override
@@ -122,6 +125,8 @@ public class ContactUsFragment extends Fragment {
                                 }
                             },null));
                         }
+                    }else {
+                        contactUsTV.setText("There is no data available.");
                     }
                 }else {
                     contactUsTV.setText("There is no data available.");

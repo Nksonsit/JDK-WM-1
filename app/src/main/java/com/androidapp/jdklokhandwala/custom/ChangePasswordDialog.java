@@ -51,8 +51,8 @@ public class ChangePasswordDialog extends Dialog {
         view = LayoutInflater.from(context).inflate(R.layout.change_password_popup, null);
         setContentView(view);
 
-        this.setCanceledOnTouchOutside(true);
-        this.setCancelable(true);
+        this.setCanceledOnTouchOutside(false);
+        this.setCancelable(false);
 
         init();
 
@@ -72,6 +72,11 @@ public class ChangePasswordDialog extends Dialog {
         oldPassword = (TfEditText) view.findViewById(R.id.oldPassword);
         newPassword = (TfEditText) view.findViewById(R.id.newPassowrd);
         conformPassword = (TfEditText) view.findViewById(R.id.conformPassword);
+
+        oldPassword.setText("");
+        newPassword.setText("");
+        conformPassword.setText("");
+
         update = (Button) view.findViewById(R.id.updatePassword);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
@@ -79,9 +84,7 @@ public class ChangePasswordDialog extends Dialog {
     }
 
     private void actionListener() {
-        oldPassword.setOnTouchListener(touch);
-        newPassword.setOnTouchListener(touch);
-        conformPassword.setOnTouchListener(touch);
+
 
         touch = new View.OnTouchListener() {
             @Override
@@ -110,13 +113,21 @@ public class ChangePasswordDialog extends Dialog {
             }
         };
 
+        oldPassword.setOnTouchListener(touch);
+        newPassword.setOnTouchListener(touch);
+        conformPassword.setOnTouchListener(touch);
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Functions.hideKeyPad(context, view);
-                if (validate()) {
-                    OnUpdateClick.onUpdateClick(newPassword.getText().toString().trim());
-                    changePassword(new ChangePasswordReq((long) userPojo.getUserID(), newPassword.getText().toString().trim(), oldPassword.getText().toString().trim()));
+                if (Functions.isConnected(context)) {
+                    if (validate()) {
+                        OnUpdateClick.onUpdateClick(newPassword.getText().toString().trim());
+                        changePassword(new ChangePasswordReq((long) userPojo.getUserID(), newPassword.getText().toString().trim(), oldPassword.getText().toString().trim()));
+                    }
+                } else {
+                    Functions.showToast(context, context.getResources().getString(R.string.no_internet_connection));
                 }
             }
         });
@@ -167,10 +178,14 @@ public class ChangePasswordDialog extends Dialog {
             OnUpdateClick.onError("Please enter new password.");
             return false;
         } else if (conformPassword.getText().toString().trim().equals("")) {
-            OnUpdateClick.onError("Please enter conform password.");
+            OnUpdateClick.onError("Please enter confirm password.");
+            return false;
+        } else if (!Functions.checkPassrordLength(context, 2, newPassword.getText().toString().trim())) {
+            return false;
+        } else if (!Functions.checkPassrordLength(context, 3, conformPassword.getText().toString().trim())) {
             return false;
         } else if (!newPassword.getText().toString().trim().equals(conformPassword.getText().toString().trim())) {
-            OnUpdateClick.onError("New password and conform password should be same.");
+            OnUpdateClick.onError("New password and confirm password should be same.");
             return false;
         }
         return true;

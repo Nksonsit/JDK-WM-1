@@ -70,15 +70,18 @@ public class AboutUsFragment extends Fragment {
         Functions.setPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                callApi();
+                if (Functions.isConnected(getActivity())) {
+                    callApi();
+                } else {
+                    Functions.showToast(getActivity(), getResources().getString(R.string.no_internet_connection));
+                }
             }
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Functions.showToast(getActivity(),"You have denied service.");
+                Functions.showToast(getActivity(), "You have denied service.");
             }
         });
-
 
 
     }
@@ -125,6 +128,8 @@ public class AboutUsFragment extends Fragment {
                                 }
                             }, null));
                         }
+                    }else {
+                        aboutUsTV.setText("There is no data available.");
                     }
                 } else {
                     aboutUsTV.setText("There is no data available.");

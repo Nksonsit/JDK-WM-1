@@ -11,6 +11,7 @@
     <include layout="@layout/app_bar" />
 
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,11 +22,18 @@
             android:layout_above="@+id/calculate"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/calculateType"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_16dp" />
+                android:background="#f1f1f1">
+
+                <Spinner
+                    android:id="@+id/calculateType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16dp" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -49,11 +57,11 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/line"
             android:gravity="center"
-            android:text="Calculate"
             android:padding="10dp"
+            android:text="Calculate"
             android:textColor="@color/black"
-            app:isBold="true"
-            android:textSize="@dimen/XL_TEXT" />
+            android:textSize="@dimen/XL_TEXT"
+            app:isBold="true" />
 
         <View
             android:id="@+id/line"
@@ -82,27 +90,27 @@
                 android:textColorHint="@color/white"
                 android:textSize="@dimen/XXL_TEXT"
                 app:isBold="true" />
-<!--
-            &lt;!&ndash;            <View
-                            android:id="@+id/line2"
-                            android:layout_width="@dimen/dimen_1dp"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/calculate"
-                            android:background="@color/white" />&ndash;&gt;
+            <!--
+                        &lt;!&ndash;            <View
+                                        android:id="@+id/line2"
+                                        android:layout_width="@dimen/dimen_1dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@+id/calculate"
+                                        android:background="@color/white" />&ndash;&gt;
 
-            <ImageView
-                android:id="@+id/calculate"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/dimen_1dp"
-                android:background="@color/colorPrimary"
-                android:padding="@dimen/dimen_10dp"
-                android:src="@drawable/ic_equal"
-                android:text="Calculate"
-                android:tint="@color/white" />-->
+                        <ImageView
+                            android:id="@+id/calculate"
+                            android:layout_width="70dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/dimen_1dp"
+                            android:background="@color/colorPrimary"
+                            android:padding="@dimen/dimen_10dp"
+                            android:src="@drawable/ic_equal"
+                            android:text="Calculate"
+                            android:tint="@color/white" />-->
 
         </RelativeLayout>
 

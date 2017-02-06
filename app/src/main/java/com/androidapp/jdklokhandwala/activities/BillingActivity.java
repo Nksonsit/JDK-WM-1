@@ -19,12 +19,14 @@ import com.androidapp.jdklokhandwala.api.model.AddToCartTemp;
 import com.androidapp.jdklokhandwala.api.model.BaseResponse;
 import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.PlaceOrderReq;
+import com.androidapp.jdklokhandwala.api.model.RegistrationRes;
 import com.androidapp.jdklokhandwala.api.model.UpdateUserRequest;
 import com.androidapp.jdklokhandwala.api.model.UpdateUserResp;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfEditText;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.UserInActiveDialog;
 import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
@@ -102,6 +104,7 @@ public class BillingActivity extends AppCompatActivity {
 
         dialog = new SpotsDialog(BillingActivity.this, R.style.Custom);
 
+
         useShippingAddressCB = (CheckBox) findViewById(R.id.useShippingAddress);
         useBillingAddressCB = (CheckBox) findViewById(R.id.useBillingAddress);
 
@@ -158,38 +161,42 @@ public class BillingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Functions.hideKeyPad(BillingActivity.this, view);
-                if (validateField()) {
-                    dialog.show();
+                if (Functions.isConnected(BillingActivity.this)) {
+                    if (validateField()) {
+                        dialog.show();
 
-                    List<AddToCart> list = AddToCart.getCartList();
-                    List<AddToCartTemp> listInput = new ArrayList<AddToCartTemp>();
-                    Double totalWeight = Double.valueOf(0);
-                    for (int i = 0; i < list.size(); i++) {
-                        totalWeight = totalWeight + list.get(i).KgWeight();
-                        listInput.add(new AddToCartTemp(list.get(i).CategoryID(), list.get(i).ProductID(), list.get(i).Name(), list.get(i).UnitType(), list.get(i).UnitValue(), list.get(i).KgWeight()));
+                        List<AddToCart> list = AddToCart.getCartList();
+                        List<AddToCartTemp> listInput = new ArrayList<AddToCartTemp>();
+                        Double totalWeight = Double.valueOf(0);
+                        for (int i = 0; i < list.size(); i++) {
+                            totalWeight = totalWeight + list.get(i).KgWeight();
+                            listInput.add(new AddToCartTemp(list.get(i).CategoryID(), list.get(i).ProductID(), list.get(i).Name(), list.get(i).UnitType(), list.get(i).UnitValue(), list.get(i).KgWeight()));
+                        }
+
+                        PlaceOrderReq placeOrderReq = new PlaceOrderReq();
+                        placeOrderReq.setOrderID(0);
+                        placeOrderReq.setIsOrder(1);
+                        placeOrderReq.setUserID(userPojo.getUserID());
+                        placeOrderReq.setTotalCartWeight(totalWeight);
+                        placeOrderReq.setBillingAddress1(enterBillingAddress1.getText().toString().trim());
+                        placeOrderReq.setBillingAddress2(enterBillingAddress2.getText().toString().trim());
+                        placeOrderReq.setBillingPinCode(enterBPincode.getText().toString().trim());
+                        placeOrderReq.setShippingAddress1(enterShippingAddress1.getText().toString().trim());
+                        placeOrderReq.setShippingAddress2(enterShippingAddress2.getText().toString().trim());
+                        placeOrderReq.setShippingPinCode(enterSPincode.getText().toString().trim());
+                        placeOrderReq.setPaymentMethodID(21);
+                        placeOrderReq.setTotalCartItem(listInput.size());
+                        placeOrderReq.setCartItemList(listInput);
+
+                        if (isAccept) {
+                            doupdateProfile();
+                        } else {
+                            doPlaceOrderApiCall(placeOrderReq);
+                        }
+
                     }
-
-                    PlaceOrderReq placeOrderReq = new PlaceOrderReq();
-                    placeOrderReq.setOrderID(0);
-                    placeOrderReq.setIsOrder(1);
-                    placeOrderReq.setUserID(userPojo.getUserID());
-                    placeOrderReq.setTotalCartWeight(totalWeight);
-                    placeOrderReq.setBillingAddress1(enterBillingAddress1.getText().toString().trim());
-                    placeOrderReq.setBillingAddress2(enterBillingAddress2.getText().toString().trim());
-                    placeOrderReq.setBillingPinCode(enterBPincode.getText().toString().trim());
-                    placeOrderReq.setShippingAddress1(enterShippingAddress1.getText().toString().trim());
-                    placeOrderReq.setShippingAddress2(enterShippingAddress2.getText().toString().trim());
-                    placeOrderReq.setShippingPinCode(enterSPincode.getText().toString().trim());
-                    placeOrderReq.setPaymentMethodID(21);
-                    placeOrderReq.setTotalCartItem(listInput.size());
-                    placeOrderReq.setCartItemList(listInput);
-
-                    if (isAccept) {
-                        doupdateProfile();
-                    } else {
-                        doPlaceOrderApiCall(placeOrderReq);
-                    }
-
+                } else {
+                    Functions.showToast(BillingActivity.this, getResources().getString(R.string.no_internet_connection));
                 }
             }
         });
@@ -207,8 +214,11 @@ public class BillingActivity extends AppCompatActivity {
         updateUserRequest.ShippingAddress1 = enterShippingAddress1.getText().toString().trim();
         updateUserRequest.ShippingAddress2 = enterShippingAddress2.getText().toString().trim();
         updateUserRequest.ShippingPinCode = enterSPincode.getText().toString().trim();
-
-        updateUserApiCall(updateUserRequest);
+        if (Functions.isConnected(BillingActivity.this)) {
+            updateUserApiCall(updateUserRequest);
+        } else {
+            Functions.showToast(BillingActivity.this, getResources().getString(R.string.no_internet_connection));
+        }
     }
 
     private void textChangedListener() {
@@ -223,7 +233,8 @@ public class BillingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() == 6) {
                     //setBillingCity(Integer.valueOf(charSequence.toString().trim()));
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterBcity, enterBArea);
+                    if (Functions.isConnected(BillingActivity.this))
+                        Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterBcity, enterBArea);
                 } else {
                     enterBcity.setText("");
                     enterBArea.setText("");
@@ -246,7 +257,8 @@ public class BillingActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 if (charSequence.toString().trim().length() == 6) {
-                    Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterScity, enterSArea);
+                    if (Functions.isConnected(BillingActivity.this))
+                        Functions.setCity(Integer.valueOf(charSequence.toString().trim()), enterScity, enterSArea);
                     //setShippingCity(Integer.valueOf(charSequence.toString().trim()));
                 } else {
                     enterScity.setText("");
@@ -417,7 +429,7 @@ public class BillingActivity extends AppCompatActivity {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(BillingActivity.this, "O").show();
                     } else {
-                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
+                        new UserInActiveDialog(BillingActivity.this,response.body().getResponseMessage().trim()).show();
                     }
                 } else {
                     Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));
@@ -450,7 +462,7 @@ public class BillingActivity extends AppCompatActivity {
                         acceptOrder.setIsAccept(1);
                         callApi(acceptOrder);
                     } else {
-                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
+                        new UserInActiveDialog(BillingActivity.this,response.body().getResponseMessage().trim()).show();
                     }
                 } else {
                     Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));
@@ -476,7 +488,7 @@ public class BillingActivity extends AppCompatActivity {
                     if (response.body().getResponseCode() == 1) {
                         new OrderSuccessDialog(BillingActivity.this, "O").show();
                     } else {
-                        Functions.showToast(BillingActivity.this, response.body().getResponseMessage().trim());
+                        new UserInActiveDialog(BillingActivity.this,response.body().getResponseMessage().trim()).show();
                     }
                 } else {
                     Functions.showToast(BillingActivity.this, getResources().getString(R.string.error));

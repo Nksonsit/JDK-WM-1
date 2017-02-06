@@ -11,6 +11,7 @@
     <include layout="@layout/app_bar" />
 
     <RelativeLayout
+        android:id="@+id/parentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -34,13 +35,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/XL_TEXT" />
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/txtNetAmount"
-                android:src="@drawable/ic_rupee"
-                android:tint="@color/black" />
+
 
             <com.androidapp.jdklokhandwala.custom.TfTextView
                 android:id="@+id/txtNetAmount"
@@ -111,6 +106,7 @@
                         android:padding="@dimen/dimen_8dp">
 
                         <RelativeLayout
+                            android:id="@+id/totalAmountView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -121,16 +117,10 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="left"
                                 android:text="Total Amount :"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/txtTotalAmount"
-                                android:src="@drawable/ic_rupee"
-                                android:tint="@color/black" />
+
 
                             <com.androidapp.jdklokhandwala.custom.TfTextView
                                 android:id="@+id/txtTotalAmount"
@@ -140,7 +130,7 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="right"
                                 android:text="7320"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
                         </RelativeLayout>
@@ -156,7 +146,7 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="left"
                                 android:text="Total Cart Weight :"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
                             <com.androidapp.jdklokhandwala.custom.TfTextView
@@ -167,12 +157,13 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="right"
                                 android:text="7320"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/discountView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -184,16 +175,10 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="left"
                                 android:text="Discount :"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/txtDiscount"
-                                android:src="@drawable/ic_rupee"
-                                android:tint="@color/black" />
+
 
                             <com.androidapp.jdklokhandwala.custom.TfTextView
                                 android:id="@+id/txtDiscount"
@@ -203,12 +188,13 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="right"
                                 android:text="7320"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/netAmountView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -218,16 +204,10 @@
                                 android:layout_alignParentLeft="true"
                                 android:gravity="left"
                                 android:text="Net Amount :"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_centerVertical="true"
-                                android:layout_toLeftOf="@+id/txtNetAmount2"
-                                android:src="@drawable/ic_rupee"
-                                android:tint="@color/black" />
+
 
                             <com.androidapp.jdklokhandwala.custom.TfTextView
                                 android:id="@+id/txtNetAmount2"
@@ -237,7 +217,7 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="right"
                                 android:text="7320"
-                                android:textColor="@color/half_black"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/L_TEXT" />
 
                         </RelativeLayout>

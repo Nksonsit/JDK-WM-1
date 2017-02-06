@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,7 +70,11 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        callNotificationApi();
+        if (Functions.isConnected(DashboardActivity.this)) {
+            callNotificationApi();
+        } else {
+            Functions.showToast(DashboardActivity.this, getResources().getString(R.string.no_internet_connection));
+        }
         hideUserAction();
         int cartSize = AddToCart.getCartList().size();
         if (badgeCart != null) {
@@ -100,6 +105,7 @@ public class DashboardActivity extends AppCompatActivity {
         txtCustomTitle = (TfTextView) toolbar.findViewById(R.id.txtCustomTitle);
         txtCustomTitle.setText(getString(R.string.categories_title));
         setSupportActionBar(toolbar);
+
 
         initDrawer();
 
@@ -134,12 +140,13 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-
+                Functions.hideKeyPad(DashboardActivity.this, drawerView);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                Functions.hideKeyPad(DashboardActivity.this, drawerView);
             }
         };
 
@@ -172,7 +179,7 @@ public class DashboardActivity extends AppCompatActivity {
                     menuItem.setChecked(true);
                     initFragment(MyProfileFragment.newInstance(), "My Profile");
                 } else {
-                    Functions.showAlertDialogWithOkCancel(DashboardActivity.this, "You need to login first.", new Functions.DialogOptionsSelectedListener() {
+                    Functions.showAlertDialogWithOkCancel(DashboardActivity.this, "LOGIN", "You need to login first.", new Functions.DialogOptionsSelectedListener() {
                         @Override
                         public void onSelect(boolean isYes) {
                             if (isYes) {
@@ -214,7 +221,7 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.drawer_logout:
                 setUnCheckedDrawerMenu();
                 // menuItem.setChecked(true);
-                Functions.showAlertDialogWithOkCancel(DashboardActivity.this, "Are you sure want to logout?", new Functions.DialogOptionsSelectedListener() {
+                Functions.showAlertDialogWithOkCancel(DashboardActivity.this, "LOGOUT", "Are you sure want to logout?", new Functions.DialogOptionsSelectedListener() {
                     @Override
                     public void onSelect(boolean isYes) {
                         if (isYes) {
@@ -299,10 +306,14 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_noti:
-                Intent i1 = new Intent(this, NotificationActivity.class);
-                i1.putExtra("notificationItems", (Serializable) notificationItems);
-                startActivity(i1);
-                overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                if (Functions.isConnected(DashboardActivity.this)) {
+                    Intent i1 = new Intent(this, NotificationActivity.class);
+                    i1.putExtra("notificationItems", (Serializable) notificationItems);
+                    startActivity(i1);
+                    overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
+                } else {
+                    Functions.showToast(DashboardActivity.this, getString(R.string.no_internet_connection));
+                }
                 break;
 
             case R.id.menu_cart:
@@ -331,6 +342,7 @@ public class DashboardActivity extends AppCompatActivity {
                         // Log.e("resp", response.body().getResponseMessage() + " || " + response.body().Data.lstnotification.size());
                         if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
                             no_of_notification = response.body().Data.UnReadCount;
+                            Log.e("no of notification", no_of_notification + "");
                             if (badgeHelper != null) {
                                 badgeHelper.displayBadge(no_of_notification);
                             }
@@ -338,6 +350,7 @@ public class DashboardActivity extends AppCompatActivity {
                             notificationItems.addAll(response.body().Data.lstnotification);
                         }
                     } else {
+                        Log.e("notificaTION", "ERROR");
                         Functions.showToast(DashboardActivity.this, getResources().getString(R.string.error));
                     }
                 }

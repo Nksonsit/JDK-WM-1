@@ -87,7 +87,7 @@ public class OrderHFragment extends Fragment {
             }
         });
         orderList = new ArrayList<>();
-        mAdapter = new OrderAdapter(getActivity(), orderList, new OrderAdapter.OnOptionSelectedListener() {
+        mAdapter = new OrderAdapter(getActivity(), true,orderList, new OrderAdapter.OnOptionSelectedListener() {
             @Override
             public void doPerformAction(int position) {
 

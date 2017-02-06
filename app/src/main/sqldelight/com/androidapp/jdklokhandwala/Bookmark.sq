@@ -6,7 +6,7 @@ CREATE TABLE Bookmark (
 );
 
 select_all_data:
-SELECT * FROM Bookmark;
+SELECT * FROM Bookmark ORDER BY Name ASC;
 
 select_all_data_by_id:
 SELECT * FROm Bookmark WHERE CategoryId = ?;

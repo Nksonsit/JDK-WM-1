@@ -40,8 +40,8 @@ public class PaymentMethodDialog extends Dialog {
         lp.gravity = Gravity.CENTER;
         getWindow().setAttributes(lp);
 
-        this.setCanceledOnTouchOutside(true);
-        this.setCancelable(true);
+        this.setCanceledOnTouchOutside(false);
+        this.setCancelable(false);
 
         titleTV = (TfTextView) view.findViewById(R.id.title);
         selectbtn = (TfButton) view.findViewById(R.id.selectBtn);

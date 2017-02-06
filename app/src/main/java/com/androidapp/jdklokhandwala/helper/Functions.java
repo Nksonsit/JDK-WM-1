@@ -28,6 +28,7 @@ import android.widget.EditText;
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.AddToCart;
+import com.androidapp.jdklokhandwala.api.model.Bookmark;
 import com.androidapp.jdklokhandwala.api.model.CityRes;
 import com.androidapp.jdklokhandwala.api.model.UnitMeasure;
 import com.androidapp.jdklokhandwala.api.model.UserPojo;
@@ -214,11 +215,11 @@ public class Functions {
         }
     }
 
-    public static void showAlertDialogWithOkCancel(Context mContext, String message, DialogOptionsSelectedListener dialogOptionsSelectedListener) {
+    public static void showAlertDialogWithOkCancel(Context mContext, String positiveText,String message, DialogOptionsSelectedListener dialogOptionsSelectedListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage(message)
                 .setCancelable(true)
-                .setPositiveButton("OK", (dialog, id) -> {
+                .setPositiveButton(positiveText, (dialog, id) -> {
                     if (dialogOptionsSelectedListener != null)
                         dialogOptionsSelectedListener.onSelect(true);
                     dialog.dismiss();
@@ -298,6 +299,37 @@ public class Functions {
         UserPojo userPojo = new UserPojo();
         PrefUtils.setLoggedIn(context, false);
         PrefUtils.setUserFullProfileDetails(context, userPojo);
+        AddToCart.DeleteAllData();
+        Bookmark.DeleteAllData();
+    }
+
+    /*1 passrord
+      2 new password
+      3 confirm password
+    */
+    public static boolean checkPassrordLength(Context context, int whichPassrord, String password) {
+        switch (whichPassrord) {
+            case 1:
+                if (password.trim().length() < 6 || password.trim().length() > 20) {
+                    Functions.showToast(context, "Password should be minimum 6 and maximum 29 character long.");
+                    return false;
+                }
+                break;
+            case 2:
+                if (password.trim().length() < 6 || password.trim().length() > 20) {
+                    Functions.showToast(context, "New Password should be minimum 6 and maximum 20 character long.");
+                    return false;
+                }
+                break;
+            case 3:
+                if (password.trim().length() < 6 || password.trim().length() > 20) {
+                    Functions.showToast(context, "Confirm Password should be minimum 6 and maximum 20 character long.");
+                    return false;
+                }
+                break;
+        }
+
+        return true;
     }
 
     public static String getFormatedInt(Double input) {
@@ -308,8 +340,27 @@ public class Functions {
             String[] split = temp.split("-");
             if (split.length == 2) {
                 Log.e("split", split.length + "");
-                if (Integer.valueOf(split[1]) > 0) {
-                    return String.valueOf(input);
+                if (Long.valueOf(split[1]) > 0) {
+                    return String.valueOf(String.format("%.2f",input));
+                } else {
+                    return String.valueOf(split[0]);
+                }
+            } else {
+                return String.valueOf(input);
+            }
+        }
+        return String.valueOf(input);
+    }
+    public static String getFormatedInt(float input) {
+        String temp = String.valueOf(input);
+        Log.e("temp", temp);
+        temp = temp.replace(".", "-");
+        if (temp.toString().contains("-")) {
+            String[] split = temp.split("-");
+            if (split.length == 2) {
+                Log.e("split", split.length + "");
+                if (Long.valueOf(split[1]) > 0) {
+                    return String.valueOf(String.format("%.2f",input));
                 } else {
                     return String.valueOf(split[0]);
                 }
@@ -366,7 +417,7 @@ public class Functions {
 
     public static Double getTotalWeight() {
         List<AddToCart> list = AddToCart.getCartList();
-        Log.e("size",list.size()+"");
+        Log.e("size", list.size() + "");
         Double totalWeight = Double.valueOf(0);
         if (list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {

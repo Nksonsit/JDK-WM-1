@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainEmptyView"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
@@ -22,4 +22,12 @@
         android:text="@string/no_record"
         android:textSize="@dimen/XXL_TEXT" />
 
+    <com.androidapp.jdklokhandwala.custom.TfTextView
+        android:id="@+id/add_product_link"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Some Products from here"
+        android:textSize="@dimen/XL_TEXT"/>
 </LinearLayout>

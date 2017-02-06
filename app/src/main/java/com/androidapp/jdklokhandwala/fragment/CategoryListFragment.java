@@ -129,6 +129,8 @@ public class CategoryListFragment extends Fragment {
         new GetCategory(getActivity(), new GetCategory.OnGetCategoryListener() {
             @Override
             public void onGet(List<Category> dataList) {
+                Log.e("list size",""+dataList.size());
+                Log.e("list ",Functions.jsonString(dataList));
                 categoryList.addAll(dataList);
                 adapter.addAll(categoryList);
             }
@@ -144,6 +146,7 @@ public class CategoryListFragment extends Fragment {
 
             @Override
             public void dismissProgress() {
+                Log.e("list size","null");
                 if (dialog != null) {
                     dialog.dismiss();
                 }

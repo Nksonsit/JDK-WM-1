@@ -22,7 +22,15 @@ public class UserPojo {
     String ShippingArea;
     int IdentityTypeID;
     String IdentityNo;
+    boolean IsActive;
 
+    public boolean isActive() {
+        return IsActive;
+    }
+
+    public void setActive(boolean active) {
+        IsActive = active;
+    }
 
     public String getShippingCity() {
         return ShippingCity;

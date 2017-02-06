@@ -26,6 +26,7 @@ import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfEditText;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.UserInActiveDialog;
 import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
@@ -99,7 +100,13 @@ public class RegistrationActivity extends AppCompatActivity {
         isPlaceOrder = getIntent().getIntExtra(AppConstants.isPlaceOrder, 2);
         paymentMethodID = getIntent().getIntExtra(AppConstants.paymentMethodID, 20);
 
-        getUserIdentityType();
+
+        if (Functions.isConnected(RegistrationActivity.this)) {
+            getUserIdentityType();
+        } else {
+            Functions.showToast(RegistrationActivity.this, getResources().getString(R.string.no_internet_connection));
+        }
+
 
         deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
@@ -115,31 +122,34 @@ public class RegistrationActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Functions.isConnected(RegistrationActivity.this)) {
+                    if (validateField()) {
+                        showProgress();
+                        RegistrationReq registrationReq = new RegistrationReq();
+                        registrationReq.setName(nameTV.getText().toString().trim());
+                        registrationReq.setEmailID(emailTV.getText().toString().trim());
+                        registrationReq.setMobile(phoneTV.getText().toString().trim());
+                        registrationReq.setPassword(passwordTV.getText().toString().trim());
+                        registrationReq.setDeviceID(deviceId);
+                        String fcmToken = PrefUtils.getFCMToken(RegistrationActivity.this);
+                        if (fcmToken != null && fcmToken.trim().length() > 0) {
+                            registrationReq.setGCMToken(fcmToken);
+                        } else {
+                            registrationReq.setGCMToken(FirebaseInstanceId.getInstance().getToken());
+                        }
+                        if (proofList != null && proofList.size() > 0) {
+                            registrationReq.setIdentityTypeID(proofList.get(proofTypeSpinner.getSelectedItemPosition()).getCodeID());
+                        } else {
+                            registrationReq.setIdentityTypeID(0);
+                        }
+                        registrationReq.setIdentityNo(proofTV.getText().toString().trim());
 
-                if (validateField()) {
-                    showProgress();
-                    RegistrationReq registrationReq = new RegistrationReq();
-                    registrationReq.setName(nameTV.getText().toString().trim());
-                    registrationReq.setEmailID(emailTV.getText().toString().trim());
-                    registrationReq.setMobile(phoneTV.getText().toString().trim());
-                    registrationReq.setPassword(passwordTV.getText().toString().trim());
-                    registrationReq.setDeviceID(deviceId);
-                    String fcmToken = PrefUtils.getFCMToken(RegistrationActivity.this);
-                    if (fcmToken != null && fcmToken.trim().length() > 0) {
-                        registrationReq.setGCMToken(fcmToken);
-                    } else {
-                        registrationReq.setGCMToken(FirebaseInstanceId.getInstance().getToken());
+                        Log.e("registration req", Functions.jsonString(registrationReq));
+
+                        doRegistar(registrationReq);
                     }
-                    if (proofList != null && proofList.size() > 0) {
-                        registrationReq.setIdentityTypeID(proofList.get(proofTypeSpinner.getSelectedItemPosition()).getCodeID());
-                    } else {
-                        registrationReq.setIdentityTypeID(0);
-                    }
-                    registrationReq.setIdentityNo(proofTV.getText().toString().trim());
-
-                    Log.e("registration req", Functions.jsonString(registrationReq));
-
-                    doRegistar(registrationReq);
+                } else {
+                    Functions.showToast(RegistrationActivity.this, getResources().getString(R.string.no_internet_connection));
                 }
 
             }
@@ -166,7 +176,12 @@ public class RegistrationActivity extends AppCompatActivity {
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
                                 } else if (isPlaceOrder == 0) {
-                                    doGetQuotation();
+                                    if (Functions.isConnected(RegistrationActivity.this)) {
+
+                                        doGetQuotation();
+                                    } else {
+                                        Functions.showToast(RegistrationActivity.this, getResources().getString(R.string.no_internet_connection));
+                                    }
                                 } else {
                                     Intent i = new Intent(RegistrationActivity.this, DashboardActivity.class);
                                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -197,18 +212,24 @@ public class RegistrationActivity extends AppCompatActivity {
             Functions.showToast(RegistrationActivity.this, "Please enter your name.");
             return false;
 
-        } else if (emailTV.getText().toString().trim().length() == 0) {
-            Functions.showToast(RegistrationActivity.this, "Please enter your email id.");
+        } else if (emailTV.getText().toString().trim().length() != 0  &&  !Functions.emailValidation(emailTV.getText().toString().trim())) {
+            Functions.showToast(RegistrationActivity.this, "Please enter your valid email id.");
             return false;
 
         } else if (phoneTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter your phone number.");
             return false;
 
+        } else if (phoneTV.getText().toString().trim().length() != 10) {
+            Functions.showToast(RegistrationActivity.this, "Please enter your valid phone number.");
+            return false;
+
         } else if (passwordTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter your password.");
             return false;
 
+        } else if (!Functions.checkPassrordLength(RegistrationActivity.this, 1, passwordTV.getText().toString().trim())) {
+            return false;
         } else if (proofTV.getText().toString().trim().length() == 0) {
             Functions.showToast(RegistrationActivity.this, "Please enter proof id.");
             return false;
@@ -358,7 +379,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(RegistrationActivity.this, "Q").show();
                     } else {
-                        Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage().trim());
+                        new UserInActiveDialog(RegistrationActivity.this,response.body().getResponseMessage().trim()).show();
                     }
                 } else {
                     Functions.showToast(RegistrationActivity.this, response.body().getResponseMessage().trim());

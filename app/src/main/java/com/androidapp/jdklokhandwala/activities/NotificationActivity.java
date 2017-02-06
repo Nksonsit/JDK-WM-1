@@ -71,7 +71,11 @@ public class NotificationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (PrefUtils.isUserLoggedIn(this)) {
-            readNotificationApi();
+            if (Functions.isConnected(NotificationActivity.this)) {
+                readNotificationApi();
+            } else {
+                Functions.showToast(NotificationActivity.this, getResources().getString(R.string.no_internet_connection));
+            }
         }
 
         notificationItems = (ArrayList<NotificationItem>) getIntent().getSerializableExtra("notificationItems");
@@ -102,9 +106,20 @@ public class NotificationActivity extends AppCompatActivity {
                 Intent i = new Intent(NotificationActivity.this, OrderDetailActivity.class);
                 i.putExtra("OrderID", notificationItems.get(pos).OrderID);
                 i.putExtra(AppConstants.statusTxt, notificationItems.get(pos).Title);
-                switch (notificationItems.get(pos).NotificationTypeId)
-                {
+                switch (notificationItems.get(pos).NotificationTypeId) {
+                    case 8:
+                        i.putExtra(AppConstants.isInquiry, true);
+                        i.putExtra(AppConstants.isAccept, true);
+                        break;
+                    case 9:
+                        i.putExtra(AppConstants.isInquiry, true);
+                        i.putExtra(AppConstants.isAccept, true);
+                        break;
                     case 10:
+                        i.putExtra(AppConstants.isInquiry, true);
+                        i.putExtra(AppConstants.isAccept, true);
+                        break;
+                    case 11:
                         i.putExtra(AppConstants.isInquiry, true);
                         i.putExtra(AppConstants.isAccept, true);
                         break;
@@ -115,8 +130,12 @@ public class NotificationActivity extends AppCompatActivity {
                 }
                 //i.putExtra(AppConstants.isInquiry, false);
                 i.putExtra(AppConstants.statusID, notificationItems.get(pos).NotificationTypeId);
-                Functions.fireIntent(NotificationActivity.this, i);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if (Functions.isConnected(NotificationActivity.this)) {
+                    Functions.fireIntent(NotificationActivity.this, i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else {
+                    Functions.showToast(NotificationActivity.this, getString(R.string.no_internet_connection));
+                }
             }
         });
         notificationRV.setAdapter(adapter);
@@ -138,8 +157,12 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onScrolledToBottom() {
                 if (isLoadMore) {
-                    notificationRV.addFooterView(footer);
-                    callNotificationApi(notificationItems.get(adapter.getItemCount() - 1).NotificationId);
+                    if (Functions.isConnected(NotificationActivity.this)) {
+                        notificationRV.addFooterView(footer);
+                        callNotificationApi(notificationItems.get(adapter.getItemCount() - 1).NotificationId);
+                    } else {
+                        Functions.showToast(NotificationActivity.this, getResources().getString(R.string.no_internet_connection));
+                    }
                 } else {
                     notificationRV.removeFooterView(footer);
                 }
@@ -161,18 +184,18 @@ public class NotificationActivity extends AppCompatActivity {
                         // Log.e("resp",response.body().getResponseMessage() +" || " + response.body().Data.lstnotification.size());
                         if (response.body().Data != null && response.body().Data.lstnotification != null && response.body().Data.lstnotification.size() > 0) {
                             notificationItems.addAll(response.body().Data.lstnotification);
-                            if(notificationItems.size()<10){
+                            if (notificationItems.size() < 10) {
                                 isLoadMore = false;
                                 notificationRV.removeFooterView(footer);
-                            }else{
+                            } else {
                                 isLoadMore = true;
                                 notificationRV.addFooterView(footer);
                             }
-                        }else {
+                        } else {
                             isLoadMore = false;
                             notificationRV.removeFooterView(footer);
                         }
-                    }  else {
+                    } else {
                         Functions.showToast(NotificationActivity.this, getResources().getString(R.string.error));
                     }
                     adapter.notifyDataSetChanged();

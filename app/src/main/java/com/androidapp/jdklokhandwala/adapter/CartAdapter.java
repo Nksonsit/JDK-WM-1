@@ -2,6 +2,7 @@ package com.androidapp.jdklokhandwala.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
     private Context context;
     private List<AddToCart> addToCartList;
     private OnOptionSelectedListener OnOptionSelectedListener;
+    private List<AddToCart> dataList;
 
     public CartAdapter(Context context, List<AddToCart> addToCartList, OnOptionSelectedListener OnOptionSelectedListener) {
         this.context = context;
@@ -50,6 +52,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
         return addToCartList.size();
     }
 
+    public void setdataList(List<AddToCart> dataList) {
+        this.addToCartList = new ArrayList<>();
+        this.addToCartList = dataList;
+        notifyDataSetChanged();
+    }
+
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private TfTextView textView, textViewQty;
@@ -64,6 +72,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
         }
 
         private void setProduct(AddToCart addToCart, final int position) {
+            Log.e("value",Functions.getFormatedInt(addToCart.UnitValue()));
             textView.setText(addToCart.Name() + " Kg");
             if (addToCart.UnitType().trim().toLowerCase().equals("kg")) {
                 textViewQty.setText("Quantity : " + Functions.getFormatedInt(addToCart.UnitValue()) + " " + addToCart.UnitType());

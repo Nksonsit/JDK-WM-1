@@ -6,6 +6,7 @@ import com.androidapp.jdklokhandwala.api.AppApi;
 import com.androidapp.jdklokhandwala.api.model.Product;
 import com.androidapp.jdklokhandwala.api.model.ProductResponse;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
+import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class GetProducts {
 
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
+                RetrofitErrorHelper.showErrorMsg(t, context);
                 if (OnGetProducts != null) {
                     OnGetProducts.dismissProgress();
                 }

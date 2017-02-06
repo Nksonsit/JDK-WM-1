@@ -21,6 +21,7 @@ import com.androidapp.jdklokhandwala.api.model.UserPojo;
 import com.androidapp.jdklokhandwala.custom.TfButton;
 import com.androidapp.jdklokhandwala.custom.TfEditText;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.custom.UserInActiveDialog;
 import com.androidapp.jdklokhandwala.custom.wheelpicker.OrderSuccessDialog;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
@@ -100,22 +101,26 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateField()) {
-                    dialog.show();
-                    LoginReq loginReq = new LoginReq();
-                    loginReq.setMobile(phoneTV.getText().toString().trim());
-                    loginReq.setPassword(passwordTV.getText().toString().trim());
-                    loginReq.setDeviceID(deviceId);
-                    //loginReq.setGCMToken("12345");
-                    String fcmToken = PrefUtils.getFCMToken(LoginActivity.this);
-                    if (fcmToken != null && fcmToken.trim().length() > 0) {
-                        loginReq.setGCMToken(fcmToken);
-                    } else {
-                        loginReq.setGCMToken(FirebaseInstanceId.getInstance().getToken());
-                    }
-                    loginReq.setDeviceType("Android");
-                    doLogin(loginReq);
+                if (Functions.isConnected(LoginActivity.this)) {
+                    if (validateField()) {
+                        dialog.show();
+                        LoginReq loginReq = new LoginReq();
+                        loginReq.setMobile(phoneTV.getText().toString().trim());
+                        loginReq.setPassword(passwordTV.getText().toString().trim());
+                        loginReq.setDeviceID(deviceId);
+                        //loginReq.setGCMToken("12345");
+                        String fcmToken = PrefUtils.getFCMToken(LoginActivity.this);
+                        if (fcmToken != null && fcmToken.trim().length() > 0) {
+                            loginReq.setGCMToken(fcmToken);
+                        } else {
+                            loginReq.setGCMToken(FirebaseInstanceId.getInstance().getToken());
+                        }
+                        loginReq.setDeviceType("Android");
+                        doLogin(loginReq);
 
+                    }
+                } else {
+                    Functions.showToast(LoginActivity.this, getResources().getString(R.string.no_internet_connection));
                 }
             }
         });
@@ -211,11 +216,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().getResponseMessage() != null) {
                     Log.e("place order res", MyApplication.getGson().toJson(response.body()).toString());
-                    if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
+                    /*if (response.body().getResponseMessage().toString().trim().toLowerCase().contains("success")) {
                         AddToCart.DeleteAllData();
                         new OrderSuccessDialog(LoginActivity.this, "Q").show();
-                    }else {
-                    Functions.showToast(LoginActivity.this, "Some thing went wrong please try again later.");}
+                    } else {
+                        Functions.showToast(LoginActivity.this, "Some thing went wrong please try again later.");
+                    }*/
+                    if (response.body().getResponseCode() == 1) {
+                        AddToCart.DeleteAllData();
+                        new OrderSuccessDialog(LoginActivity.this, "Q").show();
+                    } else {
+                        new UserInActiveDialog(LoginActivity.this,response.body().getResponseMessage().trim()).show();
+                    }
                 }
             }
 
@@ -228,6 +240,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validateField() {
         if (phoneTV.getText().toString().trim().length() == 0) {
+            Functions.showToast(LoginActivity.this, "Please enter your phone number.");
+            return false;
+        } else if (phoneTV.getText().toString().trim().length() != 10) {
             Functions.showToast(LoginActivity.this, "Please enter your phone number.");
             return false;
         } else if (passwordTV.getText().toString().trim().length() == 0) {

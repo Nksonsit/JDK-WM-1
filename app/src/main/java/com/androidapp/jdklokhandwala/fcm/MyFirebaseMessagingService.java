@@ -70,6 +70,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+
+            NotificationCompat.BigTextStyle s = new NotificationCompat.BigTextStyle();
+            s.setBigContentTitle(title);
+            s.setSummaryText(desc);
+
+            NotificationCompat.InboxStyle s2 = new NotificationCompat.InboxStyle();
+            s.setBigContentTitle(title);
+            s.setSummaryText(desc);
+
             Notification notification;
             notification = mBuilder.setSmallIcon(R.mipmap.ic_launcher)
                     .setTicker(title)
@@ -80,6 +89,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
                     .setContentText(desc)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(desc))
                     .build();
 
             Random random = new Random();

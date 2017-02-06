@@ -1,4 +1,4 @@
-package com.androidapp.jdklokhandwala.custom.wheelpicker;
+package com.androidapp.jdklokhandwala.custom;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.androidapp.jdklokhandwala.R;
-import com.androidapp.jdklokhandwala.activities.BillingActivity;
 import com.androidapp.jdklokhandwala.activities.DashboardActivity;
 import com.androidapp.jdklokhandwala.helper.Functions;
 
@@ -20,23 +19,21 @@ import com.androidapp.jdklokhandwala.helper.Functions;
  * Created by ishan on 29-12-2016.
  */
 
-public class OrderSuccessDialog extends Dialog {
+public class UserInActiveDialog extends Dialog {
 
     private final Context context;
     private View view;
     private Button btnOk;
     private String str;
+    private TfTextView txtError;
 
-    public OrderSuccessDialog(final Context context, String str) {
+    public UserInActiveDialog(final Context context, String str) {
         super(context);
         this.context = context;
         this.str = str;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (str.equals("O")) {
-            view = LayoutInflater.from(context).inflate(R.layout.order_success_dialog, null);
-        } else {
-            view = LayoutInflater.from(context).inflate(R.layout.quotation_success_dialog, null);
-        }
+        view = LayoutInflater.from(context).inflate(R.layout.order_success_dialog, null);
+
         setContentView(view);
 
         this.setCancelable(false);
@@ -48,6 +45,9 @@ public class OrderSuccessDialog extends Dialog {
 
     private void init() {
         btnOk = (Button) view.findViewById(R.id.btnOk);
+        txtError=(TfTextView)view.findViewById(R.id.txtError);
+
+        txtError.setText(str.trim());
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(getWindow().getAttributes());

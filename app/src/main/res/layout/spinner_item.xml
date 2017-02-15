@@ -12,5 +12,6 @@
         android:padding="@dimen/dimen_8dp"
         app:isBold="true"
         android:textColor="@color/half_black"
-        android:textSize="@dimen/L_TEXT" />
+        android:textSize="@dimen/XL_TEXT" />
+
 </LinearLayout>

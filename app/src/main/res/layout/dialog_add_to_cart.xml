@@ -45,8 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Quantity"
-                android:maxLength="4"
                 android:inputType="number"
+                android:maxLength="7"
                 android:textSize="@dimen/M_TEXT" />
 
             <RadioGroup
@@ -56,29 +56,29 @@
                 android:layout_marginTop="@dimen/dimen_8dp"
                 android:orientation="horizontal">
 
-              <!--  <RadioButton
-                    android:id="@+id/ftRadioBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ft."
-                    android:textColor="@color/half_black" />
+                <!--  <RadioButton
+                      android:id="@+id/ftRadioBtn"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Ft."
+                      android:textColor="@color/half_black" />
 
-                <RadioButton
-                    android:id="@+id/unitRadioBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_16dp"
-                    android:layout_marginRight="@dimen/dimen_16dp"
-                    android:checked="true"
-                    android:text="Unit"
-                    android:textColor="@color/half_black" />
+                  <RadioButton
+                      android:id="@+id/unitRadioBtn"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="@dimen/dimen_16dp"
+                      android:layout_marginRight="@dimen/dimen_16dp"
+                      android:checked="true"
+                      android:text="Unit"
+                      android:textColor="@color/half_black" />
 
-                <RadioButton
-                    android:id="@+id/kgRadioBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kg"
-                    android:textColor="@color/half_black" />-->
+                  <RadioButton
+                      android:id="@+id/kgRadioBtn"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Kg"
+                      android:textColor="@color/half_black" />-->
             </RadioGroup>
 
         </LinearLayout>
@@ -91,22 +91,21 @@
             android:orientation="horizontal">
 
 
-
             <com.androidapp.jdklokhandwala.custom.TfButton
                 android:id="@+id/btnCancel"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/cancel" />
+                android:text="@string/cancel"
+                android:textColor="@color/colorPrimary" />
 
             <com.androidapp.jdklokhandwala.custom.TfButton
                 android:id="@+id/addToCart"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
-                android:textColor="@color/colorPrimary"
                 android:layout_height="@dimen/button_height"
-                android:text="@string/update" />
+                android:text="@string/update"
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
     </LinearLayout>

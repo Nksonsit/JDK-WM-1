@@ -8,6 +8,12 @@ public class AppConstants {
 
     public static final int RESPONSE_SUCCESS = 1;
 
+    public static final int UserNotification = 15;
+
+    public static final String NOTIFICATION_CALL = "Call";
+    public static final String NOTIFICATION_CLICK = "Notification";
+    public static final String HOME_CLICK = "Home";
+
     // Adhar Card Regex : ^\d{4}\s\d{4}\s\d{4}$
     // e.g. 4552 6369 3654
     public static final String AADHAR_CARD = "^\\d{4}\\s\\d{4}\\s\\d{4}$";
@@ -72,8 +78,8 @@ public class AppConstants {
     public static String paymentMethodID = "paymentMethodID";
     public static String isInquiry = "isInquiry";
     public static String statusID = "statusID";
-    public static String isAccept="isAccept";
-    public static String statusTxt="statusTxt";
+    public static String isAccept = "isAccept";
+    public static String statusTxt = "statusTxt";
 
 
     public enum NotificationTypeId {
@@ -84,7 +90,6 @@ public class AppConstants {
         OrderPlaced(12, "OrderPlaced"),
         OrderCancelledByAdmin(13, "OrderCancelledByAdmin"),
         OrderDispatched(14, "OrderDispatched");
-
 
         Object[] values;
 
@@ -170,6 +175,7 @@ public class AppConstants {
         OrderPlaced = 12,
         OrderCancelledByAdmin = 13,
         OrderDispatched = 14
+        UserNotification = 15
     }*/
 
 

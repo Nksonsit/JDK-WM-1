@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/row"
     android:layout_weight="1"
     android:gravity="center_vertical"
@@ -14,6 +15,7 @@
         android:padding="@dimen/dimen_8dp"
         android:text="Width"
         android:gravity="center"
+        app:isBold="true"
         android:layout_gravity="center"
         android:textSize="@dimen/XL_TEXT" />
 
@@ -25,6 +27,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center"
+        app:isBold="true"
         android:background="@color/white"
         android:padding="@dimen/dimen_8dp"
         android:textSize="@dimen/XL_TEXT" />

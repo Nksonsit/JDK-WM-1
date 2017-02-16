@@ -25,7 +25,8 @@
             android:padding="@dimen/dimen_4dp"
             android:text="Order Number"
             android:textColor="@color/black"
-            android:textSize="@dimen/XL_TEXT" />
+            android:textSize="@dimen/XL_TEXT"
+            android:visibility="gone" />
 
         <com.androidapp.jdklokhandwala.custom.TfTextView
             android:id="@+id/txtTime"
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dimen_4dp"
             android:text="Content"
-            android:textSize="@dimen/M_TEXT" />
+            android:textSize="@dimen/L_TEXT" />
     </LinearLayout>
 
 </LinearLayout>

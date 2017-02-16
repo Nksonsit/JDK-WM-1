@@ -8,13 +8,23 @@ import java.io.Serializable;
  * Created by ishan on 11-01-2017.
  */
 
-public class OrderItem{
-    int OrderID;
-    String ReferCode;
-    Double TotalCartWeight;
-    Double NetAmount;
-    String CreatedDate;
-    int StatusID;
+public class OrderItem {
+
+    private int OrderID;
+    private String ReferCode;
+    private Double TotalCartWeight;
+    private Double NetAmount;
+    private String CreatedDate;
+    private int StatusID;
+    private boolean ViaInquiry;
+
+    public boolean isViaInquiry() {
+        return ViaInquiry;
+    }
+
+    public void setViaInquiry(boolean viaInquiry) {
+        ViaInquiry = viaInquiry;
+    }
 
     public Double getTotalCartWeight() {
         return TotalCartWeight;

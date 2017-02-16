@@ -29,6 +29,7 @@ import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,14 +44,23 @@ public class NotificationActivity extends AppCompatActivity {
     private NotificationAdapter adapter;
     private View footer;
     private boolean isLoadMore = false;
+    private SpotsDialog spotsDialog;
+    private String call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        init();
+        call = getIntent().getStringExtra(AppConstants.NOTIFICATION_CALL);
 
+        init();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        doFinish();
     }
 
     private void init() {
@@ -78,12 +88,20 @@ public class NotificationActivity extends AppCompatActivity {
             }
         }
 
-        notificationItems = (ArrayList<NotificationItem>) getIntent().getSerializableExtra("notificationItems");
+        // notificationItems = (ArrayList<NotificationItem>) getIntent().getSerializableExtra("notificationItems");
+        notificationItems = new ArrayList<>();
         initRecyclerView();
+
+        callNotificationApi(0);
 
     }
 
     private void doFinish() {
+        if (call.equalsIgnoreCase(AppConstants.HOME_CLICK)) {
+
+        } else {
+            Functions.fireIntent(this, DashboardActivity.class);
+        }
         finish();
         overridePendingTransition(R.anim.push_down_in, R.anim.push_up_out);
     }
@@ -104,9 +122,9 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClickListener(int pos) {
                 //  Log.e("item clicked",notificationItems.get(pos).OrderID+" || "+ notificationItems.get(pos).NotificationTypeId);
                 Intent i = new Intent(NotificationActivity.this, OrderDetailActivity.class);
-                i.putExtra("OrderID", notificationItems.get(pos).OrderID);
-                i.putExtra(AppConstants.statusTxt, notificationItems.get(pos).Title);
-                switch (notificationItems.get(pos).NotificationTypeId) {
+                i.putExtra("OrderID", notificationItems.get(pos).getOrderID());
+                i.putExtra(AppConstants.statusTxt, notificationItems.get(pos).getTitle());
+                switch (notificationItems.get(pos).getNotificationTypeId()) {
                     case 8:
                         i.putExtra(AppConstants.isInquiry, true);
                         i.putExtra(AppConstants.isAccept, true);
@@ -129,7 +147,7 @@ public class NotificationActivity extends AppCompatActivity {
                         break;
                 }
                 //i.putExtra(AppConstants.isInquiry, false);
-                i.putExtra(AppConstants.statusID, notificationItems.get(pos).NotificationTypeId);
+                i.putExtra(AppConstants.statusID, notificationItems.get(pos).getNotificationTypeId());
                 if (Functions.isConnected(NotificationActivity.this)) {
                     Functions.fireIntent(NotificationActivity.this, i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -159,7 +177,7 @@ public class NotificationActivity extends AppCompatActivity {
                 if (isLoadMore) {
                     if (Functions.isConnected(NotificationActivity.this)) {
                         notificationRV.addFooterView(footer);
-                        callNotificationApi(notificationItems.get(adapter.getItemCount() - 1).NotificationId);
+                        callNotificationApi(notificationItems.get(adapter.getItemCount() - 1).getNotificationId());
                     } else {
                         Functions.showToast(NotificationActivity.this, getResources().getString(R.string.no_internet_connection));
                     }
@@ -172,13 +190,17 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void callNotificationApi(int lastNotificationId) {
-        // call API
-        //Log.e("req",PrefUtils.getUserFullProfileDetails(this).getUserID()+"");
+
         if (PrefUtils.getUserFullProfileDetails(this) != null) {
+
+            showProgress();
+
             AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
             appApi.getNotificationList(PrefUtils.getUserFullProfileDetails(this).getUserID(), lastNotificationId).enqueue(new Callback<NotificationItemRes>() {
                 @Override
                 public void onResponse(Call<NotificationItemRes> call, Response<NotificationItemRes> response) {
+
+                    dismissProgress();
 
                     if (response.body() != null) {
                         // Log.e("resp",response.body().getResponseMessage() +" || " + response.body().Data.lstnotification.size());
@@ -204,6 +226,7 @@ public class NotificationActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<NotificationItemRes> call, Throwable t) {
                     RetrofitErrorHelper.showErrorMsg(t, NotificationActivity.this);
+                    dismissProgress();
                 }
             });
         }
@@ -232,6 +255,18 @@ public class NotificationActivity extends AppCompatActivity {
                 RetrofitErrorHelper.showErrorMsg(t, NotificationActivity.this);
             }
         });
+    }
 
+    public void showProgress() {
+        if (spotsDialog == null) {
+            spotsDialog = new SpotsDialog(NotificationActivity.this, R.style.Custom);
+        }
+        spotsDialog.show();
+    }
+
+    public void dismissProgress() {
+        if (spotsDialog != null) {
+            spotsDialog.dismiss();
+        }
     }
 }

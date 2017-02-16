@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.activities.ProductsListActivity;
@@ -20,7 +19,6 @@ import com.androidapp.jdklokhandwala.adapter.CategoryAdapter;
 import com.androidapp.jdklokhandwala.api.call.GetCategory;
 import com.androidapp.jdklokhandwala.api.model.Category;
 import com.androidapp.jdklokhandwala.custom.EmptyLayout;
-import com.androidapp.jdklokhandwala.custom.LineDividerItemDecoration;
 import com.androidapp.jdklokhandwala.custom.familiarrecyclerview.FamiliarRecyclerView;
 import com.androidapp.jdklokhandwala.helper.Functions;
 import com.gun0912.tedpermission.PermissionListener;
@@ -77,11 +75,13 @@ public class CategoryListFragment extends Fragment {
         categoryRV.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
-                Category category = categoryList.get(position);
-                Intent intent = new Intent(getActivity(), ProductsListActivity.class);
-                intent.putExtra("category", category);
-                getContext().startActivity(intent);
-                ((Activity) getActivity()).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if (!swipeRefresh.isRefreshing()) {
+                    Category category = categoryList.get(position);
+                    Intent intent = new Intent(getActivity(), ProductsListActivity.class);
+                    intent.putExtra("category", category);
+                    getContext().startActivity(intent);
+                    ((Activity) getActivity()).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             }
         });
 
@@ -107,7 +107,7 @@ public class CategoryListFragment extends Fragment {
         });
 
 
-        Functions.setPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
+        Functions.setPermission(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
             @Override
             public void onPermissionGranted() {
 
@@ -129,8 +129,8 @@ public class CategoryListFragment extends Fragment {
         new GetCategory(getActivity(), new GetCategory.OnGetCategoryListener() {
             @Override
             public void onGet(List<Category> dataList) {
-                Log.e("list size",""+dataList.size());
-                Log.e("list ",Functions.jsonString(dataList));
+                Log.e("list size", "" + dataList.size());
+                Log.e("list ", Functions.jsonString(dataList));
                 categoryList.addAll(dataList);
                 adapter.addAll(categoryList);
             }
@@ -146,7 +146,7 @@ public class CategoryListFragment extends Fragment {
 
             @Override
             public void dismissProgress() {
-                Log.e("list size","null");
+                Log.e("list size", "null");
                 if (dialog != null) {
                     dialog.dismiss();
                 }

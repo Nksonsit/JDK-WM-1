@@ -46,7 +46,7 @@ public class AddToCartDialog extends Dialog {
         lp.gravity = Gravity.CENTER;
         getWindow().setAttributes(lp);
 
-        this.setCanceledOnTouchOutside(true);
+        this.setCanceledOnTouchOutside(false);
 
         quantity = (TfEditText) view.findViewById(R.id.quantity);
         addToCart = (Button) view.findViewById(R.id.addToCart);

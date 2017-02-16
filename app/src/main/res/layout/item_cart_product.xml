@@ -32,19 +32,19 @@
             android:id="@+id/tvEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:textSize="@dimen/L_TEXT"
             android:padding="@dimen/dimen_8dp"
-            android:tint="@color/half_black" />
+            android:text="Edit"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/L_TEXT" />
 
         <com.androidapp.jdklokhandwala.custom.TfTextView
             android:id="@+id/tvDelete"
-            android:textSize="@dimen/L_TEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remove"
             android:padding="@dimen/dimen_8dp"
-            android:tint="@color/half_black" />
+            android:text="Remove"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/L_TEXT" />
 
     </LinearLayout>
 

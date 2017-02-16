@@ -119,51 +119,54 @@ public class ProductsListActivity extends AppCompatActivity {
         productRV.setOnItemClickListener(new FamiliarRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(FamiliarRecyclerView familiarRecyclerView, View view, int position) {
-                Product product = productList.get(position);
-                if (!AddToCart.CheckDuplication(category.getCategoryID(), product.getProductID())) {
+                if (!swipeRefresh.isRefreshing()) {
+                    Product product = productList.get(position);
+                    if (!AddToCart.CheckDuplication(category.getCategoryID(), product.getProductID())) {
 
-                    new AddToCartDialog(ProductsListActivity.this, "ADD TO ORDER BOOK", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
-                        @Override
-                        public void onAddClick(String quantity, String type) {
-                            Log.e(quantity, type);
-                            AddToCartPojo addToCart = new AddToCartPojo();
-                            addToCart.setCategoryID((long) category.getCategoryID());
-                            addToCart.setProductID((long) product.getProductID());
-                            addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + Functions.getFormatedInt(product.getWeight()));
-                            addToCart.setUnitType(type);
-                            addToCart.setDefaultWeight(product.getWeight());
-                            addToCart.setUnitValue(Double.valueOf(quantity));
+                        new AddToCartDialog(ProductsListActivity.this, "ADD TO ORDER BOOK", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
+                            @Override
+                            public void onAddClick(String quantity, String type) {
+                                Log.e(quantity, type);
+                                AddToCartPojo addToCart = new AddToCartPojo();
+                                addToCart.setCategoryID((long) category.getCategoryID());
+                                addToCart.setProductID((long) product.getProductID());
+                                addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + Functions.getFormatedInt(product.getWeight()));
+                                addToCart.setUnitType(type);
+                                addToCart.setDefaultWeight(product.getWeight());
+                                addToCart.setUnitValue(Double.valueOf(quantity));
 
-                            Log.e("new valuew",String.format("%.2f",new BigDecimal((Double.valueOf("222.2")*Double.valueOf("99999.0")))));
+                                Log.e("new valuew", String.format("%.2f", new BigDecimal((Double.valueOf("222.2") * Double.valueOf("99999.0")))));
 
-                            if (type.toString().toLowerCase().trim().contains("kg")) {
-                                addToCart.setKgWeight(Double.valueOf(quantity));
-                            } else {
-                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
+                                if (type.toString().toLowerCase().trim().contains("kg")) {
+                                    addToCart.setKgWeight(Double.valueOf(quantity));
+                                } else {
+                                    addToCart.setKgWeight((product.getWeight() * Double.valueOf(String.format("%.2f", Double.valueOf(quantity)))));
+                                }
+
+                                String unitTypes = "";
+                                for (int i = 0; i < product.getUnitsOfMeasure().size(); i++) {
+                                    unitTypes = unitTypes + "," + product.getUnitsOfMeasure().get(i).getUnitOfMeasure();
+                                }
+                                addToCart.setUnitTypes(unitTypes);
+
+                                if (!AddToCart.CheckDuplication(addToCart)) {
+                                    Functions.showToast(ProductsListActivity.this, "Added Successfully.");
+                                    AddToCart.InsertProduct(addToCart);
+                                } else {
+                                    Functions.showToast(ProductsListActivity.this, "You have already added this product to cart.");
+                                }
+                                int cartSize = AddToCart.getCartList().size();
+                                if (badgeCart != null) {
+                                    badgeCart.displayBadge(cartSize);
+                                }
                             }
+                        }).show();
 
-                            String unitTypes = "";
-                            for (int i = 0; i < product.getUnitsOfMeasure().size(); i++) {
-                                unitTypes = unitTypes + "," + product.getUnitsOfMeasure().get(i).getUnitOfMeasure();
-                            }
-                            addToCart.setUnitTypes(unitTypes);
-
-                            if (!AddToCart.CheckDuplication(addToCart)) {
-                                Functions.showToast(ProductsListActivity.this, "Added Successfully.");
-                                AddToCart.InsertProduct(addToCart);
-                            } else {
-                                Functions.showToast(ProductsListActivity.this, "You have already added this product to cart.");
-                            }
-                            int cartSize = AddToCart.getCartList().size();
-                            if (badgeCart != null) {
-                                badgeCart.displayBadge(cartSize);
-                            }
-                        }
-                    }).show();
-
-                } else {
-                    Functions.showToast(ProductsListActivity.this, "You have already added to cart.");
+                    } else {
+                        Functions.showToast(ProductsListActivity.this, "You have already added to cart.");
+                    }
                 }
+
             }
         });
     }
@@ -221,23 +224,23 @@ public class ProductsListActivity extends AppCompatActivity {
                                     new AddToCartDialog(ProductsListActivity.this, "ADD TO ORDER BOOK", "", (double) 0, product.getUnitsOfMeasure(), new AddToCartDialog.OnAddClick() {
                                         @Override
                                         public void onAddClick(String quantity, String type) {
-                                            Log.e("quantity-->",quantity+" "+Double.valueOf(quantity)+" "+Double.valueOf(String.format("%.2f",Double.valueOf(quantity))));
+                                            Log.e("quantity-->", quantity + " " + Double.valueOf(quantity) + " " + Double.valueOf(String.format("%.2f", Double.valueOf(quantity))));
                                             Log.e(quantity, type);
                                             AddToCartPojo addToCart = new AddToCartPojo();
                                             addToCart.setCategoryID((long) category.getCategoryID());
                                             addToCart.setProductID((long) product.getProductID());
                                             addToCart.setName(product.getName() + "  " + product.getCodeValue() + "  " + product.getWeight());
                                             addToCart.setUnitType(type);
-                                            addToCart.setUnitValue(Double.valueOf(String.format("%.2f",Double.valueOf(quantity))));
+                                            addToCart.setUnitValue(Double.valueOf(String.format("%.2f", Double.valueOf(quantity))));
 
 
-                                            Log.e(""+(product.getWeight() * Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))),(product.getWeight() +" "+ Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
-                                            Log.e(""+(Float.valueOf(String.format("%.2f",product.getWeight())) * Float.valueOf(String.format("%.2f",Double.valueOf(quantity)))),(Float.valueOf(String.format("%.2f",product.getWeight())) +" "+ Float.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
+                                            Log.e("" + (product.getWeight() * Double.valueOf(String.format("%.2f", Double.valueOf(quantity)))), (product.getWeight() + " " + Double.valueOf(String.format("%.2f", Double.valueOf(quantity)))));
+                                            Log.e("" + (Float.valueOf(String.format("%.2f", product.getWeight())) * Float.valueOf(String.format("%.2f", Double.valueOf(quantity)))), (Float.valueOf(String.format("%.2f", product.getWeight())) + " " + Float.valueOf(String.format("%.2f", Double.valueOf(quantity)))));
 
                                             if (type.toString().toLowerCase().trim().contains("kg")) {
                                                 addToCart.setKgWeight(Double.valueOf(quantity));
                                             } else {
-                                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(String.format("%.2f",Double.valueOf(quantity)))));
+                                                addToCart.setKgWeight((product.getWeight() * Double.valueOf(String.format("%.2f", Double.valueOf(quantity)))));
                                             }
                                             addToCart.setDefaultWeight(product.getWeight());
                                             String unitTypes = "";

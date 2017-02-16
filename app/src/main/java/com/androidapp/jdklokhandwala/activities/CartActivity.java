@@ -127,10 +127,12 @@ public class CartActivity extends AppCompatActivity {
                                     addToCartList.remove(adapterPosition);
                                     adapter.notifyItemRemoved(adapterPosition);
                                     AddToCart.DeleteItem(product.CategoryID(), product.ProductID());
+
                                     Functions.showToast(CartActivity.this, "Delete product from order book.");
                                     if (addToCartList.size() == 0) {
                                         buttonLayout.setVisibility(View.GONE);
                                     } else {
+                                        adapter.setdataList(addToCartList);
                                         buttonLayout.setVisibility(View.VISIBLE);
                                     }
                                     dialog.dismiss();
@@ -147,7 +149,6 @@ public class CartActivity extends AppCompatActivity {
                         new AddToCartDialog(CartActivity.this, "UPDATE", product.UnitType(), product.UnitValue(), Functions.getListFromString(product.UnitTypes()), new AddToCartDialog.OnAddClick() {
                             @Override
                             public void onAddClick(String quantity, String type) {
-                                Log.e(quantity, type + " " + Double.valueOf(String.format("%.2f", Double.valueOf(quantity))) + " " + Double.valueOf(quantity));
 
                                 AddToCartPojo addToCartPojo = new AddToCartPojo();
                                 addToCartPojo.setCategoryID(product.CategoryID());
@@ -157,8 +158,6 @@ public class CartActivity extends AppCompatActivity {
                                 addToCartPojo.setUnitType(type);
                                 addToCartPojo.setUnitTypes(product.UnitTypes());
 
-
-                                Log.e("type", type);
                                 if (type.toString().toLowerCase().trim().contains("kg")) {
                                     addToCartPojo.setKgWeight(Double.valueOf(quantity));
                                 } else {
@@ -192,7 +191,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (Functions.isConnected(CartActivity.this)) {
                     if (addToCartList.size() > 0) {
-                        Log.e("total weight", Functions.getTotalWeight() + "");
+
                         if (Functions.getTotalWeight() >= 5000) {
                             Functions.showAlertDialogWithYesNo(CartActivity.this, getString(R.string.weight_limit), new Functions.DialogOptionsSelectedListener() {
                                 @Override

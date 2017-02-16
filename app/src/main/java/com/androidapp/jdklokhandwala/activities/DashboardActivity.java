@@ -37,11 +37,14 @@ import com.androidapp.jdklokhandwala.helper.Functions;
 import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
 import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
     private int no_of_notification;
     private BadgeHelper badgeHelper, badgeCart;
     MenuItem cartItem, notificationItem;
-
+    private SpotsDialog spotsDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -308,7 +311,7 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.menu_noti:
                 if (Functions.isConnected(DashboardActivity.this)) {
                     Intent i1 = new Intent(this, NotificationActivity.class);
-                    i1.putExtra("notificationItems", (Serializable) notificationItems);
+                    i1.putExtra(AppConstants.NOTIFICATION_CALL, AppConstants.HOME_CLICK);
                     startActivity(i1);
                     overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);
                 } else {
@@ -331,12 +334,19 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private ArrayList<NotificationItem> callNotificationApi() {
+
         notificationItems = new ArrayList<>();
+
         if (PrefUtils.isUserLoggedIn(DashboardActivity.this)) {
+
+            showProgress();
+
             AppApi appApi = MyApplication.getRetrofit().create(AppApi.class);
             appApi.getNotificationList(PrefUtils.getUserFullProfileDetails(this).getUserID(), 0).enqueue(new Callback<NotificationItemRes>() {
                 @Override
                 public void onResponse(Call<NotificationItemRes> call, Response<NotificationItemRes> response) {
+
+                    dismissProgress();
 
                     if (response.body() != null) {
                         // Log.e("resp", response.body().getResponseMessage() + " || " + response.body().Data.lstnotification.size());
@@ -357,11 +367,25 @@ public class DashboardActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<NotificationItemRes> call, Throwable t) {
+                    dismissProgress();
                     RetrofitErrorHelper.showErrorMsg(t, DashboardActivity.this);
                 }
             });
 
         }
         return notificationItems;
+    }
+
+    public void showProgress() {
+        if (spotsDialog == null) {
+            spotsDialog = new SpotsDialog(DashboardActivity.this, R.style.Custom);
+        }
+        spotsDialog.show();
+    }
+
+    public void dismissProgress() {
+        if (spotsDialog != null) {
+            spotsDialog.dismiss();
+        }
     }
 }

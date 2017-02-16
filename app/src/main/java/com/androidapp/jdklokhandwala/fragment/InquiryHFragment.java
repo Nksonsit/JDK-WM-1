@@ -54,10 +54,10 @@ public class InquiryHFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if (isVisibleToUser) {
             userPojo = PrefUtils.getUserFullProfileDetails(getActivity());
 
-            getOrderList(userPojo.getUserID(), 0,true);
+            getOrderList(userPojo.getUserID(), 0, true);
         }
     }
 
@@ -86,17 +86,19 @@ public class InquiryHFragment extends Fragment {
             }
         });
         historyList = new ArrayList<>();
-        mAdapter = new OrderAdapter(getActivity(), false,historyList, new OrderAdapter.OnOptionSelectedListener() {
+        mAdapter = new OrderAdapter(getActivity(), false, historyList, new OrderAdapter.OnOptionSelectedListener() {
             @Override
             public void doPerformAction(int position) {
-                Log.e("click",Functions.jsonString(historyList.get(position)));
-                Intent i = new Intent(getActivity(), OrderDetailActivity.class);
-                i.putExtra("OrderID", historyList.get(position).getOrderID());
-                i.putExtra(AppConstants.statusTxt, Functions.getStatus(historyList.get(position).getStatusID()));
-                i.putExtra(AppConstants.isInquiry, true);
-                i.putExtra(AppConstants.statusID, historyList.get(position).getStatusID());
-                Functions.fireIntent(getActivity(), i);
-                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if (!swipeRefresh.isRefreshing()) {
+                    Log.e("click", Functions.jsonString(historyList.get(position)));
+                    Intent i = new Intent(getActivity(), OrderDetailActivity.class);
+                    i.putExtra("OrderID", historyList.get(position).getOrderID());
+                    i.putExtra(AppConstants.statusTxt, Functions.getStatus(historyList.get(position).getStatusID()));
+                    i.putExtra(AppConstants.isInquiry, true);
+                    i.putExtra(AppConstants.statusID, historyList.get(position).getStatusID());
+                    Functions.fireIntent(getActivity(), i);
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             }
         });
         recyclerView.setAdapter(mAdapter);
@@ -134,10 +136,10 @@ public class InquiryHFragment extends Fragment {
                 if (orderItemRes != null && orderItemRes.getDataList() != null && orderItemRes.getDataList().size() > 0) {
                     historyList = orderItemRes.getDataList();
                     mAdapter.setDataList(historyList);
-                    if(orderItemRes.getDataList().size()<10){
+                    if (orderItemRes.getDataList().size() < 10) {
                         isLoadMore = false;
                         recyclerView.removeFooterView(footer);
-                    }else{
+                    } else {
                         isLoadMore = true;
                         recyclerView.addFooterView(footer);
                     }

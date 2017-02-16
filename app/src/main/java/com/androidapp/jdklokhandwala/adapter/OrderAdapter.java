@@ -28,12 +28,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private OnOptionSelectedListener OnOptionSelectedListener;
     DecimalFormat formatter;
 
-    public OrderAdapter(Context context, boolean isOrder,List<OrderItem> orderList, OnOptionSelectedListener OnOptionSelectedListener) {
+    public OrderAdapter(Context context, boolean isOrder, List<OrderItem> orderList, OnOptionSelectedListener OnOptionSelectedListener) {
         this.context = context;
         this.orderList = orderList;
         this.OnOptionSelectedListener = OnOptionSelectedListener;
         formatter = new DecimalFormat("#,##,##,###");
-        this.isOrder=isOrder;
+        this.isOrder = isOrder;
     }
 
     @Override
@@ -53,8 +53,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             }
         });
 
-
-        if(isOrder){
+        // TODO: 15-02-2017
+        if (isOrder) {
+//        if (!orderItem.isViaInquiry()) {
             holder.netAmount.setVisibility(View.GONE);
         }
 
@@ -88,7 +89,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         private void setOrder(OrderItem orderItem) {
             referCode.setText(orderItem.getReferCode());
             String myString = formatter.format(orderItem.getNetAmount());
-            netAmount.setText(context.getResources().getString(R.string.Rs)+" "+myString);
+            netAmount.setText(context.getResources().getString(R.string.Rs) + " " + myString);
             totalWeight.setText("Total Weight : " + Functions.getFormatedInt(orderItem.getTotalCartWeight()) + "Kg");
             status.setText("Status : " + Functions.getStatus(orderItem.getStatusID()));
             createdDate.setText(Functions.formatDate(orderItem.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +

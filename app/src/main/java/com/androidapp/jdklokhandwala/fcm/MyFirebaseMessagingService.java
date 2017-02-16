@@ -12,10 +12,10 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.androidapp.jdklokhandwala.R;
-import com.androidapp.jdklokhandwala.activities.DashboardActivity;
 import com.androidapp.jdklokhandwala.activities.NotificationActivity;
+import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
-import com.androidapp.jdklokhandwala.helper.MyApplication;
+import com.androidapp.jdklokhandwala.helper.PrefUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -32,17 +32,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
 
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.e("From", "" + remoteMessage.getFrom());
+//        Log.e("From", "" + remoteMessage.getFrom());
         if (remoteMessage.getData().size() > 0) {
-            Log.e(TAG, "Data Payload: " + remoteMessage.getData());
+//            Log.e(TAG, "Data Payload: " + remoteMessage.getData());
             try {
                 JSONObject json = new JSONObject(Functions.jsonString(remoteMessage.getData()));
-                Log.e("j1",Functions.jsonString(json));
-                Log.e("j4",json.get("message")+"");
-                sendNotification(new JSONObject(json.get("message")+""));
+//                Log.e("j1", Functions.jsonString(json));
+//                Log.e("j4", json.get("message") + "");
+                if (PrefUtils.isUserLoggedIn(this)) {
+                    sendNotification(new JSONObject(json.get("message") + ""));
+                }
                 // handleDataMessage(json);
             } catch (Exception e) {
                 Log.e(TAG, "Exception1: " + e.getMessage());
@@ -57,13 +58,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //            Log.e("j2",obj.toString());
 
 //            JSONObject msgObject=obj.getJSONObject("message");
-            Log.e("j3",Functions.jsonString(msgObject));
+            Log.e("j3", Functions.jsonString(msgObject));
             String title = msgObject.getString("NotificationFor");
             String desc = msgObject.getString("Message");
 
-            Log.e(title,desc);
+            Log.e(title, desc);
 
-            Intent intent = new Intent(this, DashboardActivity.class);
+            Intent intent = new Intent(this, NotificationActivity.class);
+            intent.putExtra(AppConstants.NOTIFICATION_CALL, AppConstants.NOTIFICATION_CLICK);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -101,7 +103,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("error",e.toString());
+            Log.e("error", e.toString());
         }
     }
 

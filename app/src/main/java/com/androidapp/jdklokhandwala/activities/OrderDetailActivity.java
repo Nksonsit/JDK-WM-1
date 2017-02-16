@@ -321,7 +321,9 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtNetAmount.setText(getString(R.string.Rs) + " " + formatter.format(orderDetail.getNetAmount()) + "");
         txtNetAmount2.setText(getString(R.string.Rs) + " " + formatter.format(orderDetail.getNetAmount()) + "");
 
+        // TODO: 15-02-2017
         if (getPriceVisiblity()) {
+//        if (!orderDetail.isViaInquiry()) {
             txtTotalAmount.setVisibility(View.VISIBLE);
             txtDiscount.setVisibility(View.VISIBLE);
             txtNetAmount.setVisibility(View.VISIBLE);

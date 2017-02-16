@@ -5,19 +5,28 @@ package com.androidapp.jdklokhandwala.api.model;
  */
 
 public class OrderDetail {
-    int OrderID;
-    String ReferCode;
-    double TotalAmount;
-    double TotalCartWeight;
-    double NetAmount;
-    double DiscountAmount;
-    String CreatedDate;
-    String BillingAddress1;
-    String BillingAddress2;
-    String BillingPinCode;
-    String ShippingAddress1;
-    String ShippingAddress2;
-    String ShippingPinCode;
+    private int OrderID;
+    private String ReferCode;
+    private double TotalAmount;
+    private double TotalCartWeight;
+    private double NetAmount;
+    private double DiscountAmount;
+    private String CreatedDate;
+    private String BillingAddress1;
+    private String BillingAddress2;
+    private String BillingPinCode;
+    private String ShippingAddress1;
+    private String ShippingAddress2;
+    private String ShippingPinCode;
+    private boolean ViaInquiry;
+
+    public boolean isViaInquiry() {
+        return ViaInquiry;
+    }
+
+    public void setViaInquiry(boolean viaInquiry) {
+        ViaInquiry = viaInquiry;
+    }
 
     public int getOrderID() {
         return OrderID;

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.androidapp.jdklokhandwala.R;
 import com.androidapp.jdklokhandwala.api.model.NotificationItem;
 import com.androidapp.jdklokhandwala.custom.TfTextView;
+import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 
 import java.util.ArrayList;
@@ -18,33 +19,61 @@ import java.util.ArrayList;
  * Created by sagartahelyani on 29-12-2016.
  */
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ProductViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private ArrayList<NotificationItem> productList;
     private OnClickListener onClickListener;
+
     public NotificationAdapter(Context context, ArrayList<NotificationItem> productList, OnClickListener onClickListener) {
         this.context = context;
         this.productList = productList;
-        this.onClickListener=onClickListener;
+        this.onClickListener = onClickListener;
     }
 
     @Override
-    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.notification_row, parent, false);
-        return new ProductViewHolder(view);
+    public int getItemViewType(int position) {
+        if (productList.get(position).getNotificationTypeId() == AppConstants.UserNotification) {
+            return 1;
+        } else {
+            return 2;
+        }
     }
 
     @Override
-    public void onBindViewHolder(ProductViewHolder holder, int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case 1:
+                View view1 = LayoutInflater.from(context).inflate(R.layout.user_notification_row, parent, false);
+                return new UserNotificationViewHolder(view1);
+
+            case 2:
+                View view2 = LayoutInflater.from(context).inflate(R.layout.notification_row, parent, false);
+                return new ProductViewHolder(view2);
+        }
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         NotificationItem notification = productList.get(position);
-        holder.setDetails(notification);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickListener.onClickListener(position);
-            }
-        });
+        switch (holder.getItemViewType()) {
+            case 1:
+                UserNotificationViewHolder holder1 = (UserNotificationViewHolder) holder;
+                holder1.setDetails(notification);
+                break;
+
+            case 2:
+                ProductViewHolder holder2 = (ProductViewHolder) holder;
+                holder2.setDetails(notification);
+                holder2.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onClickListener.onClickListener(position);
+                    }
+                });
+                break;
+        }
     }
 
     @Override
@@ -52,7 +81,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return productList.size();
     }
 
-    class ProductViewHolder extends RecyclerView.ViewHolder {
+    private class ProductViewHolder extends RecyclerView.ViewHolder {
 
         private TfTextView txtTitle, txtContent, txtOrder, txtTime;
 
@@ -64,15 +93,39 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             txtOrder = (TfTextView) itemView.findViewById(R.id.txtOrder);
         }
 
-        public void setDetails(NotificationItem notification) {
-            Log.e("Notification type", Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
-                    Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
-            txtTitle.setText(notification.Title);
+        private void setDetails(NotificationItem notification) {
+            Log.e("Notification type", Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
+                    Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
+            txtTitle.setText(notification.getTitle());
             //txtTitle.setText(AppConstants.NotificationTypeId.getRequestTypeName(notification.NotificationTypeId));
-            txtContent.setText(notification.getContent());
-            txtTime.setText(Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
-                    Functions.formatDate(notification.CreatedDate, Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
-            txtOrder.setText(notification.ReferCode);
+            txtContent.setText(notification.getDescription());
+            txtTime.setText(Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
+                    Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
+            txtOrder.setText(notification.getReferCode());
+        }
+    }
+
+    class UserNotificationViewHolder extends RecyclerView.ViewHolder {
+
+        private TfTextView txtTitle, txtContent, txtOrder, txtTime;
+
+        private UserNotificationViewHolder(View itemView) {
+            super(itemView);
+            txtTitle = (TfTextView) itemView.findViewById(R.id.txtTitle);
+            txtContent = (TfTextView) itemView.findViewById(R.id.txtContent);
+            txtTime = (TfTextView) itemView.findViewById(R.id.txtTime);
+            txtOrder = (TfTextView) itemView.findViewById(R.id.txtOrder);
+        }
+
+        private void setDetails(NotificationItem notification) {
+            Log.e("Notification type", Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
+                    Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
+            txtTitle.setText(notification.getTitle());
+            //txtTitle.setText(AppConstants.NotificationTypeId.getRequestTypeName(notification.NotificationTypeId));
+            txtContent.setText(notification.getDescription());
+            txtTime.setText(Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.ddMMMYYYY) + " at " +
+                    Functions.formatDate(notification.getCreatedDate(), Functions.ServerDateTimeFormat, Functions.hhmmAMPM));
+            txtOrder.setText(notification.getReferCode());
         }
     }
 

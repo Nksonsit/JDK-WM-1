@@ -10,11 +10,51 @@ import java.io.Serializable;
 
 public class NotificationItem extends BaseResponse implements Serializable {
 
-    public int NotificationId,NotificationTypeId,OrderID;
-    public String Description;
-    public String CreatedDate;
-    public String ReferCode;
-    public String Title;
+    private int NotificationId, NotificationTypeId, OrderID;
+    private String Description;
+    private String CreatedDate;
+    private String ReferCode;
+    private String Title;
+
+    public int getNotificationId() {
+        return NotificationId;
+    }
+
+    public void setNotificationId(int notificationId) {
+        NotificationId = notificationId;
+    }
+
+    public int getNotificationTypeId() {
+        return NotificationTypeId;
+    }
+
+    public void setNotificationTypeId(int notificationTypeId) {
+        NotificationTypeId = notificationTypeId;
+    }
+
+    public int getOrderID() {
+        return OrderID;
+    }
+
+    public void setOrderID(int orderID) {
+        OrderID = orderID;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public String getCreatedDate() {
+        return CreatedDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        CreatedDate = createdDate;
+    }
 
     public String getReferCode() {
         return ReferCode;
@@ -24,21 +64,12 @@ public class NotificationItem extends BaseResponse implements Serializable {
         ReferCode = referCode;
     }
 
-    public String getContent() {
-        return Description;
-    }
-
-    public void setContent(String content) {
-        this.Description = content;
-    }
-
     public String getTitle() {
         return Title;
     }
 
     public void setTitle(String title) {
-        this.Title = title;
+        Title = title;
     }
-
 
 }

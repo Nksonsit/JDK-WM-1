@@ -18,13 +18,13 @@ public class OrderDetail {
     private String ShippingAddress1;
     private String ShippingAddress2;
     private String ShippingPinCode;
-    private boolean ViaInquiry;
+    private int ViaInquiry;
 
-    public boolean isViaInquiry() {
+    public int isViaInquiry() {
         return ViaInquiry;
     }
 
-    public void setViaInquiry(boolean viaInquiry) {
+    public void setViaInquiry(int viaInquiry) {
         ViaInquiry = viaInquiry;
     }
 

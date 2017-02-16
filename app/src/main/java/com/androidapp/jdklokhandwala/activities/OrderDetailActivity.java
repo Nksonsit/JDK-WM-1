@@ -136,9 +136,9 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtNetAmount2 = (TfTextView) findViewById(R.id.txtNetAmount2);
 
 
-        netAmountView=(RelativeLayout)findViewById(R.id.netAmountView);
-        totalAmountView=(RelativeLayout)findViewById(R.id.totalAmountView);
-        discountView=(RelativeLayout)findViewById(R.id.discountView);
+        netAmountView = (RelativeLayout) findViewById(R.id.netAmountView);
+        totalAmountView = (RelativeLayout) findViewById(R.id.totalAmountView);
+        discountView = (RelativeLayout) findViewById(R.id.discountView);
 
         txtBAddress1 = (TfTextView) findViewById(R.id.txtBAddress1);
 //        txtBAddress2 = (TfTextView) findViewById(R.id.txtBAddress2);
@@ -323,7 +323,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         // TODO: 15-02-2017
         if (getPriceVisiblity()) {
-//        if (!orderDetail.isViaInquiry()) {
+//        if (orderDetail.isViaInquiry() == 1) {
             txtTotalAmount.setVisibility(View.VISIBLE);
             txtDiscount.setVisibility(View.VISIBLE);
             txtNetAmount.setVisibility(View.VISIBLE);
@@ -332,6 +332,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             discountView.setVisibility(View.VISIBLE);
             netAmountView.setVisibility(View.VISIBLE);
             totalAmountView.setVisibility(View.VISIBLE);
+
         } else {
             txtTotalAmount.setVisibility(View.GONE);
             txtDiscount.setVisibility(View.GONE);

@@ -16,13 +16,13 @@ public class OrderItem {
     private Double NetAmount;
     private String CreatedDate;
     private int StatusID;
-    private boolean ViaInquiry;
+    private int ViaInquiry;
 
-    public boolean isViaInquiry() {
+    public int isViaInquiry() {
         return ViaInquiry;
     }
 
-    public void setViaInquiry(boolean viaInquiry) {
+    public void setViaInquiry(int viaInquiry) {
         ViaInquiry = viaInquiry;
     }
 

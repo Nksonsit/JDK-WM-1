@@ -55,7 +55,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         // TODO: 15-02-2017
         if (isOrder) {
-//        if (!orderItem.isViaInquiry()) {
+//        if (orderItem.isViaInquiry() == 0) {
             holder.netAmount.setVisibility(View.GONE);
         }
 

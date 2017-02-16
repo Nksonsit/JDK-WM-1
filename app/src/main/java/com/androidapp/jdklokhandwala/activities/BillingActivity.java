@@ -34,6 +34,7 @@ import com.androidapp.jdklokhandwala.helper.MyApplication;
 import com.androidapp.jdklokhandwala.helper.PrefUtils;
 import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,14 +171,14 @@ public class BillingActivity extends AppCompatActivity {
                         Double totalWeight = Double.valueOf(0);
                         for (int i = 0; i < list.size(); i++) {
                             totalWeight = totalWeight + list.get(i).KgWeight();
-                            listInput.add(new AddToCartTemp(list.get(i).CategoryID(), list.get(i).ProductID(), list.get(i).Name(), list.get(i).UnitType(), list.get(i).UnitValue(), list.get(i).KgWeight()));
+                            listInput.add(new AddToCartTemp(list.get(i).CategoryID(), list.get(i).ProductID(), list.get(i).Name(), list.get(i).UnitType(), list.get(i).UnitValue(), new BigDecimal(list.get(i).KgWeight()).setScale(2, BigDecimal.ROUND_HALF_UP)+""));
                         }
 
                         PlaceOrderReq placeOrderReq = new PlaceOrderReq();
                         placeOrderReq.setOrderID(0);
                         placeOrderReq.setIsOrder(1);
                         placeOrderReq.setUserID(userPojo.getUserID());
-                        placeOrderReq.setTotalCartWeight(totalWeight);
+                        placeOrderReq.setTotalCartWeight(new BigDecimal(totalWeight).setScale(2, BigDecimal.ROUND_HALF_UP)+"");
                         placeOrderReq.setBillingAddress1(enterBillingAddress1.getText().toString().trim());
                         placeOrderReq.setBillingAddress2(enterBillingAddress2.getText().toString().trim());
                         placeOrderReq.setBillingPinCode(enterBPincode.getText().toString().trim());
@@ -187,6 +188,10 @@ public class BillingActivity extends AppCompatActivity {
                         placeOrderReq.setPaymentMethodID(21);
                         placeOrderReq.setTotalCartItem(listInput.size());
                         placeOrderReq.setCartItemList(listInput);
+
+
+                        Log.e("Place Order Pojo --> ",Functions.jsonString(placeOrderReq));
+
 
                         if (isAccept) {
                             doupdateProfile();

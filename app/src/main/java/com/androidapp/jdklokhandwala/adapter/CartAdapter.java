@@ -15,6 +15,7 @@ import com.androidapp.jdklokhandwala.custom.TfTextView;
 import com.androidapp.jdklokhandwala.helper.AppConstants;
 import com.androidapp.jdklokhandwala.helper.Functions;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +78,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ProductViewHol
             if (addToCart.UnitType().trim().toLowerCase().equals("kg")) {
                 textViewQty.setText("Quantity : " + Functions.getFormatedInt(addToCart.UnitValue()) + " " + addToCart.UnitType());
             } else {
+                String totalWeight=String.format("%2f",new BigDecimal(Functions.getFormatedInt((addToCart.DefaultWeight() * addToCart.UnitValue()))));
                 textViewQty.setText("Quantity : " + Functions.getFormatedInt(addToCart.UnitValue()) + " " + addToCart.UnitType() + " (" + Functions.getFormatedInt((addToCart.DefaultWeight() * addToCart.UnitValue())) + " Kg)");
             }
             tvEdit.setOnClickListener(new View.OnClickListener() {

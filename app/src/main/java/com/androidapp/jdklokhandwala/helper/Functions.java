@@ -37,6 +37,7 @@ import com.droidbyme.toastlib.ToastLib;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -333,13 +334,13 @@ public class Functions {
     }
 
     public static String getFormatedInt(Double input) {
-        String temp = String.valueOf(input);
+        String temp = String.format("%.2f",new BigDecimal(input));
         Log.e("temp", temp);
         temp = temp.replace(".", "-");
         if (temp.toString().contains("-")) {
             String[] split = temp.split("-");
             if (split.length == 2) {
-                Log.e("split", split.length + "");
+                Log.e("split", split.length + " "+Long.valueOf(split[1]));
                 if (Long.valueOf(split[1]) > 0) {
                     return String.valueOf(String.format("%.2f",input));
                 } else {

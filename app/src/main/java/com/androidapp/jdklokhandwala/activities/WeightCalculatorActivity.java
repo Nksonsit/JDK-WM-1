@@ -153,10 +153,10 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                                                             weightObj = (WeightObj) ((Spinner) spinnerRow.findViewById(R.id.spinnerWeight)).getSelectedItem();
                                                             int i = calculateType.getSelectedItemPosition();
                                                             Log.e("i 2", i + "");
-                                                            if (i == 7 || i == 8 || i == 11) {
+                                                            if (i == 9 || i == 10 || i == 12) {
                                                                 ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
                                                             } else {
-                                                                if (pos == 1 || pos == 10) {
+                                                                if (pos == 4 || pos == 5) {
                                                                     ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg");
                                                                 } else {
                                                                     ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");
@@ -213,10 +213,10 @@ public class WeightCalculatorActivity extends AppCompatActivity {
                                                  if (weightObj != null) {
                                                      int i = calculateType.getSelectedItemPosition();
                                                      Log.e("i 4", i + "");
-                                                     if (i == 7 || i == 8 || i == 11) {
+                                                     if (i == 9 || i == 10 || i == 12) {
                                                          ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()) / 3.2808)) + " Kg/ft");
                                                      } else {
-                                                         if (i == 1 || i == 10) {
+                                                         if (i == 4 || i == 5) {
                                                              ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg");
                                                          } else {
                                                              ans.setText(String.format("%.2f", (Double.valueOf(weightObj.getWeight()))) + " Kg/ft");

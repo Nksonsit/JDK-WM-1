@@ -149,6 +149,9 @@ public class ProductsListActivity extends AppCompatActivity {
                                 }
                                 addToCart.setUnitTypes(unitTypes);
 
+
+                                Log.e("addToCartPojo --- 1 >",Functions.jsonString(addToCart));
+
                                 if (!AddToCart.CheckDuplication(addToCart)) {
                                     Functions.showToast(ProductsListActivity.this, "Added Successfully.");
                                     AddToCart.InsertProduct(addToCart);
@@ -248,6 +251,8 @@ public class ProductsListActivity extends AppCompatActivity {
                                                 unitTypes = unitTypes + "," + product.getUnitsOfMeasure().get(i).getUnitOfMeasure();
                                             }
                                             addToCart.setUnitTypes(unitTypes);
+
+                                            Log.e("addToCartPojo --- 1 >",Functions.jsonString(addToCart));
 
                                             if (!AddToCart.CheckDuplication(addToCart)) {
                                                 Functions.showToast(ProductsListActivity.this, "Added Successfully.");

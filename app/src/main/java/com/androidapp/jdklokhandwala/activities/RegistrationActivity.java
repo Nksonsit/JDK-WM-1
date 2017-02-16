@@ -35,6 +35,7 @@ import com.androidapp.jdklokhandwala.helper.PrefUtils;
 import com.androidapp.jdklokhandwala.helper.RetrofitErrorHelper;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -345,14 +346,14 @@ public class RegistrationActivity extends AppCompatActivity {
         Double totalWeight = Double.valueOf(0);
         for (int i = 0; i < list.size(); i++) {
             totalWeight = totalWeight + list.get(i).KgWeight();
-            listInput.add(new AddToCartTemp(list.get(i).CategoryID(), list.get(i).ProductID(), list.get(i).Name(), list.get(i).UnitType(), list.get(i).UnitValue(), list.get(i).KgWeight()));
+            listInput.add(new AddToCartTemp(list.get(i).CategoryID(), list.get(i).ProductID(), list.get(i).Name(), list.get(i).UnitType(), list.get(i).UnitValue(), new BigDecimal(list.get(i).KgWeight()).setScale(2, BigDecimal.ROUND_HALF_UP)+""));
         }
 
         PlaceOrderReq placeOrderReq = new PlaceOrderReq();
         placeOrderReq.setOrderID(0);
         placeOrderReq.setIsOrder(0);
         placeOrderReq.setUserID(userPojo.getUserID());
-        placeOrderReq.setTotalCartWeight(totalWeight);
+        placeOrderReq.setTotalCartWeight(new BigDecimal(totalWeight).setScale(2, BigDecimal.ROUND_HALF_UP)+"");
         placeOrderReq.setPaymentMethodID(paymentMethodID);
         placeOrderReq.setTotalCartItem(listInput.size());
         placeOrderReq.setCartItemList(listInput);

@@ -1,5 +1,6 @@
 package com.androidapp.jdklokhandwala.api.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class PlaceOrderReq {
     int PaymentMethodID;
     int TotalCartItem;
     int IsOrder;
-    Double TotalCartWeight;
+    String TotalCartWeight;
     String BillingAddress1;
     String BillingAddress2;
     String BillingPinCode;
@@ -61,11 +62,11 @@ public class PlaceOrderReq {
         IsOrder = isOrder;
     }
 
-    public Double getTotalCartWeight() {
+    public String getTotalCartWeight() {
         return TotalCartWeight;
     }
 
-    public void setTotalCartWeight(Double totalCartWeight) {
+    public void setTotalCartWeight(String totalCartWeight) {
         TotalCartWeight = totalCartWeight;
     }
 
